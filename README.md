@@ -5,6 +5,8 @@ Project: **Shoppinglist**
 **Possible App Names**
 
 - Shoppy
+- Shoppy App
+- Shapp
 
 
 ## Taskpool
