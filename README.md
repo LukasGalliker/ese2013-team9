@@ -3,6 +3,7 @@
 Project: **Shoppinglist**
 
 **Possible App Names**
+
 Add your username behind the app name of your choice in parenthesis as your vote for the app name, e.g. Shoppy (exside)
 
 - Shoppy
