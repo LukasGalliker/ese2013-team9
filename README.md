@@ -2,7 +2,8 @@
 
 Project: **Shoppinglist**
 
-**Possible App Names** (Add your username behind the app name of your choice in parenthesis as your vote for the app name, e.g. Shoppy (exside))
+**Possible App Names**
+Add your username behind the app name of your choice in parenthesis as your vote for the app name, e.g. Shoppy (exside)
 
 - Shoppy
 - Shoppy App
@@ -12,8 +13,8 @@ Project: **Shoppinglist**
 ## Taskpool
 
 Let's have a To-Do list with individual tasks that can be assignes to team members
-- Discuss requirements (all)
-- ~~First setup of the project organization (luk)~~
+- (all) Discuss requirements
+- ~~(luk) First setup of the project organization~~
 
 
 ## Organization
