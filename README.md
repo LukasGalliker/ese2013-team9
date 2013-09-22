@@ -34,6 +34,7 @@ Let's have a To-Do list with individual tasks that can be assignes to team membe
 ## Requirements
 
 **These are the user stories from the original project descriptions with annotations in sublists**
+
 1. As a user I want to create different shopping lists
 	- EditText View, very good example is Out of Milk app, but the field sould be at the bottom for better usability
 2. As a user I want to rename and delete shopping lists
@@ -84,6 +85,7 @@ Let's have a To-Do list with individual tasks that can be assignes to team membe
 	- short tap on an archived list brings up options (delete, unarchive (to edit again))
 
 **These are newly evaluated or proposed features/requirements**
+
 1. Very nice features would be adding products via "history", "barcode", "voice input" (as in out of milk)
 	- CAMERA Permission (to make pictures from barcodes and process them)
 	- RECORD_AUDIO Permission (to record audio for google voice api)
