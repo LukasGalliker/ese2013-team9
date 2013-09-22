@@ -31,8 +31,9 @@ Let's have a To-Do list with individual tasks that can be assignes to team membe
 	3. Work on the project, add and commit the changes to your local repository (should we use branching?)
 	4. Push the changes online to the master branch
 	5. Make a pull request against the original repositry master branch
-	6. I think a pull request should be merged only, if all team members have commented with +1 to give their vote, if this is the case the responsible for the pull request can merge the change into the projects master branch
-	7. For faster testing, it would be very handy if everybody could compile an actual .apk package that can be tested on a real device!
+	6. Pull request should be merged only, if all team members have commented with +1 to give their vote, if this is the case the responsible for the pull request can merge the change into the projects master branch
+	7. Do the merging of pull request in the original repository via the web frontend, so nobody would have to fork the "real/original" repository and thus maybe make unintentional changes
+	8. For faster testing, it would be very handy if everybody could compile an actual .apk package that can be tested on a real device!
 - Eclipse
 	- We want a multilanguage app, all strings should always be translated to german and english in their respecitve folders (res/values for english, res/values-de for german)
 
