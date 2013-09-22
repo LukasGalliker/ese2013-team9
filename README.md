@@ -2,6 +2,10 @@
 
 Project: **Shoppinglist**
 
+**Possible App Names**
+
+- Shoppy
+
 
 ## Taskpool
 
