@@ -38,6 +38,13 @@ Let's have a To-Do list with individual tasks that can be assignes to team membe
 	6. Pull request should be merged only, if all team members have commented with +1 to give their vote, if this is the case the responsible for the pull request can merge the change into the projects master branch
 	7. Do the merging of pull request in the original repository via the web frontend, so nobody would have to fork the "real/original" repository and thus maybe make unintentional changes
 	8. For faster testing, it would be very handy if everybody could compile an actual .apk package that can be tested on a real device!
+
+#### Synchronizing the original repository with your fork
+	1. Terminal > cd to local project directory on your computer, check with "git status"
+	2. Make an alias of the original project "git remote add original https://github.com/ese-unibe-ch/ese2013-team9.git"
+	3. Get the files from the original repository to your local repository with "git fetch original"
+	4. Merge the original with the local repository "git merge original/master"
+	5. Push the changes to your own online repository/fork "git push origin master"
 - Eclipse
 	- We want a multilanguage app, all strings should always be translated to german and english in their respecitve folders (res/values for english, res/values-de for german)
 	- To work with fragments seems a bit more complicated (initially) but is for sure a more mvc and best practice way [Tutorial](http://www.cs.dartmouth.edu/~campbell/cs65/lecture08/lecture08.html)
@@ -57,7 +64,7 @@ Let's have a To-Do list with individual tasks that can be assignes to team membe
 2. As a user I want to rename and delete shopping lists
 	- different lists could be added on the left action bar dropdown (as in Out of Milk)
 	- below the lists there are actions for lists (in Out of Milk there seems to be no way to edit or delete a list...)
-	- the editing/deleting of lists could also be managed in a separarate "manage lists" activity, but it would be more user friendly if we had both possibilites (renaming/deleting of lists seems not possible in Out of Milk, or I didn't find out how till now)
+	- the editing/deleting of lists could also be managed in a separarate "manage lists" activity, but it would be more user friendly if we had both possibilites (renaming/deleting of lists seems not possible in Out of Milk -> it is...found out, but it's quite hidden, could be done better!)
 3. As a user I want to add items to shopping lists
 	- select a list from the action bar dropdown to add items to it
 4. As a user I want to add a quantity/number of items to an item
@@ -73,9 +80,9 @@ Let's have a To-Do list with individual tasks that can be assignes to team membe
 	- move bought items to the end of the list
 9. As a user I want to share a list with a friend or more
 	- See who added what in front of the item (if possible)
-	- No registering accounts
+	- No registering of a new account to use the sync feature, basically "nooo, not another login"...
 	- READ_CONTACTS Permission? (to get the people the lists can be shared with?)
-	+ how do we send the lists? (whatsapp, email, sms??) -> in app sharing (maybe with notification for downnloading the app if not installed, additionally sending with whatsapp email etc. would be cool)
+	+ how do we send the lists? (whatsapp, email, sms??) -> in app sharing (maybe with notification for downloading the app if not installed, additionally sending with whatsapp email etc. would be cool)
 	- WRITE_SMS Permission (that we can create the SMS if we decide that lists can be shared via SMS)
 	- SEND_SMS Permission (if we decide that lists can be shared via SMS)
 	+ can we add our own app to the send menu? How do we verify that the chosen sharing partner also has the app?
@@ -87,6 +94,7 @@ Let's have a To-Do list with individual tasks that can be assignes to team membe
 	- If possible I would not force users to authenticate, e.g. force them to create another account, shoppings lists are not too sensitive
 12. As a user I want that every time my friends edit an item I see the update
 	- For this we need a Web API / Database, I would suggest that it works with JSON
+	- We need to think about a solution / fallback if no internet connection is available, e.g. storing the changes temporarily in a local database and then sync them when a connection is available the next time.
 13. As a user I want to add a location to a shopping list and get notified when I get closer to that location
 	+ How does the user add the location? -> The user GOES to the desired shops and adds the location to his locations, then you can add them to cateogries
 	- Notification Permission? How is this done?
@@ -94,9 +102,10 @@ Let's have a To-Do list with individual tasks that can be assignes to team membe
 	- ACCESS_FINE_LOCATION Permission (use GPS)
 	- VIBRATE Permission (for notifingy the user when he's close)
 14. As a user I want to see an overview of all the items that still need to be bought from all shopping lists
-	+ Any ideas how and where (UI) to do this? Don't like that requirement, doesn't make too much sense =)
+	+ Any ideas how and where (UI) to do this? Don't like that requirement, doesn't make too much sense =) -> could maybe be done via a widget
 15. As a user I want to archive a shopping list
 	- so we need an "archived" attribute/field
+	+ for what is this actually good for? Maybe we can drop that requirement? Question: Why do you need to archive your shopping lists?
 	+ what happens if the list was shared? remove himself from the sharing list, but let others use the list normally?
 16. As a user I want to explore the shopping lists in the achieve
 	- Archive view/activity
