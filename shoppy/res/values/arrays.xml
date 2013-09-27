@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string-array name="action_list">
+        <item>Shopping List 1</item>
+        <item>Shopping List 2</item>
+        <item>Shopping List 3</item>
+    </string-array>
+    
+</resources>
