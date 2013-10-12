@@ -14,7 +14,7 @@ public class WelcomeScreen extends Activity {
         // example for usage of the local database
         LocalDatabaseHandler db = new LocalDatabaseHandler(this);
         db.addUser(new User(42, "Mehldau", "fj3fjh"));
-        String nameOfUser = db.getUser(42).name;
+        System.out.println(db.getUser(42).name);
     }
 
 	@Override

@@ -10,11 +10,10 @@ public class WelcomeScreen extends Activity {
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
-        
-        // example for usage of the local database
+         
         LocalDatabaseHandler db = new LocalDatabaseHandler(this);
         db.addUser(new User(42, "Mehldau", "fj3fjh"));
-        String nameOfUser = db.getUser(42).name;
+        System.out.println(db.getUser(42).name);
     }
 
 	@Override
