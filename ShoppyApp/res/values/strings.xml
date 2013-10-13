@@ -4,5 +4,11 @@
     <string name="app_name">Shoppy</string>
     <string name="action_settings">Settings</string>
     <string name="welcome">Welcome to Shoppy :)</string>
+    <string name="title_activity_display_lists">DisplayListsActivity</string>
+    <string name="save">Save</string>
+    <string name="nickname">Enter a Nickname:</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
 
 </resources>
