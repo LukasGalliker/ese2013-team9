@@ -1,0 +1,2 @@
+INDEX VERSION 1.126+C:\Users\sammer\Documents\GitHub\ese2013-team9\ShoppyApp\.metadata\.plugins\org.eclipse.jdt.core
+2670205220.index

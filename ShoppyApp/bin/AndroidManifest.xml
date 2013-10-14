@@ -23,7 +23,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.shoppyapp.DisplayListsActivity">
+            android:name="com.example.shoppyapp.AddList"
+            android:label="@string/title_activity_add_list" >
+        </activity>
+        <activity
+            android:name="com.example.shoppyapp.Lists"
+            android:label="@string/title_activity_main" >
         </activity>
     </application>
 

@@ -1,0 +1,157 @@
+!SESSION 2013-10-14 13:42:33.181 -----------------------------------------------
+eclipse.buildId=M20120914-1800
+java.version=1.7.0_40
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=de_CH
+Framework arguments:  -product org.eclipse.epp.package.dsl.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.dsl.product
+
+!ENTRY com.yattasolutions.umllab.ui 4 0 2013-10-14 13:43:13.107
+!MESSAGE No valid license is available.
+!STACK 0
+com.yattasolutions.obf.kg.g: No license found for UML Lab.
+	at ADYZLS3Y6JZPXDO2LLREWE6RNTDLKEF53WZH3H6G7YFNQJM5YJMUDERH7TONIHE7QZF2TCXSLDJ5T2UWFIDU5GBMG3DBKQ4TKI73ML2LSRN3E7GBYPJYIGSZKGF4Z7Y7H4PHT57NYJBVUFCO2AUPWJUQBXCYCPCLROZNN433FZSHAIVGDYQNQVWYM7SVNB4OCHBJ25BI4K746556S4ZM7YA7IGAHJ6MZ4MPQ5SGSJR3AU2SW3KUYG4YRXEF2B5LAWTGLCNZQIPSJC7BMVWTAF4YLZDYGVBRZJUEITPM3ZF6RWAJX2RDE2ENTSNXILSQC2P6CPCOMQEFRRDE4K3SCDJA2QG4VS3MGWHLNZYDRIHMFW2YMEAWZD3H5PMJ4JHWECTLV2VOUVV6FVRO3K5MJDGIB4G62XXCGQV4BKKULEX7JF3SXKKNSVKIYQAWL6SLUIJHE23IQVJU7X2JRL4QNAZDROJC3PXKPMJAYTLMM4XBJX35I2ZIBJSBQBQD6VYJROEV5NRCH73ARFYZZKC6NFMXLRJZ7FQBLTQXSZURBFHY4V4RYVCDY2OW5Z6HV63HIQLGJ2T3ZSHTADBVY7VOAYHCBIP4Q6ZACYRE62UABOPB3HCT7DMUKVXVH44OA4NHLJLZLJEETM63FB2PX5R3BFAHB55IITVXJUZM37XVV5WYL7GWYFCME56LFVTJ4MESOMZSUSIZS3U7XPJGHUWHMVM4BBULLBMK3MR2QXQ7DBF6OJPR4KF2J7UAAT5WCADIGIAXP3QRGYTR4QJW7BWQTCRNKMPJLJ3733LADNLNG67GMHKPUSNU7FWXBHSVP6IKQJ6DPQX3QDTJCN67YYU6CABSIADF2ODUECTR5MUT2AK7K6YRWXWPJDP6XE277N2GMZZ5KXYONAI5V6D2WTQRA6UQ33G5SAIQ4X2V5FIFNFJKAESG6FESZR3BCROE3UAI2YLWIRGGPXW6T4N4LEQTQ7BLX4DR5IXRTNFILBEYMKB2APZEWK3JTCPU3WHFHVXDIVA5C6ZN7XY4I3XOR7PQOTLH2TOLOH7CCI26DLEPMJMUKL7P33K7YAENGKXWU4474VFEOC23ZQZYHF3V2JFEHEXM44TBV742347NLJEVGBWKFNUGAP74NSU6HR5QZRE7WL6K6O5SFQQK6CRSAGVAKKMDQMQR46UCW2HT7TEBB4HSTSQVZIU6UFE3O7PBRNODZDPLSU4J6WS3VSYZFBA2PVIRTEQ3KYQMIR56ZBJ56K5FUFFYG42MDILOXUVFNNEVRVNEQ4UREDSBKMWPSAJHQMUNCGLZSCGYMJ6BICUNABM6RSFQOIZJOFDKS5ZXUSEWGGVGYPWYNJNJRPESLHC6MGLGMDFEV2YA2AWWTN5FNQADXBK23DPKHRZFUJYFYHAOSDXPGOH6STD2ZDHJEXB4MHYSXRFZAZQB3WFQMQZEPO3URMH44U6CJWZPV6IVJQRD5ZZX54IAFQ2SJFSTPRIEDYPGUO3BCUKZYGCO7PURMF66YNPDE4XPMF5JYAOM3BD3ESNW7LDZAECZRVSKZIDJGW27IXBIIEJVINMALTF7SJIY7W53NNBZRV7IU6DBRFXTTRERILJBCXHINZY6U4KIYHJRT6ESVPIZFXEW2BJL2OFWNBHVY2FJPCLNFBNILB25OWPR4Q5KH6TPW63PCUGOEF25WRFTXWLBN2EIOA3S3E4HEG7ECIVDOLPLXSJMR37BEPSNZM2CDYV5AGLBSPII2BSNWB2ZRGJMIPI7EJNUQNCQMUHPIZIDGDU6JPFZMBMRJ2J2VYITCH5QDFSTYPT53T56C6XL2Q3RUJOMS75FFKAQJRHG4TPRQKNLGWY54JMZKQDATXTBPRRO5CXYHRCJGOP3S3LFGE26CE2WI4I3ERJL5RBQJKN7EMC5SX66SWWSS37VB54O2PY25XAWCHY2L4B44DRFR6TDW255JDE2HWTVLQVTLVZFQLDWCF3JAYO5QJHMUMKF4HPN4OHAOVAY6G6MRPBMJVLREBME4HM2MUIWD7YW4CJ2GWZBI2KGSYHPOTV3ERERJ7PX6V6FMOZ6O7RG73P5E3KKKQ7IZZKYIVDMC5ZKWNEGGN23QSGHZJIQQXN4TZZI2VKY44COMCF4LKO5XPHQK235KAPSAAGKIQCK5MYXTA22ZQFTNEXV6YBX4T7WPWGPYBEHWSV6GQCPMPLCMZI3IVHOLXPJHVIPOVVHAVSYBANKGC24UXVI3EFJTIC3DVLFLWCYTQZXRB4CFON7Q7UCN25SRWF2AZZI3SOFD726R5XOZGTSYSSYZ3PKICNXKU76IOAGF2NW4L76ZIFD4YTSKK2Y3Q26LHYQP4RFCPI2FOSWWGABNFFZRF5XM2VX4J7F5JB2ZCPHNTDAS67WFTVLI5KFQB2HQK7EG5UMX7WYERCURJT4PTOT4YEMWVRYPMQG6HQRZHMWB37SRXERUF2ZI4ZADEKVMF5CMUUCSV2VIT6ESPQ7NQRKJ5ZPZBVYRZM3V655VFV2EKFWHR6IVQIQ7MN62Y7FCRPOW2QK6N63EENYHF6QOWKJS2Y6RHDFYLH7S767ZKZSLCOOGKJFSCJSPZQSFCYSSHT5IU2AQUTO6NH4FP6NDUIIEMYGCN6LWNOYM77GP4YEJS3DAF45UPDHTUCQBLAJAW5PANGAJ6IKZ56ILLSLMLHZZZ624MKMR4KAKTHRJV66ATYEGDIRMBNE4MZQMPNZAGDVCBDLIXLWXTGOTOFUJYDRX7H5NX7FPJAEWENFDZBRYYTPF7MD7HGKXTUIOZDRC2ECWB4EDEAJL5G7IBOBTVFFWQ7WEC3T5WLI3EZ4DAMHW4SKJF7RHORY33PWJXUNBAUNBWZH7IVMVS5MAYYJWJONI2JUCWJ62P5KWYNWFIMCNWS7TI5TB52ZXJMCS3GCNXT4MJDWXVT22PHD5SOMKCM4BTERNTBFVWG55B5JHIYNWEYUITV74QGJOTJVDRDSP6HX4M44CBRLENXBB/MHNI5E2WTJRU67WAQYL5MEECID.<unknown>(Unknown Source)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-10-14 13:43:59.159
+!MESSAGE 
+!STACK 1
+org.eclipse.core.runtime.CoreException: Could not read from source when writing file: C:\Users\sammer\Documents\GitHub\ese2013-team9\ShoppyApp\.metadata\.lock
+	at org.eclipse.core.internal.filesystem.Policy.error(Policy.java:55)
+	at org.eclipse.core.filesystem.provider.FileStore.transferStreams(FileStore.java:78)
+	at org.eclipse.core.filesystem.provider.FileStore.copyFile(FileStore.java:222)
+	at org.eclipse.core.filesystem.provider.FileStore.copy(FileStore.java:143)
+	at org.eclipse.core.internal.filesystem.local.LocalFile.copy(LocalFile.java:111)
+	at org.eclipse.core.filesystem.provider.FileStore.copyDirectory(FileStore.java:181)
+	at org.eclipse.core.filesystem.provider.FileStore.copy(FileStore.java:141)
+	at org.eclipse.core.internal.filesystem.local.LocalFile.copy(LocalFile.java:111)
+	at org.eclipse.core.filesystem.provider.FileStore.copyDirectory(FileStore.java:181)
+	at org.eclipse.core.filesystem.provider.FileStore.copy(FileStore.java:141)
+	at org.eclipse.core.internal.filesystem.local.LocalFile.copy(LocalFile.java:111)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.FileStoreAdapter.copy(FileStoreAdapter.java:68)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.NewProjectCreator$4.populate(NewProjectCreator.java:653)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.NewProjectCreator.createEclipseProject(NewProjectCreator.java:759)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.NewProjectCreator.createProjectAsync(NewProjectCreator.java:660)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.NewProjectCreator.access$0(NewProjectCreator.java:590)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.NewProjectCreator$3.execute(NewProjectCreator.java:400)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation$1.run(WorkspaceModifyOperation.java:106)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2344)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run(WorkspaceModifyOperation.java:118)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Der Prozess kann nicht auf die Datei zugreifen, da ein anderer Prozess einen Teil der Datei gesperrt hat
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(Unknown Source)
+	at org.eclipse.core.filesystem.provider.FileStore.transferStreams(FileStore.java:75)
+	... 19 more
+!SUBENTRY 1 org.eclipse.core.filesystem 4 271 2013-10-14 13:43:59.160
+!MESSAGE Could not read from source when writing file: C:\Users\sammer\Documents\GitHub\ese2013-team9\ShoppyApp\.metadata\.lock
+!STACK 0
+java.io.IOException: Der Prozess kann nicht auf die Datei zugreifen, da ein anderer Prozess einen Teil der Datei gesperrt hat
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(Unknown Source)
+	at org.eclipse.core.filesystem.provider.FileStore.transferStreams(FileStore.java:75)
+	at org.eclipse.core.filesystem.provider.FileStore.copyFile(FileStore.java:222)
+	at org.eclipse.core.filesystem.provider.FileStore.copy(FileStore.java:143)
+	at org.eclipse.core.internal.filesystem.local.LocalFile.copy(LocalFile.java:111)
+	at org.eclipse.core.filesystem.provider.FileStore.copyDirectory(FileStore.java:181)
+	at org.eclipse.core.filesystem.provider.FileStore.copy(FileStore.java:141)
+	at org.eclipse.core.internal.filesystem.local.LocalFile.copy(LocalFile.java:111)
+	at org.eclipse.core.filesystem.provider.FileStore.copyDirectory(FileStore.java:181)
+	at org.eclipse.core.filesystem.provider.FileStore.copy(FileStore.java:141)
+	at org.eclipse.core.internal.filesystem.local.LocalFile.copy(LocalFile.java:111)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.FileStoreAdapter.copy(FileStoreAdapter.java:68)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.NewProjectCreator$4.populate(NewProjectCreator.java:653)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.NewProjectCreator.createEclipseProject(NewProjectCreator.java:759)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.NewProjectCreator.createProjectAsync(NewProjectCreator.java:660)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.NewProjectCreator.access$0(NewProjectCreator.java:590)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.NewProjectCreator$3.execute(NewProjectCreator.java:400)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation$1.run(WorkspaceModifyOperation.java:106)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2344)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run(WorkspaceModifyOperation.java:118)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-10-14 13:43:59.222
+!MESSAGE Failed to load properties file for project 'ShoppyApp'
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-10-14 13:43:59.243
+!MESSAGE Failed to load properties file for project 'ShoppyApp'
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-10-14 13:43:59.251
+!MESSAGE Failed to load properties file for project 'ShoppyApp'
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-10-14 13:43:59.272
+!MESSAGE Failed to load properties file for project 'ShoppyApp'
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-10-14 13:45:46.956
+!MESSAGE 
+!STACK 1
+org.eclipse.core.runtime.CoreException: Could not read from source when writing file: C:\Users\sammer\Documents\GitHub\ese2013-team9\ShoppyApp\.metadata\.lock
+	at org.eclipse.core.internal.filesystem.Policy.error(Policy.java:55)
+	at org.eclipse.core.filesystem.provider.FileStore.transferStreams(FileStore.java:78)
+	at org.eclipse.core.filesystem.provider.FileStore.copyFile(FileStore.java:222)
+	at org.eclipse.core.filesystem.provider.FileStore.copy(FileStore.java:143)
+	at org.eclipse.core.internal.filesystem.local.LocalFile.copy(LocalFile.java:111)
+	at org.eclipse.core.filesystem.provider.FileStore.copyDirectory(FileStore.java:181)
+	at org.eclipse.core.filesystem.provider.FileStore.copy(FileStore.java:141)
+	at org.eclipse.core.internal.filesystem.local.LocalFile.copy(LocalFile.java:111)
+	at org.eclipse.core.filesystem.provider.FileStore.copyDirectory(FileStore.java:181)
+	at org.eclipse.core.filesystem.provider.FileStore.copy(FileStore.java:141)
+	at org.eclipse.core.internal.filesystem.local.LocalFile.copy(LocalFile.java:111)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.FileStoreAdapter.copy(FileStoreAdapter.java:68)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.NewProjectCreator$4.populate(NewProjectCreator.java:653)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.NewProjectCreator.createEclipseProject(NewProjectCreator.java:759)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.NewProjectCreator.createProjectAsync(NewProjectCreator.java:660)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.NewProjectCreator.access$0(NewProjectCreator.java:590)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.NewProjectCreator$3.execute(NewProjectCreator.java:400)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation$1.run(WorkspaceModifyOperation.java:106)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2344)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run(WorkspaceModifyOperation.java:118)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: java.io.IOException: Der Prozess kann nicht auf die Datei zugreifen, da ein anderer Prozess einen Teil der Datei gesperrt hat
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(Unknown Source)
+	at org.eclipse.core.filesystem.provider.FileStore.transferStreams(FileStore.java:75)
+	... 19 more
+!SUBENTRY 1 org.eclipse.core.filesystem 4 271 2013-10-14 13:45:46.957
+!MESSAGE Could not read from source when writing file: C:\Users\sammer\Documents\GitHub\ese2013-team9\ShoppyApp\.metadata\.lock
+!STACK 0
+java.io.IOException: Der Prozess kann nicht auf die Datei zugreifen, da ein anderer Prozess einen Teil der Datei gesperrt hat
+	at java.io.FileInputStream.readBytes(Native Method)
+	at java.io.FileInputStream.read(Unknown Source)
+	at org.eclipse.core.filesystem.provider.FileStore.transferStreams(FileStore.java:75)
+	at org.eclipse.core.filesystem.provider.FileStore.copyFile(FileStore.java:222)
+	at org.eclipse.core.filesystem.provider.FileStore.copy(FileStore.java:143)
+	at org.eclipse.core.internal.filesystem.local.LocalFile.copy(LocalFile.java:111)
+	at org.eclipse.core.filesystem.provider.FileStore.copyDirectory(FileStore.java:181)
+	at org.eclipse.core.filesystem.provider.FileStore.copy(FileStore.java:141)
+	at org.eclipse.core.internal.filesystem.local.LocalFile.copy(LocalFile.java:111)
+	at org.eclipse.core.filesystem.provider.FileStore.copyDirectory(FileStore.java:181)
+	at org.eclipse.core.filesystem.provider.FileStore.copy(FileStore.java:141)
+	at org.eclipse.core.internal.filesystem.local.LocalFile.copy(LocalFile.java:111)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.FileStoreAdapter.copy(FileStoreAdapter.java:68)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.NewProjectCreator$4.populate(NewProjectCreator.java:653)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.NewProjectCreator.createEclipseProject(NewProjectCreator.java:759)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.NewProjectCreator.createProjectAsync(NewProjectCreator.java:660)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.NewProjectCreator.access$0(NewProjectCreator.java:590)
+	at com.android.ide.eclipse.adt.internal.wizards.newproject.NewProjectCreator$3.execute(NewProjectCreator.java:400)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation$1.run(WorkspaceModifyOperation.java:106)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2344)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run(WorkspaceModifyOperation.java:118)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-10-14 13:45:46.973
+!MESSAGE Failed to load properties file for project 'ShoppyApp'
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-10-14 13:45:46.979
+!MESSAGE Failed to load properties file for project 'ShoppyApp'
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-10-14 13:45:46.983
+!MESSAGE Failed to load properties file for project 'ShoppyApp'
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-10-14 13:45:46.988
+!MESSAGE Failed to load properties file for project 'ShoppyApp'
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-10-14 13:45:46.992
+!MESSAGE Failed to load properties file for project 'ShoppyApp'
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-10-14 13:45:47.012
+!MESSAGE Failed to load properties file for project 'ShoppyApp'

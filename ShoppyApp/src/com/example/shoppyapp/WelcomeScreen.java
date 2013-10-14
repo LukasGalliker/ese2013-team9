@@ -24,7 +24,7 @@ public class WelcomeScreen extends Activity {
 	
 	//Called when clicking on "Save"-Button
 	public void createDatabase(View view){
-	    Intent intent = new Intent(this, DisplayListsActivity.class);
+	    Intent intent = new Intent(this, Lists.class);
 	    EditText editText = (EditText) findViewById(R.id.nickname);
 	    String nickname = editText.getText().toString();
 	    

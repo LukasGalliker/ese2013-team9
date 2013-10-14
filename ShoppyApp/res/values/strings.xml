@@ -6,5 +6,19 @@
     <string name="welcome">Welcome to Shoppy!</string>
     <string name="save">Save</string>
     <string name="nickname">Enter a Nickname:</string>
+    <string name="title_list_detail">List Detail</string>
+    <string name="list_share">Share List</string>
+    <string name="list_sort">Sort List</string>
+    <string name="list_rename">Rename List</string>
+    <string name="list_delete">Delete List</string>
+    <string name="list_new">New List</string>
+    <string name="list_showall">Show All Lists</string>
+    <string name="list_add">Add a List</string>
+    <string name="title_activity_add_list">AddList</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_main">Shoppy</string>
+    <string name="title_section1">Lists</string>
+    <string name="title_section2">Notifications</string>
+    
 
 </resources>
