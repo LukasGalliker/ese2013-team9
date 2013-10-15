@@ -1,8 +1,6 @@
 package com.example.shoppyapp;
 
-import java.util.List;
 import java.util.Locale;
-
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -14,15 +12,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.SimpleAdapter;
+import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class DisplayListsActivity extends FragmentActivity implements
@@ -47,7 +44,8 @@ public class DisplayListsActivity extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_display_lists);
-
+		
+		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -82,6 +80,7 @@ public class DisplayListsActivity extends FragmentActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
+		
 	}
 
 	@Override
@@ -156,20 +155,64 @@ public class DisplayListsActivity extends FragmentActivity implements
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
-
+		private ShoppingListAdapter adapter;
+		
 		public Lists() {
 		}
-
+		
+		//Displays Lists
 		@Override
 		public void onActivityCreated(Bundle savedInstanceState) {
 			super.onActivityCreated(savedInstanceState);
+			ListView lv = getListView();
+			registerForContextMenu(lv);
 			LocalDatabaseHandler db = new LocalDatabaseHandler(getActivity());
-			List<ShoppingList> lists = db.getAllShoppingLists();
-			ArrayAdapter<ShoppingList> adapter = new ArrayAdapter<ShoppingList>(getActivity(), android.R.layout.simple_list_item_1,  lists);
+			this.adapter = new ShoppingListAdapter(getActivity(), R.id.listoverview,  db.getAllShoppingLists());
 			setListAdapter(adapter);
 		}
+		
+		//Creates ContextMenu when holding an item
+		@Override
+		public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		  if (v.getId()==getListView().getId()) {
+		    AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+		    menu.setHeaderTitle("Options");
+		    String[] menuItems = getResources().getStringArray(R.array.context_menu);
+		    for (int i = 0; i<menuItems.length; i++) {
+		      menu.add(Menu.NONE, i, i, menuItems[i]);
+		    }
+		  }
+		}
+		
+		//Reads what is selected from ContextMenu
+		@Override
+		public boolean onContextItemSelected(MenuItem item) {
+		    AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo(); 
+		    int chosen = (Integer)menuInfo.targetView.findViewById(R.id.listname).getTag();
+		    LocalDatabaseHandler db = new LocalDatabaseHandler(getActivity());
+		    switch (item.getItemId()) {
+			  case 0:
+			    db.deleteShoppingList(chosen);
+			    updateView();
+			    return true;
+			    
+			  default:
+			    return super.onContextItemSelected(item);
+			}
+		}
+		
+		public void updateView(){
+			LocalDatabaseHandler db = new LocalDatabaseHandler(getActivity());
+			adapter.clear();
+			adapter.addAll(db.getAllShoppingLists());
+			adapter.notifyDataSetChanged();
+            db.close();
+		}
+		
 	}
 	
+	
+	//Options on Taskbar
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle presses on the action bar items
@@ -189,7 +232,5 @@ public class DisplayListsActivity extends FragmentActivity implements
 		Intent intent = new Intent(this, AddListActivity.class);
 		startActivity(intent);
 	}
-	
-	
 
 }
