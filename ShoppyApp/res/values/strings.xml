@@ -6,5 +6,12 @@
     <string name="welcome">Welcome to Shoppy!</string>
     <string name="save">Save</string>
     <string name="nickname">Enter a Nickname:</string>
+    <string name="title_activity_display_lists">Lists</string>
+    <string name="title_section1">Lists</string>
+    <string name="title_section2">Notifications</string>
+    <string name="add_list">Add List</string>
+    <string name="add_a_list">Add List:</string>
+    <string name="title_activity_add_list">AddListActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
