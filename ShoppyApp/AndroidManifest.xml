@@ -4,6 +4,8 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="18" />
@@ -23,12 +25,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.shoppyapp.AddList"
-            android:label="@string/title_activity_add_list" >
+            android:name="com.example.shoppyapp.DisplayListsActivity"
+            android:label="@string/title_activity_display_lists" >
         </activity>
         <activity
-            android:name="com.example.shoppyapp.Lists"
-            android:label="@string/title_activity_main" >
+            android:name="com.example.shoppyapp.AddListActivity"
+            android:label="@string/title_activity_add_list" >
         </activity>
     </application>
 
