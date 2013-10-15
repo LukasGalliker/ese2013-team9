@@ -1,5 +1,7 @@
 package com.example.shoppyapp;
 
+import java.io.File;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +17,10 @@ public class WelcomeScreen extends Activity {
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
+        if (!doesDatabaseExist(this, "/data/data/com.example.ShoppyApp/databases/ShoppyLocal.db")){
+            Intent intent = new Intent(this, DisplayListsActivity.class);
+    	    startActivity(intent);
+        }
     }
 
 	@Override
@@ -24,9 +30,13 @@ public class WelcomeScreen extends Activity {
 		return true;
 	}
 	
+    private static boolean doesDatabaseExist(Context context, String dbName) {
+        File dbFile=context.getDatabasePath(dbName);
+        return dbFile.exists();
+    }
+    
 	//Called when clicking on "Save"-Button
 	public void createDatabase(View view){
-	    Intent intent = new Intent(this, DisplayListsActivity.class);
 	    EditText editText = (EditText) findViewById(R.id.nickname);
 	    String nickname = editText.getText().toString();
 	    
@@ -36,10 +46,9 @@ public class WelcomeScreen extends Activity {
 	    
 	    //Add Entry in DB
         LocalDatabaseHandler db = new LocalDatabaseHandler(this);
-        db.addUser(new User(1, nickname, myNumber));
+        db.addUser(new User(0, nickname, myNumber));
         
-        //Switch to DisplayListsActivity
-	    intent.putExtra(EXTRA_MESSAGE, myNumber);
+        Intent intent = new Intent(this, DisplayListsActivity.class);
 	    startActivity(intent);
 	}
 

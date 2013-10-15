@@ -44,12 +44,12 @@ public class LocalDatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS + "("
-                + U_KEY_ID + " INTEGER PRIMARY KEY," + U_KEY_NAME + " TEXT,"
+                + U_KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + U_KEY_NAME + " TEXT,"
                 + U_KEY_KEY + " TEXT" + ")";
         db.execSQL(CREATE_USERS_TABLE);
 
         String CREATE_SHOPPING_LISTS_TABLE = "CREATE TABLE "+ TABLE_SHOPPING_LISTS + "("
-                + S_KEY_ID + " INTEGER PRIMARY KEY," + S_KEY_NAME + " TEXT" + ")";
+                + S_KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + S_KEY_NAME + " TEXT" + ")";
         db.execSQL(CREATE_SHOPPING_LISTS_TABLE);
     }
 
@@ -67,7 +67,6 @@ public class LocalDatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(U_KEY_ID, user.id);
         values.put(U_KEY_NAME, user.name);
         values.put(U_KEY_KEY, user.key);
 
@@ -97,10 +96,16 @@ public class LocalDatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(S_KEY_ID, shoppingList.id);
         values.put(S_KEY_NAME, shoppingList.name);
 
         db.insert(TABLE_SHOPPING_LISTS, null, values);
+        db.close();
+    }
+    
+    public void deleteShoppingList (int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(TABLE_SHOPPING_LISTS, S_KEY_ID + "=" + id, null);
         db.close();
     }
 
