@@ -7,7 +7,7 @@
         android:title="@string/action_settings"/>
     
     <item
-        android:icon="@drawable/button"
+        android:icon="@drawable/ic_action_new"
         android:id="@+id/add_list"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
