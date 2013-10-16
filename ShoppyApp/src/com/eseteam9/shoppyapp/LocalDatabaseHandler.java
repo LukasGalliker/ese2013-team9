@@ -60,6 +60,18 @@ public class LocalDatabaseHandler extends SQLiteOpenHelper {
 
         onCreate(db);
     }
+    
+    
+    public boolean existsDatabase () {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_USERS;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.getCount() > 0)
+        	return true;
+        db.close();
+        return false;
+    }    
 
     // USERS
 
@@ -91,7 +103,6 @@ public class LocalDatabaseHandler extends SQLiteOpenHelper {
     }
 
     // SHOPPING_LISTS
-
     public void addShoppingList (ShoppingList shoppingList) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -108,6 +119,17 @@ public class LocalDatabaseHandler extends SQLiteOpenHelper {
         db.delete(TABLE_SHOPPING_LISTS, S_KEY_ID + "=" + id, null);
         db.close();
     }
+    
+    public boolean existsShoppingList (String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_SHOPPING_LISTS + " WHERE " + S_KEY_NAME + " = '" + name + "'";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.getCount() > 0)
+        	return true;
+        db.close();
+        return false;
+    }    
 
     public ShoppingList getShoppingList (int id) {
         SQLiteDatabase db = this.getReadableDatabase();

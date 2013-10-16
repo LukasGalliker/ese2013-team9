@@ -9,11 +9,9 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -23,10 +21,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
-public class DisplayListsActivity extends FragmentActivity implements
-		ActionBar.TabListener {
+public class DisplayListsActivity extends FragmentActivity implements ActionBar.TabListener {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -43,6 +40,7 @@ public class DisplayListsActivity extends FragmentActivity implements
 	 */
 	ViewPager mViewPager;
 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -110,7 +108,15 @@ public class DisplayListsActivity extends FragmentActivity implements
 	public void onTabReselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
 	}
-
+	
+	int backButtonCount = 0;
+	public void onBackPressed()
+	{
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+	}
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
 	 * one of the sections/tabs/pages.
@@ -126,9 +132,9 @@ public class DisplayListsActivity extends FragmentActivity implements
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
-			ListFragment fragment = new Lists();
+			ListFragment fragment = new ListsFragment();
 			Bundle args = new Bundle();
-			args.putInt(Lists.ARG_SECTION_NUMBER, position + 1);
+			args.putInt(ListsFragment.ARG_SECTION_NUMBER, position + 1);
 			fragment.setArguments(args);
 			return fragment;
 		}
@@ -152,67 +158,7 @@ public class DisplayListsActivity extends FragmentActivity implements
 		}
 	}
 
-	public static class Lists extends ListFragment{
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		public static final String ARG_SECTION_NUMBER = "section_number";
-		private ShoppingListAdapter adapter;
-		
-		public Lists() {
-		}
-		
-		//Displays Lists
-		@Override
-		public void onActivityCreated(Bundle savedInstanceState) {
-			super.onActivityCreated(savedInstanceState);
-			ListView lv = getListView();
-			registerForContextMenu(lv);
-			LocalDatabaseHandler db = new LocalDatabaseHandler(getActivity());
-			this.adapter = new ShoppingListAdapter(getActivity(), R.id.listoverview,  db.getAllShoppingLists());
-			setListAdapter(adapter);
-		}
-		
-		//Creates ContextMenu when holding an item
-		@Override
-		public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-		  if (v.getId()==getListView().getId()) {
-		    AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-		    menu.setHeaderTitle("Options");
-		    String[] menuItems = getResources().getStringArray(R.array.context_menu);
-		    for (int i = 0; i<menuItems.length; i++) {
-		      menu.add(Menu.NONE, i, i, menuItems[i]);
-		    }
-		  }
-		}
-		
-		//Reads what is selected from ContextMenu
-		@Override
-		public boolean onContextItemSelected(MenuItem item) {
-		    AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo(); 
-		    int chosen = (Integer)menuInfo.targetView.findViewById(R.id.listname).getTag();
-		    LocalDatabaseHandler db = new LocalDatabaseHandler(getActivity());
-		    switch (item.getItemId()) {
-			  case 0:
-			    db.deleteShoppingList(chosen);
-			    updateView();
-			    return true;
-			    
-			  default:
-			    return super.onContextItemSelected(item);
-			}
-		}
-		
-		public void updateView(){
-			LocalDatabaseHandler db = new LocalDatabaseHandler(getActivity());
-			adapter.clear();
-			adapter.addAll(db.getAllShoppingLists());
-			adapter.notifyDataSetChanged();
-            db.close();
-		}
-		
-	}
+
 	
 	
 	//Options on Taskbar

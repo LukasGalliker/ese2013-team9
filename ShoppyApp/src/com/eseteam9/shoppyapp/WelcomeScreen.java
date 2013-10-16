@@ -12,14 +12,17 @@ import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class WelcomeScreen extends Activity {
 
+	LocalDatabaseHandler db = new LocalDatabaseHandler(this);
     @Override
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
-        if (!doesDatabaseExist(this, "/data/data/"+ this.getPackageName() +"/databases/ShoppyLocal.db")){
+        //Checks if database of program exists, otherwise continues to DisplayLists
+        if (db.existsDatabase()){
             Intent intent = new Intent(this, DisplayListsActivity.class);
     	    startActivity(intent);
         }
@@ -32,7 +35,7 @@ public class WelcomeScreen extends Activity {
 		return true;
 	}
 	
-    private static boolean doesDatabaseExist(Context context, String dbName) {
+    private static boolean existsDatabase(Context context, String dbName) {
         File dbFile=context.getDatabasePath(dbName);
         return dbFile.exists();
     }
@@ -42,16 +45,20 @@ public class WelcomeScreen extends Activity {
 	    EditText editText = (EditText) findViewById(R.id.nickname);
 	    String nickname = editText.getText().toString();
 	    
-	    //get Phone number if possible
-	    TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-	    String myNumber = tm.getLine1Number();
-	    
-	    //Add Entry in DB
-        LocalDatabaseHandler db = new LocalDatabaseHandler(this);
-        db.addUser(new User(0, nickname, myNumber));
-        
-        Intent intent = new Intent(this, DisplayListsActivity.class);
-	    startActivity(intent);
+		if (nickname.length() == 0)
+	    	Toast.makeText(this, "Please enter a name", 1000).show();
+		else{
+		    //get Phone number if possible
+		    TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+		    String myNumber = tm.getLine1Number();
+		    
+		    //Add Entry in DB    
+	        db.addUser(new User(0, nickname, myNumber));
+	        
+	        //Switch to DisplayListActivity
+	        Intent intent = new Intent(this, DisplayListsActivity.class);
+		    startActivity(intent);
+		}
 	}
 
 }
