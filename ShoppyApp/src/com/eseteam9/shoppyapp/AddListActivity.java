@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class AddListActivity extends Activity {
 
@@ -26,15 +27,24 @@ public class AddListActivity extends Activity {
 
 	//Called when Savebutton is pressed
 	public void addList(View view){
-	    Intent intent = new Intent(this, DisplayListsActivity.class);
+
 	    EditText editText = (EditText) findViewById(R.id.list_add);
 	    String listname = editText.getText().toString();
-	    
-	    //Add Entry in DB
-        LocalDatabaseHandler db = new LocalDatabaseHandler(this);
-        db.addShoppingList(new ShoppingList(0, listname));
-        
-        //Switch to DisplayListsActivity
-	    startActivity(intent);
+
+		LocalDatabaseHandler db = new LocalDatabaseHandler(this);
+		
+		//Check if List has name or already exists
+		if (listname.length() == 0)
+	    	Toast.makeText(this, "Please enter a name", 1000).show();
+		else if (!db.existsShoppingList(listname)){
+		    //Add Entry in DB
+		    db.addShoppingList(new ShoppingList(0, listname));
+		    
+		    //Switch to DisplayListsActivity
+		    Intent intent = new Intent(this, DisplayListsActivity.class);
+		    startActivity(intent);
+	    } 
+	    else
+	    	Toast.makeText(this, "This list already exists", 1000).show();
 	}
 }
