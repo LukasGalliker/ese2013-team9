@@ -1,0 +1,15 @@
+package com.eseteam9.shoppyapp;
+
+public class ShoppingList {
+	public final int id;
+	public final String name;
+	public final 
+
+	public ShoppingList (int id, String name, String owner, String timestamp, boolean archived) {
+		this.id = id;
+		this.name = name;
+		this.owner = owner;
+		this.timestamp = timestamp;
+		this.archived = archived;
+	}
+}

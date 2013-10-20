@@ -1,0 +1,11 @@
+package com.eseteam9.shoppyapp;
+
+import android.database.sqlite.SQLiteDatabase;
+
+public abstract class AbstractTableRepresentation {
+	private SQLiteDatabase DB;
+	
+	public AbstractTableRepresentation(SQLiteDatabase DB) {
+		this.DB = DB;
+	}
+}

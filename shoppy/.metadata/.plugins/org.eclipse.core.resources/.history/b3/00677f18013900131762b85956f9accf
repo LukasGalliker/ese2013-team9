@@ -1,0 +1,25 @@
+package com.eseteam9.shoppyapp;
+
+public class UserHandler extends AbstractTableRepresentation {
+    private static final String TABLE_NAME = "users";
+    
+    private static final String KEY_ID = "id";
+    private static final String KEY_NAME = "name";
+    private static final String KEY_KEY = "key";
+    
+    public static void onCreate() {
+    	String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_NAME + "("
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME + " TEXT,"
+                + KEY_KEY + " TEXT" + ")";
+        DB.execSQL(CREATE_USERS_TABLE);
+    }
+    
+    public static void dropTable() {
+    	DB.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+    }
+    
+    public static UserHandler getById(int id) {
+    	UserHandler returnUser;
+    	return returnUser;
+    }
+}

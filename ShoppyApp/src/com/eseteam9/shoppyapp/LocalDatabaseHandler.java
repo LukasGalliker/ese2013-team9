@@ -1,16 +1,3 @@
-//
-// NAME		LocalDatabaseHandler.java
-// VERION	1.0
-// DATE		12-10-2013	
-// AUTHOR	Marc Schneiter (marc.e.schneiter@gmail.com)
-// RESOURCE	http://www.androidhive.info/2011/11/android-sqlite-database-tutorial/
-//
-// FUNCTION	- create and upgrade the local database
-//			- create and get single entries, get a list of all shopping lists
-// 			Tables: users, shopping_lists
-//
-///////////////////////////////////////////////////////////////////////////////////////
-
 package com.eseteam9.shoppyapp;
 
 import java.util.ArrayList;
@@ -35,7 +22,7 @@ public class LocalDatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_SHOPPING_LISTS = "shopping_lists";
     // Elements in table 'shopping_lists'
     private static final String S_KEY_ID = "id";
-    private static final String S_KEY_NAME = "name";
+    private static final String S_KEY_TITLE = "title";
  
     public LocalDatabaseHandler (Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -49,7 +36,7 @@ public class LocalDatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_USERS_TABLE);
 
         String CREATE_SHOPPING_LISTS_TABLE = "CREATE TABLE "+ TABLE_SHOPPING_LISTS + "("
-                + S_KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + S_KEY_NAME + " TEXT" + ")";
+                + S_KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + S_KEY_TITLE + " TEXT" + ")";
         db.execSQL(CREATE_SHOPPING_LISTS_TABLE);
     }
 
@@ -107,7 +94,7 @@ public class LocalDatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(S_KEY_NAME, shoppingList.name);
+        values.put(S_KEY_TITLE, shoppingList.title);
 
         db.insert(TABLE_SHOPPING_LISTS, null, values);
         db.close();
@@ -123,7 +110,7 @@ public class LocalDatabaseHandler extends SQLiteOpenHelper {
     public boolean existsShoppingList (String name) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String selectQuery = "SELECT  * FROM " + TABLE_SHOPPING_LISTS + " WHERE " + S_KEY_NAME + " = '" + name + "'";
+        String selectQuery = "SELECT  * FROM " + TABLE_SHOPPING_LISTS + " WHERE " + S_KEY_TITLE + " = '" + name + "'";
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.getCount() > 0)
         	return true;

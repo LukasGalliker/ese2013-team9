@@ -1,0 +1,12 @@
+package com.eseteam9.shoppyapp;
+
+import java.util.List;
+
+public interface TableRepresentatoin {
+	public TableRepresentatoin getById(int id);
+	public List<TableRepresentatoin> getAllEntries();
+	public void addToDB();
+	public void removeFromDB();
+	public void removeByIdFromDB(int id);
+	public void updateOnDB();
+}

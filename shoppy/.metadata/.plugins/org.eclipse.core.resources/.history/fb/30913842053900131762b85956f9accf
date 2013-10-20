@@ -1,0 +1,31 @@
+package com.eseteam9.shoppyapp;
+
+import android.database.sqlite.SQLiteDatabase;
+
+public class ShoppingListHandler {
+	private static SQLiteDatabase DB;
+	
+    public static final String TABLE_NAME = "shopping_lists";
+
+    public static final String KEY_ID = "id";
+    public static final String KEY_NAME = "name";
+    public static final String KEY_OWNER = "owner";
+    public static final String KEY_TIMESTAMP = "timestamp";
+    public static final String KEY_ARCHIVED = "archived";
+    
+    public ShoppingListHandler(SQLiteDatabase DB) {
+    	ShoppingListHandler.DB = DB;
+    }
+    
+    public static void onCreate() {
+    	String CREATE_SHOPPING_LISTS_TABLE = "CREATE TABLE " + TABLE_NAME + "("
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME + " TEXT,"
+        		+ KEY_OWNER + " TEXT," + KEY_TIMESTAMP + " DATE," + KEY_ARCHIVED
+        		+ " BOOLEAN" + ")";
+        DB.execSQL(CREATE_SHOPPING_LISTS_TABLE);
+    }
+    
+    public static void dropTable() {
+    	DB.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+    }
+}
