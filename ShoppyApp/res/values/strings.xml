@@ -13,5 +13,6 @@
     <string name="add_a_list">Add List:</string>
     <string name="title_activity_add_list">AddListActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_display_items">DisplayItemsActivity</string>
 
 </resources>

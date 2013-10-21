@@ -48,7 +48,7 @@ public class ListsFragment extends ListFragment{
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 	    AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo(); 
-	    int chosen = (Integer)menuInfo.targetView.findViewById(R.id.listname).getTag();
+	    int chosen = (Integer)menuInfo.targetView.findViewById(R.id.name).getTag();
 	    LocalDatabaseHandler db = new LocalDatabaseHandler(getActivity());
 	    switch (item.getItemId()) {
 		  case 0:
