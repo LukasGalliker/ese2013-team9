@@ -34,30 +34,33 @@ public final class R {
         public static final int shoppingcart=0x7f020003;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a000a;
-        public static final int add_list=0x7f0a000b;
+        public static final int action_settings=0x7f0a000b;
+        public static final int add_list=0x7f0a000c;
         public static final int button1=0x7f0a0001;
+        public static final int id=0x7f0a0009;
         public static final int imageView1=0x7f0a0006;
         public static final int list_add=0x7f0a0000;
-        public static final int listname=0x7f0a0008;
         public static final int listoverview=0x7f0a0007;
-        public static final int liststatus=0x7f0a0009;
+        public static final int name=0x7f0a0008;
         public static final int nickname=0x7f0a0005;
         public static final int pager=0x7f0a0003;
+        public static final int status=0x7f0a000a;
         public static final int textView1=0x7f0a0004;
         public static final int textView2=0x7f0a0002;
     }
     public static final class layout {
         public static final int activity_add_list=0x7f030000;
-        public static final int activity_display_lists=0x7f030001;
-        public static final int activity_welcome_screen=0x7f030002;
-        public static final int fragment_display_lists=0x7f030003;
-        public static final int list_item=0x7f030004;
+        public static final int activity_display_items=0x7f030001;
+        public static final int activity_display_lists=0x7f030002;
+        public static final int activity_welcome_screen=0x7f030003;
+        public static final int fragment_display_lists=0x7f030004;
+        public static final int list_item=0x7f030005;
     }
     public static final class menu {
         public static final int add_list=0x7f090000;
-        public static final int display_lists=0x7f090001;
-        public static final int welcome_screen=0x7f090002;
+        public static final int display_items=0x7f090001;
+        public static final int display_lists=0x7f090002;
+        public static final int welcome_screen=0x7f090003;
     }
     public static final class string {
         public static final int action_settings=0x7f070001;
@@ -68,6 +71,7 @@ public final class R {
         public static final int nickname=0x7f070004;
         public static final int save=0x7f070003;
         public static final int title_activity_add_list=0x7f07000a;
+        public static final int title_activity_display_items=0x7f07000c;
         public static final int title_activity_display_lists=0x7f070005;
         public static final int title_section1=0x7f070006;
         public static final int title_section2=0x7f070007;
