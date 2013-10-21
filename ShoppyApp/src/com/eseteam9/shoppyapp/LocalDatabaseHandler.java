@@ -129,7 +129,10 @@ public class LocalDatabaseHandler extends SQLiteOpenHelper {
             cursor.moveToFirst();
  
         ShoppingList shoppingList = new ShoppingList(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1));
+                									cursor.getString(1),
+                									cursor.getString(2),
+                									Boolean.parseBoolean(cursor.getString(3)),
+                									cursor.getString(4));
 
         return shoppingList;
     }
@@ -144,9 +147,11 @@ public class LocalDatabaseHandler extends SQLiteOpenHelper {
      
         if (cursor.moveToFirst()) {
             do {
-            	ShoppingList shoppingList = new ShoppingList(
-            			Integer.parseInt(cursor.getString(0)),
-            			cursor.getString(1));
+            	ShoppingList shoppingList = new ShoppingList(Integer.parseInt(cursor.getString(0)),
+															cursor.getString(1),
+															cursor.getString(2),
+															Boolean.parseBoolean(cursor.getString(3)),
+															cursor.getString(4));
                 shoppingLists.add(shoppingList);
             } while (cursor.moveToNext());
         }
