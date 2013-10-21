@@ -38,7 +38,7 @@ public class AddListActivity extends Activity {
 	    	Toast.makeText(this, "Please enter a name", 1000).show();
 		else if (!db.existsShoppingList(listname)){
 		    //Add Entry in DB
-		    db.addShoppingList(new ShoppingList(0, listname));
+		    db.addShoppingList(new ShoppingList(listname, "Owner"));
 		    
 		    //Switch to DisplayListsActivity
 		    Intent intent = new Intent(this, DisplayListsActivity.class);

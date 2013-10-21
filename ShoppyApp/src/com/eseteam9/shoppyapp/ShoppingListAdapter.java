@@ -34,7 +34,7 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingList> {
         if (list != null) {
             TextView itemView = (TextView) v.findViewById(R.id.listname);
             if (itemView != null) {
-                itemView.setText(list.name);
+                itemView.setText(list.title);
                 itemView.setTag(Integer.valueOf(list.id));
             }
         }
