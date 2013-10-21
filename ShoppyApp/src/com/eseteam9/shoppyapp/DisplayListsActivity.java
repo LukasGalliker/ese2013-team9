@@ -132,10 +132,15 @@ public class DisplayListsActivity extends FragmentActivity implements ActionBar.
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
-			ListFragment fragment = new ListsFragment();
-			Bundle args = new Bundle();
-			args.putInt(ListsFragment.ARG_SECTION_NUMBER, position + 1);
-			fragment.setArguments(args);
+			if (position == 0){
+				ListFragment fragment = new DisplayListsFragment();
+				Bundle args = new Bundle();
+				args.putInt(DisplayListsFragment.ARG_SECTION_NUMBER, position + 1);
+				fragment.setArguments(args);
+				return fragment;
+			}
+			
+			ListFragment fragment = new ListFragment();
 			return fragment;
 		}
 

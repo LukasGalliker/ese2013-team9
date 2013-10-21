@@ -10,7 +10,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
-public class ListsFragment extends ListFragment{
+public class DisplayListsFragment extends ListFragment{
 	/**
 	 * The fragment argument representing the section number for this
 	 * fragment.
@@ -18,7 +18,7 @@ public class ListsFragment extends ListFragment{
 	public static final String ARG_SECTION_NUMBER = "section_number";
 	private ShoppingListAdapter adapter;
 	
-	public ListsFragment() {
+	public DisplayListsFragment() {
 	}
 	
 	//Displays Lists
