@@ -30,15 +30,13 @@ public class AddListActivity extends Activity {
 
 	    EditText editText = (EditText) findViewById(R.id.list_add);
 	    String listname = editText.getText().toString();
-
-		LocalDatabaseHandler db = new LocalDatabaseHandler(this);
 		
 		//Check if List has name or already exists
 		if (listname.length() == 0)
 	    	Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT).show();
-		else if (!db.existsShoppingList(listname)){
+		else if (!new ShoppingListHandler(this).existsEntry(listname)){
 		    //Add Entry in DB
-		    db.addShoppingList(new ShoppingList(listname, "Owner"));
+			new ShoppingListHandler(this).add(new ShoppingList(listname, "Owner"));
 		    
 		    //Switch to DisplayListsActivity
 		    Intent intent = new Intent(this, DisplayListsActivity.class);

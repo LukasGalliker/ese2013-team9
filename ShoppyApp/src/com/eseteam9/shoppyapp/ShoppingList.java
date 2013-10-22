@@ -1,18 +1,19 @@
-
 package com.eseteam9.shoppyapp;
+
+import java.util.Date;
 
 public class ShoppingList {
 	public final int id;
 	public final String title;
 	public final String owner;
-	public final boolean bought;
-	public final String timestamp;
+	public final boolean archived;
+	public final Date timestamp;
 
-	public ShoppingList (int id, String title, String owner, boolean bought, String timestamp) {
+	public ShoppingList (int id, String title, String owner, boolean archived, Date timestamp) {
 		this.id = id;
 		this.title = title;
 		this.owner = owner;
-		this.bought = bought;
+		this.archived = archived;
 		this.timestamp = timestamp;
 	}
 	
@@ -20,7 +21,7 @@ public class ShoppingList {
 		this.id = 0;
 		this.title = title;
 		this.owner = owner;
-		this.bought = false;
+		this.archived = false;
 		this.timestamp = null;
 	}
 }

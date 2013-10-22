@@ -32,8 +32,7 @@ public class DisplayListsFragment extends ListFragment{
 		ListView lv = getListView();
 		registerForContextMenu(lv);
 		lv.setClickable(true);
-		LocalDatabaseHandler db = new LocalDatabaseHandler(getActivity());
-		this.lists = db.getAllShoppingLists();
+		this.lists = new ShoppingListHandler(getActivity()).getAll();
 		this.adapter = new ShoppingListAdapter(getActivity(), R.id.listoverview,  this.lists);
 		setListAdapter(adapter);
 	}
@@ -66,12 +65,11 @@ public class DisplayListsFragment extends ListFragment{
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 	    AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo(); 
-	    LocalDatabaseHandler db = new LocalDatabaseHandler(getActivity());
 	    int listId = lists.get(menuInfo.position).id;
 	    String listname = lists.get(menuInfo.position).title;
 	    switch (item.getItemId()) {
 		  case 0:
-		    db.deleteShoppingList(listId);
+			  new ShoppingListHandler(getActivity()).delete(listId);
 		    updateView();
 		    return true;
 		  case 1:
@@ -84,11 +82,9 @@ public class DisplayListsFragment extends ListFragment{
 	}
 	
 	public void updateView(){
-		LocalDatabaseHandler db = new LocalDatabaseHandler(getActivity());
 		adapter.clear();
-		adapter.addAll(db.getAllShoppingLists());
+		adapter.addAll(new ShoppingListHandler(getActivity()).getAll());
 		adapter.notifyDataSetChanged();
-        db.close();
 	}
 	
 }

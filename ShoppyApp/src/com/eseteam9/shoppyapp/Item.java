@@ -1,14 +1,16 @@
 package com.eseteam9.shoppyapp;
 
+import java.util.Date;
+
 public class Item {
 	public final int id;
 	public final int listId;
 	public final String name;
 	public final int quantity;
 	public final boolean bought;
-	public final String timestamp;
+	public final Date timestamp;
 	
-	public Item(int id, int listId, String name, int quantity, boolean bought, String timestamp) {
+	public Item(int id, int listId, String name, int quantity, boolean bought, Date timestamp) {
 		this.id = id;
 		this.listId = listId;
 		this.name = name;
@@ -17,9 +19,9 @@ public class Item {
 		this.timestamp = timestamp;
 	}
 	
-	public Item(String name, int listid, int quantity) {
+	public Item(String name, int quantity, int listId) {
 		this.id = 0;
-		this.listId = listid;
+		this.listId = listId;
 		this.name = name;
 		this.quantity = quantity;
 		this.bought = false;

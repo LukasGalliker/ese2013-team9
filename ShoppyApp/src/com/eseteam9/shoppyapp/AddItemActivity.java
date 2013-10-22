@@ -34,15 +34,13 @@ public class AddItemActivity extends Activity {
 
 	    EditText editTextQuantity = (EditText) findViewById(R.id.quantity);
 	    String quantity = editTextQuantity.getText().toString();
-	    
-		LocalDatabaseHandler db = new LocalDatabaseHandler(this);
 		
 		//Check if List has name or already exists
 		if (itemname.length() == 0)
 	    	Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT).show();
 		else{
 		    //Add Entry in DB
-		    db.addItem(new Item(itemname, this.listId, Integer.parseInt(quantity)));
+		    new ItemHandler(this).add(new Item(itemname, this.listId, Integer.parseInt(quantity)));
 		    
 		    //Switch to DisplayItemsActivity
 		    Intent intent = new Intent(this, DisplayItemsActivity.class);

@@ -1,22 +1,34 @@
 package com.eseteam9.shoppyapp;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Date;
+
 import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-public class ItemHandler extends AbstractHandler{
-    public static final String TABLE_NAME = "shopping_lists";
+public class ItemHandler extends LocalDatabaseHandler{
+    public static final String TABLE_NAME = "items";
     
     private static final String KEY_ID = "id";
+    private static final String KEY_LIST_ID = "listid";
     private static final String KEY_NAME = "name";
     private static final String KEY_QUANTITY = "quantity";
     private static final String KEY_BOUGHT = "bought";
     private static final String KEY_TIMESTAMP = "timestamp";
     
-    public static void onCreate(SQLiteDatabase db) {
+    public ItemHandler(Context context) {
+    	super(context);
+    }
+    
+    public static void createTable(SQLiteDatabase db) {
     	String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME + "("
-    			+ KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME + " TEXT, " + KEY_QUANTITY
-    			+ "INTEGER, " + KEY_BOUGHT + " BOOLEAN NOT NULL DEFAULT FALSE, " + KEY_TIMESTAMP
-    			+ "DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
+    			+ KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_LIST_ID
+    			+ " INTEGER,"+ KEY_NAME + " TEXT," + KEY_QUANTITY + " INTEGER,"
+    			+ KEY_BOUGHT + " BOOLEAN," + KEY_TIMESTAMP
+    			+ " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
     	db.execSQL(CREATE_TABLE);
     }
     
@@ -24,23 +36,54 @@ public class ItemHandler extends AbstractHandler{
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
 	}
     
-    public static void add(Item item) {
-    	//not sure if this works ...
-        SQLiteDatabase db = dbHandler.getWritableDatabase();
+    public void add(Item item) {
+    	SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, item.name);
+        values.put(KEY_LIST_ID, item.listId);
         values.put(KEY_QUANTITY, item.quantity);
-        values.put(KEY_BOUGHT, item.bought);
+        values.put(KEY_BOUGHT, false);
 
         db.insert(TABLE_NAME, null, values);
         db.close();
     }
     
-    public static void delete(int id) {
-        SQLiteDatabase db = dbHandler.getWritableDatabase();
-
+    public void delete(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, KEY_ID + "=" + id, null);
         db.close();
+    }
+    
+    public List<Item> getListItems(int listId) {
+        List<Item> shoppingLists = new ArrayList<Item>();
+        
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " + KEY_LIST_ID + "=" + listId;
+        
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+     
+        if (cursor.moveToFirst()) {
+            do {
+                shoppingLists.add(parseItem(cursor));
+            } while (cursor.moveToNext());
+        }
+
+        db.close();
+        return shoppingLists;
+    }
+    
+    public void update(Item item) {
+    	delete(item.id);
+    	add(item);
+    }
+    
+    private Item parseItem(Cursor c) {
+    	return new Item(c.getInt(0),
+    			c.getInt(1),
+    			c.getString(2),
+    			c.getInt(3),
+                c.getString(4) == "TRUE" ? true : false,
+                new Date(c.getLong(5)));
     }
 }

@@ -1,17 +1,22 @@
 package com.eseteam9.shoppyapp;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-public class UserHandler extends AbstractHandler{
+public class UserHandler extends LocalDatabaseHandler{
     public static final String TABLE_NAME = "users";
     
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_KEY = "key";
+    
+    public UserHandler(Context context) {
+    	super(context);
+    }
 	
-	public static void onCreate(SQLiteDatabase db) {
+	public static void createTable(SQLiteDatabase db) {
 		String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "("
 				+ KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME + " TEXT,"
 				+ KEY_KEY + " TEXT" + ")";
@@ -22,8 +27,8 @@ public class UserHandler extends AbstractHandler{
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
 	}
 	
-    public static void add(User user) {
-        SQLiteDatabase db = dbHandler.getWritableDatabase();
+    public void add(User user) {
+    	SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, user.name);
@@ -33,8 +38,8 @@ public class UserHandler extends AbstractHandler{
         db.close();
     }
     
-    public static User get(int id) {
-        SQLiteDatabase db = dbHandler.getReadableDatabase();
+    public User get(int id) {
+    	SQLiteDatabase db = this.getWritableDatabase();
  
         Cursor cursor = db.query(TABLE_NAME, new String[] { KEY_ID,
                 KEY_NAME, KEY_KEY }, KEY_ID + "=?",
@@ -48,5 +53,16 @@ public class UserHandler extends AbstractHandler{
 
         db.close();
         return user;
+    }
+    
+    public boolean existsUser () {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.getCount() > 0)
+        	return true;
+        db.close();
+        return false;
     }
 }

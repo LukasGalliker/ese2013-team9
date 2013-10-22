@@ -1,7 +1,5 @@
 package com.eseteam9.shoppyapp;
 
-import java.io.File;
-
 import com.eseteam9.shoppyapp.R;
 
 import android.app.Activity;
@@ -16,13 +14,12 @@ import android.widget.Toast;
 
 public class WelcomeScreen extends Activity {
 
-	LocalDatabaseHandler db = new LocalDatabaseHandler(this);
     @Override
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
         //Checks if database of program exists, otherwise continues to DisplayLists
-        if (db.existsDatabase()){
+        if (new UserHandler(this).existsUser()){
             Intent intent = new Intent(this, DisplayListsActivity.class);
     	    startActivity(intent);
         }
@@ -34,11 +31,6 @@ public class WelcomeScreen extends Activity {
 		getMenuInflater().inflate(R.menu.welcome_screen, menu);
 		return true;
 	}
-	
-    private static boolean existsDatabase(Context context, String dbName) {
-        File dbFile=context.getDatabasePath(dbName);
-        return dbFile.exists();
-    }
     
 	//Called when clicking on "Save"-Button
 	public void createDatabase(View view){
@@ -53,7 +45,7 @@ public class WelcomeScreen extends Activity {
 		    String myNumber = tm.getLine1Number();
 		    
 		    //Add Entry in DB    
-	        db.addUser(new User(0, nickname, myNumber));
+		    new UserHandler(this).add(new User(nickname, myNumber));
 	        
 	        //Switch to DisplayListActivity
 	        Intent intent = new Intent(this, DisplayListsActivity.class);

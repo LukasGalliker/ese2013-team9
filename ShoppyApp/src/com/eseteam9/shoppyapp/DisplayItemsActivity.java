@@ -34,8 +34,7 @@ public class DisplayItemsActivity extends Activity {
 		lv.setClickable(true);
 		
 		//Create Adapter
-		LocalDatabaseHandler db = new LocalDatabaseHandler(this);
-		this.items = db.getAllItems(this.listId);
+		this.items = new ItemHandler(this).getListItems(this.listId);
 		this.adapter = new ListItemAdapter(this, R.id.itemoverview,  this.items);
 		lv.setAdapter(adapter);
 	}
@@ -70,7 +69,7 @@ public class DisplayItemsActivity extends Activity {
 	    
 	    switch (item.getItemId()) {
 		  case 0:
-		    db.deleteItem(itemId);
+			  new ItemHandler(this).delete(itemId);
 		    updateView();
 		    return true;
 		    
@@ -79,11 +78,9 @@ public class DisplayItemsActivity extends Activity {
 		}
 	}
 	public void updateView(){
-		LocalDatabaseHandler db = new LocalDatabaseHandler(this);
 		adapter.clear();
-		adapter.addAll(db.getAllItems(this.listId));
+		adapter.addAll(new ItemHandler(this).getListItems(this.listId));
 		adapter.notifyDataSetChanged();
-        db.close();
 	}
 	
 	
