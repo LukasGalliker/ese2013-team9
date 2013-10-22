@@ -39,6 +39,10 @@
             android:name="com.eseteam9.shoppyapp.DisplayItemsActivity"
             android:label="@string/title_activity_display_items" >
         </activity>
+        <activity
+            android:name="com.eseteam9.shoppyapp.AddItemActivity"
+            android:label="@string/title_activity_add_item" >
+        </activity>
     </application>
 
 </manifest>

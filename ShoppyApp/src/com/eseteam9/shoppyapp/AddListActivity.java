@@ -35,7 +35,7 @@ public class AddListActivity extends Activity {
 		
 		//Check if List has name or already exists
 		if (listname.length() == 0)
-	    	Toast.makeText(this, "Please enter a name", 1000).show();
+	    	Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT).show();
 		else if (!db.existsShoppingList(listname)){
 		    //Add Entry in DB
 		    db.addShoppingList(new ShoppingList(listname, "Owner"));
@@ -45,6 +45,6 @@ public class AddListActivity extends Activity {
 		    startActivity(intent);
 	    } 
 	    else
-	    	Toast.makeText(this, "This list already exists", 1000).show();
+	    	Toast.makeText(this, "This list already exists", Toast.LENGTH_SHORT).show();
 	}
 }

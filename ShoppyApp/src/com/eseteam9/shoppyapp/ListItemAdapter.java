@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 public class ListItemAdapter extends ArrayAdapter<Item> {
@@ -27,7 +28,7 @@ public class ListItemAdapter extends ArrayAdapter<Item> {
         View v = convertView;
         if (v == null) {
             LayoutInflater vi = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = vi.inflate(R.layout.list_item, null);
+            v = vi.inflate(R.layout.item_row, null);
         }
  
         Item item = items.get(position);
@@ -35,14 +36,13 @@ public class ListItemAdapter extends ArrayAdapter<Item> {
             TextView itemView = (TextView) v.findViewById(R.id.name);
             if (itemView != null) {
                 itemView.setText(item.name);
-                itemView.setTag(Integer.valueOf(item.id));
             }
-            TextView itemView2 = (TextView) v.findViewById(R.id.status);
+            CheckBox itemView2 = (CheckBox) v.findViewById(R.id.status);
             if (itemView2 != null) {
             	if (item.bought)
-            		itemView.setText("bought");
+            		itemView2.setChecked(true);
             	else
-            		itemView.setText("  ");	
+            		itemView2.setChecked(false);	
             }
         }
         return v;
