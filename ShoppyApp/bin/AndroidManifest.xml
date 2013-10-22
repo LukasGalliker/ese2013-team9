@@ -43,6 +43,10 @@
             android:name="com.eseteam9.shoppyapp.AddItemActivity"
             android:label="@string/title_activity_add_item" >
         </activity>
+        <activity
+            android:name="com.eseteam9.shoppyapp.EditListActivity"
+            android:label="@string/title_activity_edit_list" >
+        </activity>
     </application>
 
 </manifest>

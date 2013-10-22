@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 
 public class LocalDatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
@@ -246,5 +247,16 @@ public class LocalDatabaseHandler extends SQLiteOpenHelper {
         }
 
         return items;
-    }    
+    
 }
+    
+    public void editShoppingList (int id,String name){
+    	  SQLiteDatabase db = this.getWritableDatabase();
+    	  //db.update(TABLE_SHOPPING_LISTS, null, S_KEY_ID+ "="+ id, null);
+    	  SQLiteStatement stmt = db.compileStatement("UPDATE TABLE_SHOPPING_LISTS  SET S_KEY_TITLE = name WHERE S_KEY_ID = id ");
+    	  stmt.execute();
+         
+    	  
+
+      }
+    }
