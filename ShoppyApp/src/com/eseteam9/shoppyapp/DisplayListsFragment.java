@@ -1,5 +1,6 @@
 package com.eseteam9.shoppyapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.ContextMenu;
@@ -7,10 +8,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.TextView;
 
-public class ListsFragment extends ListFragment{
+public class DisplayListsFragment extends ListFragment{
 	/**
 	 * The fragment argument representing the section number for this
 	 * fragment.
@@ -18,7 +21,7 @@ public class ListsFragment extends ListFragment{
 	public static final String ARG_SECTION_NUMBER = "section_number";
 	private ShoppingListAdapter adapter;
 	
-	public ListsFragment() {
+	public DisplayListsFragment() {
 	}
 	
 	//Displays Lists
@@ -27,10 +30,23 @@ public class ListsFragment extends ListFragment{
 		super.onActivityCreated(savedInstanceState);
 		ListView lv = getListView();
 		registerForContextMenu(lv);
+		lv.setClickable(true);
 		LocalDatabaseHandler db = new LocalDatabaseHandler(getActivity());
 		this.adapter = new ShoppingListAdapter(getActivity(), R.id.listoverview,  db.getAllShoppingLists());
 		setListAdapter(adapter);
 	}
+	
+	
+	
+	
+	@Override
+	  public void onListItemClick(ListView l, View v, int position, long id) {
+		ListView lv = getListView();
+	    Object o = lv.getItemAtPosition(position);
+        Intent intent = new Intent(this.getActivity(), DisplayItemsActivity.class);
+        TextView item = (TextView) o;
+	    startActivity(intent);
+	  }
 	
 	//Creates ContextMenu (from arrays.xml) when pressing&holding an item
 	@Override
@@ -43,6 +59,7 @@ public class ListsFragment extends ListFragment{
 	    }
 	  }
 	}
+	
 	
 	//Reads what is selected from ContextMenu
 	@Override
