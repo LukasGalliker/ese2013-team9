@@ -16,5 +16,7 @@
     <string name="title_activity_display_items">DisplayItemsActivity</string>
     <string name="title_activity_add_item">Add Item</string>
     <string name="add_a_item">Add Item:</string>
+    <string name="title_activity_edit_list">EditListActivity</string>
+    <string name = "edit_list">Edit List</string>
 
 </resources>

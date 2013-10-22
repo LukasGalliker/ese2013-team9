@@ -68,12 +68,16 @@ public class DisplayListsFragment extends ListFragment{
 	    AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo(); 
 	    LocalDatabaseHandler db = new LocalDatabaseHandler(getActivity());
 	    int listId = lists.get(menuInfo.position).id;
+	    String listname = lists.get(menuInfo.position).title;
 	    switch (item.getItemId()) {
 		  case 0:
 		    db.deleteShoppingList(listId);
 		    updateView();
 		    return true;
-		    
+		  case 1:
+			  Intent intent = new Intent(this.getActivity(), EditListActivity.class);
+			  intent.putExtra(listname, listId);
+			  startActivity(intent);    
 		  default:
 		    return super.onContextItemSelected(item);
 		}
