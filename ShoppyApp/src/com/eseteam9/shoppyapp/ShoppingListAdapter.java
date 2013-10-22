@@ -27,7 +27,7 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingList> {
         View v = convertView;
         if (v == null) {
             LayoutInflater vi = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = vi.inflate(R.layout.list_item, null);
+            v = vi.inflate(R.layout.list_row, null);
         }
  
         ShoppingList list = lists.get(position);
@@ -35,7 +35,6 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingList> {
             TextView itemView = (TextView) v.findViewById(R.id.name);
             if (itemView != null) {
                 itemView.setText(list.title);
-                itemView.setTag(Integer.valueOf(list.id));
             }
         }
         return v;

@@ -36,6 +36,8 @@ public class LocalDatabaseHandler extends SQLiteOpenHelper {
     private static final String I_KEY_QUANTITY = "quantity";
     private static final String I_KEY_BOUGHT = "bought";
     private static final String I_KEY_TIMESTAMP = "timestamp";
+    
+    
     public LocalDatabaseHandler (Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -55,8 +57,8 @@ public class LocalDatabaseHandler extends SQLiteOpenHelper {
         
     	String CREATE_ITEMS_TABLE = "CREATE TABLE "+ TABLE_ITEMS + "("
     			+ I_KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + I_KEY_LIST_ID + " INTEGER," + I_KEY_NAME + " TEXT, " + I_KEY_QUANTITY
-    			+ "INTEGER, " + I_KEY_BOUGHT + " BOOLEAN NOT NULL DEFAULT FALSE, " + I_KEY_TIMESTAMP
-    			+ "DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
+    			+ " INTEGER, " + I_KEY_BOUGHT + " BOOLEAN NOT NULL DEFAULT FALSE, " + I_KEY_TIMESTAMP
+    			+ " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
     	db.execSQL(CREATE_ITEMS_TABLE);
     }
 
@@ -110,6 +112,7 @@ public class LocalDatabaseHandler extends SQLiteOpenHelper {
         return user;
     }
 
+    
     // SHOPPING_LISTS
     public void addShoppingList (ShoppingList shoppingList) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -183,7 +186,7 @@ public class LocalDatabaseHandler extends SQLiteOpenHelper {
     
     
  // ITEMS
-    public void add(Item item) {
+    public void addItem(Item item) {
     	SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -206,7 +209,7 @@ public class LocalDatabaseHandler extends SQLiteOpenHelper {
     public Item getItem (int id) {
         SQLiteDatabase db = this.getReadableDatabase();
  
-        String selectQuery = "SELECT  * FROM " + TABLE_ITEMS + " WHERE " + I_KEY_ID + " = " + id;
+        String selectQuery = "SELECT  * FROM " + TABLE_ITEMS + " WHERE " + I_KEY_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
         
         if (cursor != null)
@@ -225,7 +228,7 @@ public class LocalDatabaseHandler extends SQLiteOpenHelper {
     public List<Item> getAllItems(int listId) {
         List<Item> items = new ArrayList<Item>();
         
-        String selectQuery = "SELECT  * FROM " + TABLE_ITEMS + " WHERE " + I_KEY_LIST_ID + " = " + listId;
+        String selectQuery = "SELECT  * FROM " + TABLE_ITEMS + " WHERE " + I_KEY_LIST_ID + "=" + listId;
         
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);

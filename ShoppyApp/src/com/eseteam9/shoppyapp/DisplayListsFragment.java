@@ -1,5 +1,7 @@
 package com.eseteam9.shoppyapp;
 
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -8,10 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.TextView;
 
 public class DisplayListsFragment extends ListFragment{
 	/**
@@ -20,6 +20,7 @@ public class DisplayListsFragment extends ListFragment{
 	 */
 	public static final String ARG_SECTION_NUMBER = "section_number";
 	private ShoppingListAdapter adapter;
+	private List<ShoppingList> lists; 
 	
 	public DisplayListsFragment() {
 	}
@@ -32,7 +33,8 @@ public class DisplayListsFragment extends ListFragment{
 		registerForContextMenu(lv);
 		lv.setClickable(true);
 		LocalDatabaseHandler db = new LocalDatabaseHandler(getActivity());
-		this.adapter = new ShoppingListAdapter(getActivity(), R.id.listoverview,  db.getAllShoppingLists());
+		this.lists = db.getAllShoppingLists();
+		this.adapter = new ShoppingListAdapter(getActivity(), R.id.listoverview,  this.lists);
 		setListAdapter(adapter);
 	}
 	
@@ -41,10 +43,9 @@ public class DisplayListsFragment extends ListFragment{
 	
 	@Override
 	  public void onListItemClick(ListView l, View v, int position, long id) {
-		ListView lv = getListView();
-	    Object o = lv.getItemAtPosition(position);
         Intent intent = new Intent(this.getActivity(), DisplayItemsActivity.class);
-        TextView item = (TextView) o;
+        intent.putExtra("LIST_ID", lists.get(position).id);
+        intent.putExtra("LIST_NAME", lists.get(position).title);
 	    startActivity(intent);
 	  }
 	
@@ -65,11 +66,11 @@ public class DisplayListsFragment extends ListFragment{
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 	    AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo(); 
-	    int chosen = (Integer)menuInfo.targetView.findViewById(R.id.name).getTag();
 	    LocalDatabaseHandler db = new LocalDatabaseHandler(getActivity());
+	    int listId = lists.get(menuInfo.position).id;
 	    switch (item.getItemId()) {
 		  case 0:
-		    db.deleteShoppingList(chosen);
+		    db.deleteShoppingList(listId);
 		    updateView();
 		    return true;
 		    

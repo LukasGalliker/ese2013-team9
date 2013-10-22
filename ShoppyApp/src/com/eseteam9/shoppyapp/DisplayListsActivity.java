@@ -162,8 +162,6 @@ public class DisplayListsActivity extends FragmentActivity implements ActionBar.
 			return null;
 		}
 	}
-
-
 	
 	
 	//Options on Taskbar
