@@ -1,0 +1,53 @@
+package com.eseteam9.shoppyapp;
+
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+public class UserHandler {
+	private static SQLiteDatabase DB;
+	
+    private static final String TABLE_NAME = "users";
+    
+    private static final String KEY_ID = "id";
+    private static final String KEY_NAME = "name";
+    private static final String KEY_KEY = "key";
+    
+    public UserHandler(SQLiteDatabase DB) {
+    	UserHandler.DB = DB;
+    }
+    
+    public static void onCreate() {
+    	String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_NAME + "("
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME + " TEXT,"
+                + KEY_KEY + " TEXT" + ")";
+        DB.execSQL(CREATE_USERS_TABLE);
+    }
+    
+    public static void dropTable() {
+    	DB.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+    }
+    
+    public void addUser(String name, String key) {
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, name);
+        values.put(KEY_KEY, key);
+
+        DB.insert(TABLE_NAME, null, values);
+        DB.close();
+    }
+    
+    public static User getById(int id) {
+        Cursor cursor = DB.query(TABLE_NAME, new String[] { KEY_ID,
+                KEY_NAME, KEY_KEY }, KEY_ID + "=?",
+                new String[] { String.valueOf(id) }, null, null, null, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+ 
+        User user = new User(Integer.parseInt(cursor.getString(0)),
+                cursor.getString(1), cursor.getString(2));
+
+        return user;
+    }
+}

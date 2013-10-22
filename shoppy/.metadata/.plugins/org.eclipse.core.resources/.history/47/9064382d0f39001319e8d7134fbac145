@@ -1,0 +1,15 @@
+package com.eseteam9.shoppyapp;
+
+public class Item {
+	public final int id;
+	public final String name;
+	public final boolean bougth;
+	public final String timestamp;
+	
+	public Item(int id, String name, boolean bougth, String timestamp) {
+		this.id = id;
+		this.name = name;
+		this.bougth = bougth;
+		this.timestamp = timestamp;
+	}
+}
