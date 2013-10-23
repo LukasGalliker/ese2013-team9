@@ -73,8 +73,9 @@ public class DisplayListsFragment extends ListFragment{
 		    updateView();
 		    return true;
 		  case 1:
-			  Intent intent = new Intent(this.getActivity(), EditListActivity.class);
+			  Intent intent = new Intent(this.getActivity(), AddListActivity.class);
 			  intent.putExtra("LIST_ID", listId);
+			  intent.putExtra("LIST_NAME", listname);
 			  startActivity(intent);    
 		  default:
 		    return super.onContextItemSelected(item);
