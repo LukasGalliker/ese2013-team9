@@ -27,7 +27,7 @@ public class ItemHandler extends LocalDatabaseHandler{
     public static void createTable(SQLiteDatabase db) {
     	String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME + "("
     			+ KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_LIST_ID
-    			+ " INTEGER,"+ KEY_NAME + " TEXT," + KEY_QUANTITY + " INTEGER,"
+    			+ " INTEGER,"+ KEY_NAME + " TEXT," + KEY_QUANTITY + " TEXT,"
     			+ KEY_BOUGHT + " Integer," + KEY_TIMESTAMP
     			+ " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
     	db.execSQL(CREATE_TABLE);
@@ -57,21 +57,21 @@ public class ItemHandler extends LocalDatabaseHandler{
     }
     
     public List<Item> getListItems(int listId) {
-        List<Item> shoppingLists = new ArrayList<Item>();
+        List<Item> items = new ArrayList<Item>();
         
-        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " + KEY_LIST_ID + "=" + listId;
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " + KEY_LIST_ID + " = " + listId;
         
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
      
         if (cursor.moveToFirst()) {
             do {
-                shoppingLists.add(parseItem(cursor));
+                items.add(parseItem(cursor));
             } while (cursor.moveToNext());
         }
 
         db.close();
-        return shoppingLists;
+        return items;
     }
     
     public void checked(int id, boolean status) {
@@ -90,7 +90,7 @@ public class ItemHandler extends LocalDatabaseHandler{
     	return new Item(c.getInt(0),
     			c.getInt(1),
     			c.getString(2),
-    			c.getInt(3),
+    			c.getString(3),
                 c.getInt(4) == 1,
                 new Date(c.getLong(5)));
     }

@@ -60,7 +60,7 @@ public class AddListActivity extends Activity {
 				new ShoppingListHandler(this).update(this.listid, listname);
 		    
 		    //Switch to DisplayListsActivity
-		    Intent intent = new Intent(this, DisplayListsActivity.class);
+		    Intent intent = new Intent(this, MainActivity.class);
 		    startActivity(intent);
 	    } 
 	    else

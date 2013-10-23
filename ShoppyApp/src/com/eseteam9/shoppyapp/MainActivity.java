@@ -13,17 +13,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.ListView;
-import android.widget.Toast;
 
-public class DisplayListsActivity extends FragmentActivity implements ActionBar.TabListener {
+public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -109,7 +102,6 @@ public class DisplayListsActivity extends FragmentActivity implements ActionBar.
 			FragmentTransaction fragmentTransaction) {
 	}
 	
-	int backButtonCount = 0;
 	public void onBackPressed()
 	{
         Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -117,6 +109,7 @@ public class DisplayListsActivity extends FragmentActivity implements ActionBar.
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
 	}
+	
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
 	 * one of the sections/tabs/pages.

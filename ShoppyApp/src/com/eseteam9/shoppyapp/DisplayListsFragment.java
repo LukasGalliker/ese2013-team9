@@ -37,9 +37,6 @@ public class DisplayListsFragment extends ListFragment{
 		setListAdapter(adapter);
 	}
 	
-	
-	
-	
 	@Override
 	  public void onListItemClick(ListView l, View v, int position, long id) {
         Intent intent = new Intent(this.getActivity(), DisplayItemsActivity.class);
