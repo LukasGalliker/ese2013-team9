@@ -10,8 +10,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.RelativeLayout;
 
 public class DisplayItemsActivity extends Activity {
 	private int listId;
@@ -69,7 +72,7 @@ public class DisplayItemsActivity extends Activity {
 	    
 	    switch (item.getItemId()) {
 		  case 0:
-			  new ItemHandler(this).delete(itemId);
+			new ItemHandler(this).delete(itemId);
 		    updateView();
 		    return true;
 		    
@@ -83,6 +86,14 @@ public class DisplayItemsActivity extends Activity {
 		adapter.notifyDataSetChanged();
 	}
 	
+	public void checkItem(View view){
+		boolean status = ((CheckBox) view).isChecked();
+		ListView lv = (ListView) findViewById(R.id.itemoverview);
+		Item item = items.get(lv.getPositionForView(view));
+		int id = item.id;
+		new ItemHandler(this).checked(id, status);	
+		
+	}
 	
 	//Options on Taskbar
 	@Override

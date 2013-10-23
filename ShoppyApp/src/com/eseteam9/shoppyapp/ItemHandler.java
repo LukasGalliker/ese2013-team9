@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 public class ItemHandler extends LocalDatabaseHandler{
     public static final String TABLE_NAME = "items";
@@ -27,7 +28,7 @@ public class ItemHandler extends LocalDatabaseHandler{
     	String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME + "("
     			+ KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_LIST_ID
     			+ " INTEGER,"+ KEY_NAME + " TEXT," + KEY_QUANTITY + " INTEGER,"
-    			+ KEY_BOUGHT + " BOOLEAN," + KEY_TIMESTAMP
+    			+ KEY_BOUGHT + " Integer," + KEY_TIMESTAMP
     			+ " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
     	db.execSQL(CREATE_TABLE);
     }
@@ -43,7 +44,7 @@ public class ItemHandler extends LocalDatabaseHandler{
         values.put(KEY_NAME, item.name);
         values.put(KEY_LIST_ID, item.listId);
         values.put(KEY_QUANTITY, item.quantity);
-        values.put(KEY_BOUGHT, false);
+        values.put(KEY_BOUGHT, 0);
 
         db.insert(TABLE_NAME, null, values);
         db.close();
@@ -73,17 +74,24 @@ public class ItemHandler extends LocalDatabaseHandler{
         return shoppingLists;
     }
     
-    public void update(Item item) {
-    	delete(item.id);
-    	add(item);
-    }
+    public void checked(int id, boolean status) {
+    	  SQLiteDatabase db = this.getWritableDatabase();
+    	  //db.update(TABLE_SHOPPING_LISTS, null, S_KEY_ID+ "="+ id, null);
+    	  int bool=0;
+    	  if (status)
+    	  	bool = 1;
+    	  	
+    	  SQLiteStatement stmt = db.compileStatement("UPDATE " + TABLE_NAME + " SET " + KEY_BOUGHT + " = " + bool + " WHERE "+ KEY_ID +" = "+ id );
+    	  stmt.execute();
+    	  db.close();
+      }
     
     private Item parseItem(Cursor c) {
     	return new Item(c.getInt(0),
     			c.getInt(1),
     			c.getString(2),
     			c.getInt(3),
-                c.getString(4) == "TRUE" ? true : false,
+                c.getInt(4) == 1,
                 new Date(c.getLong(5)));
     }
 }

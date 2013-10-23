@@ -11,12 +11,12 @@
     <string name="title_section2">Notifications</string>
     <string name="add_list">Add List</string>
     <string name="add_a_list">Add List:</string>
-    <string name="title_activity_add_list">AddListActivity</string>
+    <string name="title_activity_add_list">Add List</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_display_items">DisplayItemsActivity</string>
+    <string name="title_activity_display_items">Items</string>
     <string name="title_activity_add_item">Add Item</string>
     <string name="add_a_item">Add Item:</string>
-    <string name="title_activity_edit_list">EditListActivity</string>
+    <string name="title_activity_edit_list">Edit List</string>
     <string name = "edit_list">Edit List</string>
 
 </resources>

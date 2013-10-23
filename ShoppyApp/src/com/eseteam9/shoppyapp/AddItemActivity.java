@@ -29,7 +29,7 @@ public class AddItemActivity extends Activity {
 	//Called when Savebutton is pressed
 	public void addItem(View view){
 
-	    EditText editTextName = (EditText) findViewById(R.id.item_add);
+	    EditText editTextName = (EditText) findViewById(R.id.item_name);
 	    String itemname = editTextName.getText().toString();
 
 	    EditText editTextQuantity = (EditText) findViewById(R.id.quantity);
