@@ -15,34 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/nickname"
         android:textColor="@color/black"
-        android:text="@string/nickname"
+        android:text="@string/enter_nickname"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
-    
-    <EditText
-        android:id="@+id/nickname"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:ems="10"
-        android:textColor="@color/black"
-        android:inputType="textPersonName" 
-        android:layout_toLeftOf="@+id/button1" >
-        
-
-        <requestFocus />
-    </EditText>
-
-    <Button
-        android:id="@+id/button1"
-        android:text="@string/save" 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        style="?android:attr/buttonStyleSmall"
-        android:onClick="createDatabase"
-        />
 
     <TextView
         android:id="@+id/textView2"
@@ -61,6 +35,31 @@
         android:layout_alignRight="@+id/textView2"
         android:layout_below="@+id/textView2"
         android:layout_marginTop="16dp"
-        android:src="@drawable/shoppingcart" />
+        android:src="@drawable/shoppingcart"
+		android:contentDescription="@string/shoppingcart" />
+
+    <EditText
+        android:id="@+id/nickname"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/button1"
+        android:ems="10"
+        android:hint="@string/nickname"
+        android:inputType="textPersonName"
+        android:textColor="@color/black" />
+
+    <Button
+        android:id="@+id/button1"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView1"
+        android:gravity="center"
+        android:onClick="createDatabase"
+        android:text="@string/save" />
 
 </RelativeLayout>

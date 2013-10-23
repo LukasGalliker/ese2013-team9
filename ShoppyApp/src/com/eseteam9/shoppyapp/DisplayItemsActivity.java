@@ -11,14 +11,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.RelativeLayout;
 
 public class DisplayItemsActivity extends Activity {
 	private int listId;
-	private ListItemAdapter adapter;
+	private ItemAdapter adapter;
 	private List<Item> items; 
 	
 	@Override
@@ -38,7 +36,7 @@ public class DisplayItemsActivity extends Activity {
 		
 		//Create Adapter
 		this.items = new ItemHandler(this).getListItems(this.listId);
-		this.adapter = new ListItemAdapter(this, R.id.itemoverview,  this.items);
+		this.adapter = new ItemAdapter(this, R.id.itemoverview,  this.items);
 		lv.setAdapter(adapter);
 	}
 
@@ -68,7 +66,6 @@ public class DisplayItemsActivity extends Activity {
 	public boolean onContextItemSelected(MenuItem item) {
 	    AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo(); 
 	    int itemId = items.get(menuInfo.position).id;
-	    LocalDatabaseHandler db = new LocalDatabaseHandler(this);
 	    
 	    switch (item.getItemId()) {
 		  case 0:
@@ -93,6 +90,12 @@ public class DisplayItemsActivity extends Activity {
 		int id = item.id;
 		new ItemHandler(this).checked(id, status);	
 		
+	}
+	
+	public void onBackPressed()
+	{
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);  
 	}
 	
 	//Options on Taskbar

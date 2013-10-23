@@ -13,11 +13,11 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-public class ListItemAdapter extends ArrayAdapter<Item> {
+public class ItemAdapter extends ArrayAdapter<Item> {
     private List<Item> items;
     private Activity activity;
     
-    public ListItemAdapter(Activity a, int textViewResourceId, List<Item> items){
+    public ItemAdapter(Activity a, int textViewResourceId, List<Item> items){
     	super(a, textViewResourceId, items);
         this.items = items;
         this.activity = a;
@@ -33,16 +33,20 @@ public class ListItemAdapter extends ArrayAdapter<Item> {
  
         Item item = items.get(position);
         if (item != null) {
-            TextView itemView = (TextView) v.findViewById(R.id.name);
-            if (itemView != null) {
-                itemView.setText(item.name);
+            TextView name = (TextView) v.findViewById(R.id.itemName);
+            if (name != null) {
+            	name.setText(item.name);
             }
-            CheckBox itemView2 = (CheckBox) v.findViewById(R.id.status);
-            if (itemView2 != null) {
+            TextView quantity = (TextView) v.findViewById(R.id.quantityText);
+            if (quantity != null) {
+            	quantity.setText(item.quantity);
+            }
+            CheckBox CheckBought = (CheckBox) v.findViewById(R.id.status);
+            if (CheckBought != null) {
             	if (item.bought)
-            		itemView2.setChecked(true);
+            		CheckBought.setChecked(true);
             	else
-            		itemView2.setChecked(false);	
+            		CheckBought.setChecked(false);	
             }
         }
         return v;

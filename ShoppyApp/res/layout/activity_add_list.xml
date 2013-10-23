@@ -18,26 +18,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/black" />
 
-    <TextView
-        android:id="@+id/name_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/add_textview"
-        android:text="Name:"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <EditText
-        android:id="@+id/list_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/name_textView"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textColor="@color/black" />
-
     <Button
         android:id="@+id/button1"
         style="?android:attr/buttonStyleSmall"
@@ -48,5 +28,20 @@
         android:gravity="center"
         android:onClick="manageList"
         android:text="@string/save" />
+
+    <EditText
+        android:id="@+id/list_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/add_textview"
+        android:ems="10"
+        android:hint="@string/listname"
+        android:inputType="textPersonName"
+        android:textColor="@color/black" >
+
+		<requestFocus />
+    </EditText>
 
 </RelativeLayout>

@@ -20,7 +20,7 @@ public class WelcomeScreen extends Activity {
         setContentView(R.layout.activity_welcome_screen);
         //Checks if database of program exists, otherwise continues to DisplayLists
         if (new UserHandler(this).existsUser()){
-            Intent intent = new Intent(this, DisplayListsActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
     	    startActivity(intent);
         }
     }
@@ -48,7 +48,7 @@ public class WelcomeScreen extends Activity {
 		    new UserHandler(this).add(new User(nickname, myNumber));
 	        
 	        //Switch to DisplayListActivity
-	        Intent intent = new Intent(this, DisplayListsActivity.class);
+	        Intent intent = new Intent(this, MainActivity.class);
 		    startActivity(intent);
 		}
 	}

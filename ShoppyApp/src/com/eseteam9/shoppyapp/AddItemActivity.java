@@ -35,12 +35,20 @@ public class AddItemActivity extends Activity {
 	    EditText editTextQuantity = (EditText) findViewById(R.id.quantity);
 	    String quantity = editTextQuantity.getText().toString();
 		
+	    EditText editTextUnit = (EditText) findViewById(R.id.unit);
+	    String unit = editTextUnit.getText().toString();
+	    
+	    //Check and Convert quantity
+		if (quantity.length() == 0)
+			quantity = "1";
+		
+		quantity = quantity + " " + unit;
 		//Check if List has name or already exists
 		if (itemname.length() == 0)
 	    	Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT).show();
 		else{
 		    //Add Entry in DB
-		    new ItemHandler(this).add(new Item(itemname, this.listId, Integer.parseInt(quantity)));
+		    new ItemHandler(this).add(new Item(itemname, quantity, this.listId));
 		    
 		    //Switch to DisplayItemsActivity
 		    Intent intent = new Intent(this, DisplayItemsActivity.class);
