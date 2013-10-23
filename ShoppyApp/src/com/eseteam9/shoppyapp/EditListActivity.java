@@ -34,8 +34,8 @@ public class EditListActivity extends Activity {
 		if (listname.length() == 0)
 	    	Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT).show();
 		else if (!new ShoppingListHandler(this).existsEntry(listname)){
-		    //Add Entry in DB
-		    new ShoppingListHandler(this).update(listid, listname);
+		    //Update Entry in DB
+		    new ShoppingListHandler(this).update(this.listid, listname);
 		    
 		    //Switch to DisplayListsActivity
 		    Intent intent = new Intent(this, DisplayListsActivity.class);

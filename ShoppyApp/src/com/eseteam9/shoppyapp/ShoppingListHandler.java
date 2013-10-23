@@ -99,7 +99,7 @@ public class ShoppingListHandler extends LocalDatabaseHandler{
     public void update(int id,String name) {
   	  SQLiteDatabase db = this.getWritableDatabase();
   	  //db.update(TABLE_SHOPPING_LISTS, null, S_KEY_ID+ "="+ id, null);
-  	  SQLiteStatement stmt = db.compileStatement("UPDATE TABLE_SHOPPING_LISTS  SET S_KEY_TITLE = name WHERE S_KEY_ID = id ");
+  	  SQLiteStatement stmt = db.compileStatement("UPDATE " + TABLE_NAME + " SET " + KEY_TITLE + " = '" + name + "' WHERE "+ KEY_ID +" = "+ id );
   	  stmt.execute();
   	  db.close();
     }
