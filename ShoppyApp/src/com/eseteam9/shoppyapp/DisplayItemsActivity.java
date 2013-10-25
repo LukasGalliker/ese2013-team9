@@ -83,6 +83,7 @@ public class DisplayItemsActivity extends Activity {
 		adapter.notifyDataSetChanged();
 	}
 	
+	//When checked an item
 	public void checkItem(View view){
 		boolean status = ((CheckBox) view).isChecked();
 		ListView lv = (ListView) findViewById(R.id.itemoverview);
@@ -92,6 +93,7 @@ public class DisplayItemsActivity extends Activity {
 		
 	}
 	
+	//Backbutton is pressed
 	public void onBackPressed()
 	{
 		Intent intent = new Intent(this, MainActivity.class);

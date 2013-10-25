@@ -28,8 +28,6 @@ public class AddListActivity extends Activity {
 		if (this.listid!=0){
 			this.listname = intent.getStringExtra("LIST_NAME");
 			EditText editName = (EditText) findViewById(R.id.list_name);
-			TextView title = (TextView) findViewById(R.id.add_textview);
-			title.setText("Edit Listname:");
 			editName.setText(this.listname);
 			editName.setSelection(editName.getText().length());
 			this.setTitle("Edit " + this.listname);

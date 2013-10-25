@@ -1,5 +1,6 @@
 package com.eseteam9.shoppyapp;
 
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.*;
 
 public class DisplayListsFragment extends ListFragment{
 	/**
@@ -19,8 +21,10 @@ public class DisplayListsFragment extends ListFragment{
 	 * fragment.
 	 */
 	public static final String ARG_SECTION_NUMBER = "section_number";
-	private ShoppingListAdapter adapter;
+	private ExpandableListAdapter adapter;
 	private List<ShoppingList> lists; 
+	private HashMap<ShoppingList, List<Item>> content = new HashMap<ShoppingList, List<Item>>();
+	
 	
 	public DisplayListsFragment() {
 	}
@@ -29,12 +33,16 @@ public class DisplayListsFragment extends ListFragment{
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		ListView lv = getListView();
+		ExpandableListView lv = (ExpandableListView) getListView();
 		registerForContextMenu(lv);
 		lv.setClickable(true);
 		this.lists = new ShoppingListHandler(getActivity()).getAll();
-		this.adapter = new ShoppingListAdapter(getActivity(), R.id.listoverview,  this.lists);
-		setListAdapter(adapter);
+		for (ShoppingList l : this.lists){
+			this.content.put(l, new ItemHandler(getActivity()).getListItems(l.id));
+		}
+			
+		this.adapter = new ExpandableListAdapter(getActivity(), this.lists,  this.content);
+		lv.setAdapter(adapter);
 	}
 	
 	@Override
@@ -80,8 +88,6 @@ public class DisplayListsFragment extends ListFragment{
 	}
 	
 	public void updateView(){
-		adapter.clear();
-		adapter.addAll(new ShoppingListHandler(getActivity()).getAll());
 		adapter.notifyDataSetChanged();
 	}
 	

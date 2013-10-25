@@ -23,5 +23,6 @@
     <string name ="listname">Listname</string>
     <string name ="quantity">Quantity</string>
     <string name ="unit">Unit</string>
+    <string name ="itemname">Itemname</string>
 
 </resources>
