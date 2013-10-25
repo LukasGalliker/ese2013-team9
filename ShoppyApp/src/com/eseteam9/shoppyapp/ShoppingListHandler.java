@@ -104,6 +104,14 @@ public class ShoppingListHandler extends LocalDatabaseHandler{
   	  db.close();
     }
     
+    public int getCount() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        db.close();
+        return cursor.getCount();
+    }
+    
     private ShoppingList parseShoppingList(Cursor c) {
     	return new ShoppingList(c.getInt(0),
     			c.getString(1),
