@@ -32,7 +32,7 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingList> {
  
         ShoppingList list = lists.get(position);
         if (list != null) {
-            TextView itemView = (TextView) v.findViewById(R.id.Listname);
+            TextView itemView = (TextView) v.findViewById(R.id.listname);
             if (itemView != null) {
                 itemView.setText(list.title);
             }

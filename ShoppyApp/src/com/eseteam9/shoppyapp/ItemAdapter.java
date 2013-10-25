@@ -3,6 +3,7 @@ package com.eseteam9.shoppyapp;
 import java.util.List;
 
 import com.eseteam9.shoppyapp.R;
+import com.eseteam9.shoppyapp.R.color;
 
 import android.app.Activity;
 import android.content.Context;
@@ -33,7 +34,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
  
         Item item = items.get(position);
         if (item != null) {
-            TextView name = (TextView) v.findViewById(R.id.itemName);
+            TextView name = (TextView) v.findViewById(R.id.itemname);
             if (name != null) {
             	name.setText(item.name);
             }
@@ -43,8 +44,9 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             }
             CheckBox CheckBought = (CheckBox) v.findViewById(R.id.status);
             if (CheckBought != null) {
-            	if (item.bought)
+            	if (item.bought){
             		CheckBought.setChecked(true);
+            	}	
             	else
             		CheckBought.setChecked(false);	
             }
