@@ -27,7 +27,7 @@ public class ShoppingListHandler extends LocalDatabaseHandler{
         String CREATE_SHOPPING_LISTS_TABLE = "CREATE TABLE "+ TABLE_NAME + "("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
         		+ KEY_TITLE + " TEXT, " + KEY_OWNER + " TEXT,"
-                + KEY_ARCHIVED + " BOOELAN, " + KEY_TIMESTAMP
+                + KEY_ARCHIVED + " INTEGER," + KEY_TIMESTAMP
                 + "DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
         db.execSQL(CREATE_SHOPPING_LISTS_TABLE);
     }
@@ -42,7 +42,7 @@ public class ShoppingListHandler extends LocalDatabaseHandler{
         ContentValues values = new ContentValues();
         values.put(KEY_TITLE, shoppingList.title);
         values.put(KEY_OWNER, shoppingList.owner);
-        values.put(KEY_ARCHIVED, shoppingList.archived ? "TRUE" : "FALSE");
+        values.put(KEY_ARCHIVED, shoppingList.archived ? 1 : 0);
 
         db.insert(TABLE_NAME, null, values);
         db.close();
@@ -106,17 +106,19 @@ public class ShoppingListHandler extends LocalDatabaseHandler{
     
     public int getCount() {
         SQLiteDatabase db = this.getWritableDatabase();
-        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
+        String selectQuery = "SELECT * FROM " + TABLE_NAME;
         Cursor cursor = db.rawQuery(selectQuery, null);
+        
+        int returnInt = cursor.getCount();
         db.close();
-        return cursor.getCount();
+        return returnInt;
     }
     
     private ShoppingList parseShoppingList(Cursor c) {
     	return new ShoppingList(c.getInt(0),
     			c.getString(1),
     			c.getString(2),
-                c.getString(3) == "TRUE" ? true : false,
+                c.getInt(3) == 1,
                 new Date(c.getLong(4)));
     }
 }

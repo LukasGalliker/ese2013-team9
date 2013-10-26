@@ -28,7 +28,7 @@ public class ItemHandler extends LocalDatabaseHandler{
     	String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME + "("
     			+ KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_LIST_ID
     			+ " INTEGER,"+ KEY_NAME + " TEXT," + KEY_QUANTITY + " TEXT,"
-    			+ KEY_BOUGHT + " Integer," + KEY_TIMESTAMP
+    			+ KEY_BOUGHT + " INTEGER," + KEY_TIMESTAMP
     			+ " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
     	db.execSQL(CREATE_TABLE);
     }
@@ -76,30 +76,30 @@ public class ItemHandler extends LocalDatabaseHandler{
     
     public void checked(int id, boolean status) {
     	  SQLiteDatabase db = this.getWritableDatabase();
-    	  //db.update(TABLE_SHOPPING_LISTS, null, S_KEY_ID+ "="+ id, null);
-    	  int bool=0;
-    	  if (status)
-    	  	bool = 1;
-    	  	
-    	  SQLiteStatement stmt = db.compileStatement("UPDATE " + TABLE_NAME + " SET " + KEY_BOUGHT + " = " + bool + " WHERE "+ KEY_ID +" = "+ id );
+    	  //db.update(TABLE_SHOPPING_LISTS, null, S_KEY_ID+ "="+ id, null);	
+    	  SQLiteStatement stmt = db.compileStatement("UPDATE " + TABLE_NAME + " SET " + KEY_BOUGHT + " = " + (status ? 1 : 0) + " WHERE "+ KEY_ID +" = "+ id );
     	  stmt.execute();
     	  db.close();
     }
     
     public int getCount() {
         SQLiteDatabase db = this.getWritableDatabase();
-        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
+        String selectQuery = "SELECT * FROM " + TABLE_NAME;
         Cursor cursor = db.rawQuery(selectQuery, null);
+        
+        int returnInt = cursor.getCount();
         db.close();
-        return cursor.getCount();
+        return returnInt;
     }
     
     public int getCountUnbought() {
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " + KEY_BOUGHT + " = " + 0;
         Cursor cursor = db.rawQuery(selectQuery, null);
+
+        int returnInt = cursor.getCount();
         db.close();
-        return cursor.getCount();
+        return returnInt;
     }
     
     private Item parseItem(Cursor c) {
