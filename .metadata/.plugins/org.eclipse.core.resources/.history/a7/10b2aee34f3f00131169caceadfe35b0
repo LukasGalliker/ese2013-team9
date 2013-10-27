@@ -1,0 +1,29 @@
+package com.eseteam9.shoppyapp.tests;
+
+import com.eseteam9.shoppyapp.*;
+
+import android.content.Context;
+
+public class UserHandlerTest extends EmulatorTestclass {
+	private Context context;
+	private User user;
+	
+	public UserHandlerTest(Context context){
+		super("DatabaseTest");
+		this.context = context;
+	}
+	
+	protected void setUp(){
+		user = new User("fred", "aj52h4v");
+	}
+	
+	public void run(){super.run();
+		caseCreateHandler();
+	reportAndEnd();}
+	
+	private void caseCreateHandler() {startCase("new Handlers");
+		try {
+			new UserHandler(context);
+		trySucceeded();} catch (Exception e) {tryFailed(e);}
+	endCase();}
+}

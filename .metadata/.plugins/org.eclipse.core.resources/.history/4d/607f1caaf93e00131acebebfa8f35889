@@ -1,0 +1,25 @@
+package com.eseteam9.shoppyapp.tests;
+
+import com.eseteam9.shoppyapp.Item;
+import com.eseteam9.shoppyapp.ShoppingList;
+import com.eseteam9.shoppyapp.User;
+
+import junit.framework.TestCase;
+
+public class DatabaseTests extends TestCase {
+	private User user;
+	private ShoppingList shoppingList;	
+	private Item item;
+	
+	public DatabaseTests(){
+		super("DatabaseTestcases");
+	}
+	
+	protected void setUp() throws Exception {
+		super.setUp();
+		
+		user = new User("fred", "aj52h4v");
+		shoppingList = new ShoppingList("dinner", "fred");
+		item = new Item("toast", "1 kg", 0);
+	}
+}

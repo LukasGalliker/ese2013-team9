@@ -1,0 +1,7 @@
+package com.eseteam9.shoppyapp;
+
+import static org.junit.Assert.*;
+
+public class DatabaseTestclass {
+
+}

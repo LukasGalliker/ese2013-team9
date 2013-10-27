@@ -1,6 +1,7 @@
 package com.eseteam9.shoppyapp;
 
 import com.eseteam9.shoppyapp.R;
+import com.eseteam9.shoppyapp.tests.*;
 
 import android.app.Activity;
 import android.content.Context;
@@ -23,6 +24,8 @@ public class WelcomeScreen extends Activity {
             Intent intent = new Intent(this, MainActivity.class);
     	    startActivity(intent);
         }
+        
+        //new DatabaseTests(this);
     }
 
 	@Override

@@ -1,0 +1,19 @@
+package com.eseteam9.shoppyapp.tests;
+
+import junit.framework.Assert;
+
+public abstract class EmulatorTestclass {
+	public final String testTitle;
+	
+	public EmulatorTestclass(String testTitle) {
+		this.testTitle = testTitle;
+	}
+	
+	public void run(){
+		System.out.println(": TITLE ." + testTitle);
+	}
+	
+	protected void startTest(String testName) {
+		System.out.println(": NAME ." + testName);
+	}
+}

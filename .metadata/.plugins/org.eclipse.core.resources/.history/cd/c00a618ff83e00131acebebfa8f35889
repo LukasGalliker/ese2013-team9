@@ -1,0 +1,16 @@
+package com.eseteam9.shoppyapp.tests;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
+public class DatabaseTests {
+
+	public static Test suite() {
+		TestSuite suite = new TestSuite(DatabaseTests.class.getName());
+		//$JUnit-BEGIN$
+
+		//$JUnit-END$
+		return suite;
+	}
+
+}

@@ -1,0 +1,12 @@
+package com.eseteam9.shoppyapp.tests;
+
+import android.content.Context;
+
+public class DatabaseTests{
+	public DatabaseTests(Context context){
+		if(
+			new UserHandlerTest(context).run() &
+			new ShoppingListHandlerTest(context).run()
+		) System.out.println("test: FINAL RESULT OK"); else System.out.println("test: FINAL RESULT FAIL");
+	}
+}

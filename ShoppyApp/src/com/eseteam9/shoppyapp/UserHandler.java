@@ -38,18 +38,16 @@ public class UserHandler extends LocalDatabaseHandler{
         db.close();
     }
     
-    public User get(int id) {
+    public User get() {
     	SQLiteDatabase db = this.getWritableDatabase();
- 
-        Cursor cursor = db.query(TABLE_NAME, new String[] { KEY_ID,
-                KEY_NAME, KEY_KEY }, KEY_ID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null, null);
 
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        
         if (cursor != null)
             cursor.moveToFirst();
  
-        User user = new User(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2));
+        User user = parseUser(cursor);
 
         db.close();
         return user;
@@ -64,5 +62,11 @@ public class UserHandler extends LocalDatabaseHandler{
         	return true;
         db.close();
         return false;
+    }
+    
+    private User parseUser(Cursor c){
+    	return new User(Integer.parseInt(c.getString(0)),
+                c.getString(1),
+                c.getString(2));
     }
 }

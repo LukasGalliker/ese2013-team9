@@ -1,0 +1,27 @@
+package com.eseteam9.shoppyapp.tests;
+
+import com.eseteam9.shoppyapp.*;
+
+import android.content.Context;
+
+public class ShoppingListHandlerTest extends EmulatorTestclass {
+	private Context context;
+	private ShoppingList[] shoppingLists;
+	
+	public ShoppingListHandlerTest(Context context){
+		super("ShoppingListHandler-test");
+		this.context = context;
+	}
+	
+	protected void setUp(){
+		shoppingLists = new ShoppingList[] {new ShoppingList("","")};
+	}
+	
+	public void run(){start();
+		caseCreateHandler();
+		caseExistsUserWithNoEntry();
+		caseAddUser();
+		caseExistsUserWithEntry();
+		caseGetUser();
+	reportAndEnd();}
+}

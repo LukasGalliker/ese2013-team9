@@ -1,9 +1,6 @@
 package com.eseteam9.shoppyapp;
 
-import java.util.List;
-
 import com.eseteam9.shoppyapp.R;
-import com.eseteam9.shoppyapp.R.color;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,10 +12,10 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 public class ItemAdapter extends ArrayAdapter<Item> {
-    private List<Item> items;
+    private Item[] items;
     private Activity activity;
     
-    public ItemAdapter(Activity a, int textViewResourceId, List<Item> items){
+    public ItemAdapter(Activity a, int textViewResourceId, Item[] items){
     	super(a, textViewResourceId, items);
         this.items = items;
         this.activity = a;
@@ -32,7 +29,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             v = vi.inflate(R.layout.item_row, null);
         }
  
-        Item item = items.get(position);
+        Item item = items[position];
         if (item != null) {
             TextView name = (TextView) v.findViewById(R.id.itemname);
             if (name != null) {
