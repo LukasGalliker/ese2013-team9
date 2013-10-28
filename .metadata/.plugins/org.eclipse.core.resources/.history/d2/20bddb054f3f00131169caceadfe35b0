@@ -1,0 +1,89 @@
+package com.eseteam9.shoppyapp.tests;
+
+import com.eseteam9.shoppyapp.*;
+import android.content.Context;
+
+public class DatabaseTests extends EmulatorTestclass {
+	private Context context;
+	
+	private User user;
+	private ShoppingList shoppingList;	
+	private Item item;
+	
+	private UserHandler uHandler;
+	private ShoppingListHandler sHandler;
+	private ItemHandler iHandler;
+	
+	public DatabaseTests(Context context){
+		super("DatabaseTest");
+		this.context = context;
+	}
+	
+	protected void setUp(){
+		user = new User("fred", "aj52h4v");
+		shoppingList = new ShoppingList("dinner", "fred");
+		item = new Item("toast", "1 kg", 0);
+	}
+	
+	public void run(){super.run();
+		
+		caseNewHandlers();
+		caseAddEntries();
+		caseUserHandler();
+		caseShoppingListHandler();
+		caseItemHandler();
+		
+	reportAndEnd();}
+	
+	private void caseNewHandlers() {startCase("new Handlers");
+		
+		try {
+			uHandler = new UserHandler(context);
+		trySucceeded();} catch (Exception e) {tryFailed(e);}
+		try {
+			sHandler = new ShoppingListHandler(context);
+		trySucceeded();} catch (Exception e) {tryFailed(e);}
+		try {
+			iHandler = new ItemHandler(context);
+		trySucceeded();} catch (Exception e) {tryFailed(e);}
+		
+	endCase();}
+	
+	private void caseAddEntries() {startCase("add entries");
+		
+		try {
+			uHandler.add(user);
+		trySucceeded();} catch (Exception e) {tryFailed(e);} try {
+			sHandler.add(shoppingList);
+		trySucceeded();} catch (Exception e) {tryFailed(e);} try {
+			iHandler.add(item);
+		trySucceeded();} catch (Exception e) {tryFailed(e);}
+		
+	endCase();}
+	
+	private void caseUserHandler() {startCase("user handler");
+		
+		try {
+			new UserHandler(context).existsUser();
+		trySucceeded();} catch (Exception e) {tryFailed(e);} try {
+			new UserHandler(context).get();
+		trySucceeded();} catch (Exception e) {tryFailed(e);}
+		
+	endCase();}
+	
+	private void caseShoppingListHandler() {startCase("shoppingList handler");
+	
+		try {
+			//new ShoppingListHandler(context).existsEntry("lol");
+		trySucceeded();} catch (Exception e) {tryFailed(e);}
+	
+	endCase();}
+	
+	private void caseItemHandler() {startCase("item handler");
+	
+		try {
+			//new ItemHandler(context);
+		trySucceeded();} catch (Exception e) {tryFailed(e);}
+	
+	endCase();}
+}

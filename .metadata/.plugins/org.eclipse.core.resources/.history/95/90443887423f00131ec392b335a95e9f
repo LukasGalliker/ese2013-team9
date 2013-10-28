@@ -1,0 +1,39 @@
+package com.eseteam9.shoppyapp.tests;
+
+import junit.framework.TestCase;
+import com.eseteam9.shoppyapp.*;
+import android.support.v4.app.FragmentActivity;
+
+public class DatabaseTests extends TestCase {
+	private User user;
+	private ShoppingList shoppingList;	
+	private Item item;
+	
+	private UserHandler uHandler;
+	private ShoppingListHandler sHandler;
+	private ItemHandler iHandler;
+	
+	public DatabaseTests(){
+		super("DatabaseTests");
+	}
+	
+	protected void setUp() throws Exception {
+		super.setUp();
+		
+		user = new User("fred", "aj52h4v");
+		shoppingList = new ShoppingList("dinner", "fred");
+		item = new Item("toast", "1 kg", 0);
+		
+		FragmentActivity context = new FragmentActivity();
+		
+		uHandler = new UserHandler(context);
+		sHandler = new ShoppingListHandler(context);
+		iHandler = new ItemHandler(context);
+	}
+	
+	// USER
+	
+	public void run(){
+		uHandler.add(user);
+	}
+}

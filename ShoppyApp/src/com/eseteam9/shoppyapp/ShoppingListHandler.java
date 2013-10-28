@@ -1,7 +1,5 @@
 package com.eseteam9.shoppyapp;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
 
 import android.content.ContentValues;
@@ -63,40 +61,29 @@ public class ShoppingListHandler extends LocalDatabaseHandler{
         	return true;
         db.close();
         return false;
-    }    
-
-    public ShoppingList get(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        
-        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " + KEY_ID + " = " + String.valueOf(id);
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        db.close();
-        return parseShoppingList(cursor);
     }
     
-    public List<ShoppingList> getAll() {
-        List<ShoppingList> shoppingLists = new ArrayList<ShoppingList>();
-        
+    public ShoppingList[] getAll() {
         String selectQuery = "SELECT  * FROM " + TABLE_NAME;
         
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
+        
+        ShoppingList returnArray[] = new ShoppingList[cursor.getCount()];
      
         if (cursor.moveToFirst()) {
+        	int i = 0;
             do {
-                shoppingLists.add(parseShoppingList(cursor));
+                returnArray[i] = parseShoppingList(cursor);
+                i++;
             } while (cursor.moveToNext());
         }
 
         db.close();
-        return shoppingLists;
+        return returnArray;
     }
     
-    public void update(int id,String name) {
+    public void update(int id, String name) {
   	  SQLiteDatabase db = this.getWritableDatabase();
   	  //db.update(TABLE_SHOPPING_LISTS, null, S_KEY_ID+ "="+ id, null);
   	  SQLiteStatement stmt = db.compileStatement("UPDATE " + TABLE_NAME + " SET " + KEY_TITLE + " = '" + name + "' WHERE "+ KEY_ID +" = "+ id );

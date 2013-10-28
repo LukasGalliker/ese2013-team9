@@ -1,0 +1,62 @@
+package com.eseteam9.shoppyapp.tests;
+
+import com.eseteam9.shoppyapp.*;
+import android.support.v4.app.FragmentActivity;
+
+public class DatabaseTests extends EmulatorTestclass {
+	private FragmentActivity context;
+	
+	private User user;
+	private ShoppingList shoppingList;	
+	private Item item;
+	
+	private UserHandler uHandler;
+	private ShoppingListHandler sHandler;
+	private ItemHandler iHandler;
+	
+	public DatabaseTests(){
+		super("DatabaseTests");
+	}
+	
+	protected void setUp(){
+		user = new User("fred", "aj52h4v");
+		shoppingList = new ShoppingList("dinner", "fred");
+		item = new Item("toast", "1 kg", 0);
+		context = new FragmentActivity();
+	}
+	
+	public void run(){
+		super.run();
+		
+		caseNewHandlers();
+		caseAddEntries();
+		
+		reportAndEnd();
+	}
+	
+	private void caseNewHandlers() {
+		startCase("new Handlers");
+		
+		try {
+			uHandler = new UserHandler(context);
+		trySucceeded();} catch (Exception e) {tryFailed();}
+		try {
+			sHandler = new ShoppingListHandler(context);
+		trySucceeded();} catch (Exception e) {tryFailed();}
+		try {
+			iHandler = new ItemHandler(context);
+		trySucceeded();} catch (Exception e) {tryFailed();}
+		
+		endCase();
+	}
+	
+	private void caseAddEntries() {
+		startCase("add entries");
+		
+		try {
+			uHandler.add(user);
+		trySucceeded();} catch (Exception e) {tryFailed();}
+		
+		endCase();
+	}
+}

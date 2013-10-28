@@ -1,0 +1,7 @@
+package com.eseteam9.shoppyapp.tests;
+
+import junit.framework.TestCase;
+
+public class DatabaseTests extends TestCase {
+
+}

@@ -1,7 +1,5 @@
 package com.eseteam9.shoppyapp;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
 
 import android.content.ContentValues;
@@ -56,22 +54,26 @@ public class ItemHandler extends LocalDatabaseHandler{
         db.close();
     }
     
-    public List<Item> getListItems(int listId) {
-        List<Item> items = new ArrayList<Item>();
+    public Item[] getListItems(int listId) {
+        //List<Item> items = new ArrayList<Item>();
         
         String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " + KEY_LIST_ID + " = " + listId + " ORDER BY " + KEY_BOUGHT;
         
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
      
+        Item returnArray[] = new Item[cursor.getCount()];
+        
         if (cursor.moveToFirst()) {
+        	int i = 0;
             do {
-                items.add(parseItem(cursor));
+            	i++;
+            	returnArray[i] = parseItem(cursor);
             } while (cursor.moveToNext());
         }
 
         db.close();
-        return items;
+        return returnArray;
     }
     
     public void checked(int id, boolean status) {

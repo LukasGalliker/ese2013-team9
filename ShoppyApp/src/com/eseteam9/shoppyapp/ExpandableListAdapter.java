@@ -1,7 +1,6 @@
 package com.eseteam9.shoppyapp;
 
 import java.util.HashMap;
-import java.util.List;
  
 import android.content.Context;
 import android.graphics.Typeface;
@@ -14,12 +13,12 @@ import android.widget.TextView;
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
  
     private Context context;
-    private List<ShoppingList> listDataHeader; // header titles
+    private ShoppingList[] listDataHeader; // header titles
     // child data in format of header title, child title
-    private HashMap<ShoppingList, List<Item>> listDataChild;
+    private HashMap<ShoppingList, Item[]> listDataChild;
  
-    public ExpandableListAdapter(Context context, List<ShoppingList> listDataHeader,
-            HashMap<ShoppingList, List<Item>> listChildData) {
+    public ExpandableListAdapter(Context context, ShoppingList[] listDataHeader,
+            HashMap<ShoppingList, Item[]> listChildData) {
         this.context = context;
         this.listDataHeader = listDataHeader;
         this.listDataChild = listChildData;
@@ -27,8 +26,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
  
     @Override
     public Object getChild(int groupPosition, int childPosititon) {
-        return this.listDataChild.get(this.listDataHeader.get(groupPosition))
-                .get(childPosititon);
+        return this.listDataChild.get(this.listDataHeader[groupPosition])
+                [childPosititon];
     }
  
     @Override
@@ -57,18 +56,18 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
  
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this.listDataChild.get(this.listDataHeader.get(groupPosition))
-                .size();
+        return this.listDataChild.get(this.listDataHeader[groupPosition])
+                .length;
     }
  
     @Override
     public Object getGroup(int groupPosition) {
-        return this.listDataHeader.get(groupPosition);
+        return this.listDataHeader[groupPosition];
     }
  
     @Override
     public int getGroupCount() {
-        return this.listDataHeader.size();
+        return this.listDataHeader.length;
     }
  
     @Override

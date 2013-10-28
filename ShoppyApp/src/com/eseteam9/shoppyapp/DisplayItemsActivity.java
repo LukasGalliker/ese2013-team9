@@ -1,7 +1,5 @@
 package com.eseteam9.shoppyapp;
 
-import java.util.List;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -17,7 +15,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 public class DisplayItemsActivity extends Activity {
 	private int listId;
 	private ItemAdapter adapter;
-	private List<Item> items; 
+	private Item[] items; 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +63,7 @@ public class DisplayItemsActivity extends Activity {
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 	    AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo(); 
-	    int itemId = items.get(menuInfo.position).id;
+	    int itemId = items[menuInfo.position].id;
 	    
 	    switch (item.getItemId()) {
 		  case 0:
@@ -87,7 +85,7 @@ public class DisplayItemsActivity extends Activity {
 	public void checkItem(View view){
 		boolean status = ((CheckBox) view).isChecked();
 		ListView lv = (ListView) findViewById(R.id.itemoverview);
-		Item item = items.get(lv.getPositionForView(view));
+		Item item = items[lv.getPositionForView(view)];
 		int id = item.id;
 		new ItemHandler(this).checked(id, status);	
 		
