@@ -1,6 +1,7 @@
 package com.eseteam9.shoppyapp;
 
 import java.util.HashMap;
+import java.util.List;
  
 import android.content.Context;
 import android.graphics.Typeface;
@@ -25,9 +26,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
  
     @Override
-    public Object getChild(int groupPosition, int childPosititon) {
-        return this.listDataChild.get(this.listDataHeader[groupPosition])
-                [childPosititon];
+    public Item getChild(int groupPosition, int childPosititon) {
+        return this.listDataChild.get(this.listDataHeader[groupPosition])[childPosititon];
     }
  
     @Override
@@ -39,7 +39,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, final int childPosition,
             boolean isLastChild, View convertView, ViewGroup parent) {
  
-        final String childText = (String) getChild(groupPosition, childPosition);
+        final String childText = getChild(groupPosition, childPosition).name;
  
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context
@@ -56,12 +56,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
  
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this.listDataChild.get(this.listDataHeader[groupPosition])
-                .length;
+        return this.listDataChild.get(this.listDataHeader[groupPosition]).length;
     }
  
     @Override
-    public Object getGroup(int groupPosition) {
+    public ShoppingList getGroup(int groupPosition) {
         return this.listDataHeader[groupPosition];
     }
  
@@ -78,7 +77,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
             View convertView, ViewGroup parent) {
-        String headerTitle = (String) getGroup(groupPosition);
+        String headerTitle = getGroup(groupPosition).title;
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);

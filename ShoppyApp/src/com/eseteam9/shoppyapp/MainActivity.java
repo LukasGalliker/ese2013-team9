@@ -8,6 +8,7 @@ import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -121,19 +122,19 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		}
 
 		@Override
-		public ListFragment getItem(int position) {
+		public Fragment getItem(int position) {
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
 			if (position == 0){
-				ListFragment fragment = new DisplayListsFragment();
+				Fragment fragment = new DisplayListsFragment();
 				Bundle args = new Bundle();
 				args.putInt(DisplayListsFragment.ARG_SECTION_NUMBER, position + 1);
 				fragment.setArguments(args);
 				return fragment;
 			}
 			
-			ListFragment fragment = new ListFragment();
+			Fragment fragment = new ListFragment();
 			return fragment;
 		}
 
