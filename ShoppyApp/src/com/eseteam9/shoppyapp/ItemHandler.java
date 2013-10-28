@@ -67,8 +67,8 @@ public class ItemHandler extends LocalDatabaseHandler{
         if (cursor.moveToFirst()) {
         	int i = 0;
             do {
-            	i++;
             	returnArray[i] = parseItem(cursor);
+            	i++;
             } while (cursor.moveToNext());
         }
 
