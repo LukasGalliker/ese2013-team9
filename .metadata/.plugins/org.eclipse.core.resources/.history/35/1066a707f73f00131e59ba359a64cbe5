@@ -22,6 +22,8 @@ public class UserHandlerTest extends EmulatorTestclass {
 		caseAddUser();
 		caseExistsUserWithEntry();
 		caseGetUser();
+		
+		print("Note: database must be empty for this test");
 	return reportAndEnd();}
 	
 	private void caseCreateHandler() {startCase("create handler"); try {

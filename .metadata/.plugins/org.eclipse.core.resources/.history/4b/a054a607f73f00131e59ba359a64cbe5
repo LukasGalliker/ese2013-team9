@@ -26,6 +26,8 @@ public class ShoppingListHandlerTest extends EmulatorTestclass {
 		caseCountShoppingList();
 		caseExistsEntry();
 		caseUpdate();
+		
+		print("Note: database must be empty for this test");
 	return reportAndEnd();}
 	
 	private void caseCreateHandler() {startCase("create handler"); try {

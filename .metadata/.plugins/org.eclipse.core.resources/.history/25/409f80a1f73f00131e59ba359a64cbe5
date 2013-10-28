@@ -20,13 +20,13 @@ public class WelcomeScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
         
+        //new DatabaseTests(this);
+        
         //Checks if database of program exists, otherwise continues to DisplayLists
         if (new UserHandler(this).existsUser()){
             Intent intent = new Intent(this, MainActivity.class);
     	    startActivity(intent);
         }
-        
-        //new DatabaseTests(this);
     }
 
 	@Override
