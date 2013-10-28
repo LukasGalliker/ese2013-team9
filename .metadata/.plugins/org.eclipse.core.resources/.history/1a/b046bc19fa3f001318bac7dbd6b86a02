@@ -26,7 +26,7 @@ public class WelcomeScreen extends Activity {
     	    startActivity(intent);
         }
         
-        //new DatabaseTests(this);
+        new DatabaseTests(this);
     }
 
 	@Override

@@ -55,6 +55,8 @@ public class ItemHandler extends LocalDatabaseHandler{
     }
     
     public Item[] getListItems(int listId) {
+        //List<Item> items = new ArrayList<Item>();
+        
         String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " + KEY_LIST_ID + " = " + listId + " ORDER BY " + KEY_BOUGHT;
         
         SQLiteDatabase db = this.getWritableDatabase();
