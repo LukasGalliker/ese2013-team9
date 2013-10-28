@@ -69,19 +69,19 @@ public class ItemHandlerTest extends EmulatorTestclass {
 		assertTrue(new ItemHandler(context).getListItems(0)[0].bought == false);
 	trySucceeded();} catch (Exception e) {tryFailed(e);} endCase();}
 	
-	private void caseGetCount() {startCase("getCount of all items"); try {
-		new ItemHandler(context).getCount();
+	private void caseGetCount() {startCase("getCount of all items in a list"); try {
+		new ItemHandler(context).getCount(0);
 		
-		assertTrue(new ItemHandler(context).getCount() == 2);
+		assertTrue(new ItemHandler(context).getCount(0) == 2);
 		new ItemHandler(context).add(item[0]);
-		assertTrue(new ItemHandler(context).getCount() == 3);
+		assertTrue(new ItemHandler(context).getCount(0) == 3);
 	trySucceeded();} catch (Exception e) {tryFailed(e);} endCase();}
 	
-	private void caseGetCountUnbought() {startCase("getCountUnbought of all items"); try {
-		new ItemHandler(context).getCountUnbought();
+	private void caseGetCountUnbought() {startCase("getCountUnbought of all items in a list"); try {
+		new ItemHandler(context).getCountUnbought(0);
 		
-		assertTrue(new ItemHandler(context).getCountUnbought() == 3);
+		assertTrue(new ItemHandler(context).getCountUnbought(0) == 3);
 		new ItemHandler(context).checked(new ItemHandler(context).getListItems(0)[0].id, true);
-		assertTrue(new ItemHandler(context).getCountUnbought() == 2);
+		assertTrue(new ItemHandler(context).getCountUnbought(0) == 2);
 	trySucceeded();} catch (Exception e) {tryFailed(e);} endCase();}
 }
