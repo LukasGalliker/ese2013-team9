@@ -8,7 +8,7 @@
 	    android:id="@+id/quantityText"
 	    android:layout_width="78dip"
 	    android:layout_height="wrap_content"
-	    android:layout_alignBottom="@+id/itemName"
+	    android:layout_alignBottom="@+id/itemname"
 	    android:layout_alignParentLeft="true"
 	    android:layout_alignParentTop="true"
 	    android:padding="10dp"
@@ -28,10 +28,10 @@
 	    android:id="@+id/status"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:layout_alignBottom="@+id/itemName"
+	    android:layout_alignBottom="@+id/itemname"
 	    android:layout_alignParentRight="true"
-	    android:layout_alignParentTop="true" 
-	    android:onClick="checkItem"
-	    android:focusable="false" />
+	    android:layout_alignParentTop="true"
+	    android:focusable="false"
+	    android:onClick="checkItem" />
 
 </RelativeLayout>

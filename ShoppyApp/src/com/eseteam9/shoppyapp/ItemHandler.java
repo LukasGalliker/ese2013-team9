@@ -82,9 +82,9 @@ public class ItemHandler extends LocalDatabaseHandler{
     	  db.close();
     }
     
-    public int getCount() {
+    public int getCount(int listId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String selectQuery = "SELECT * FROM " + TABLE_NAME;
+        String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_LIST_ID + " = " + listId;
         Cursor cursor = db.rawQuery(selectQuery, null);
         
         int returnInt = cursor.getCount();
@@ -92,14 +92,33 @@ public class ItemHandler extends LocalDatabaseHandler{
         return returnInt;
     }
     
-    public int getCountUnbought() {
+    public int getCountUnbought(int listId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " + KEY_BOUGHT + " = " + 0;
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " + KEY_BOUGHT + " = " + 0 + " AND " + KEY_LIST_ID + " = " + listId;
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         int returnInt = cursor.getCount();
         db.close();
         return returnInt;
+    }
+    
+    public Item[] getUnbought(int listId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " + KEY_BOUGHT + " = " + 0 + " AND " + KEY_LIST_ID + " = " + listId;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        Item returnArray[] = new Item[cursor.getCount()];
+        
+        if (cursor.moveToFirst()) {
+        	int i = 0;
+            do {
+            	returnArray[i] = parseItem(cursor);
+            	i++;
+            } while (cursor.moveToNext());
+        }
+
+        db.close();
+        return returnArray;
     }
     
     private Item parseItem(Cursor c) {

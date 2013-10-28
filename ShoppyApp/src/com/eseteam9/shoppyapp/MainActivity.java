@@ -16,6 +16,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CheckBox;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
@@ -177,6 +179,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	public void openAddListView(){
 		Intent intent = new Intent(this, AddListActivity.class);
 		startActivity(intent);
+	}
+	
+	public void checkItem(View view){
+		boolean status = ((CheckBox) view).isChecked();
+		int id = (Integer) view.getTag();
+		new ItemHandler(this).checked(id, status);
 	}
 
 }

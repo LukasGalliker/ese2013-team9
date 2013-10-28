@@ -1,21 +1,19 @@
 package com.eseteam9.shoppyapp;
 
-import java.util.HashMap;
-import java.util.List;
- 
+import java.util.HashMap; 
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
  
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
  
     private Context context;
-    private ShoppingList[] listDataHeader; // header titles
-    // child data in format of header title, child title
+    private ShoppingList[] listDataHeader;
     private HashMap<ShoppingList, Item[]> listDataChild;
  
     public ExpandableListAdapter(Context context, ShoppingList[] listDataHeader,
@@ -38,25 +36,38 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, final int childPosition,
             boolean isLastChild, View convertView, ViewGroup parent) {
- 
-        final String childText = getChild(groupPosition, childPosition).name;
- 
+    	
+    	Item[] items = new ItemHandler(this.context).getListItems(listDataHeader[groupPosition].id);
+    	Item item = items[childPosition];
+    	//Item item = getChild(groupPosition, childPosition);
+        		
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.item_row, null);
         }
  
-        TextView txtListChild = (TextView) convertView
+        TextView childName = (TextView) convertView
                 .findViewById(R.id.itemname);
- 
-        txtListChild.setText(childText);
+        TextView childQuantity = (TextView) convertView
+                .findViewById(R.id.quantityText);
+        CheckBox childStatus = (CheckBox) convertView
+                .findViewById(R.id.status);
+        
+        childName.setText(item.name);
+        childQuantity.setText(item.quantity);
+        childStatus.setChecked(item.bought);
+        childStatus.setTag(item.id);
+        
         return convertView;
     }
  
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this.listDataChild.get(this.listDataHeader[groupPosition]).length;
+    	if (this.listDataChild.get(this.listDataHeader[groupPosition]) != null)
+    		return this.listDataChild.get(this.listDataHeader[groupPosition]).length;
+    	
+    	return 0;
     }
  
     @Override
@@ -77,18 +88,25 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
             View convertView, ViewGroup parent) {
-        String headerTitle = getGroup(groupPosition).title;
+    	ShoppingList list = getGroup(groupPosition);
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_row, null);
         }
- 
-        TextView lblListHeader = (TextView) convertView
-                .findViewById(R.id.listname);
+        TextView lblListHeader = (TextView) convertView.findViewById(R.id.listname);
+        TextView number = (TextView) convertView.findViewById(R.id.itemsNum);
         lblListHeader.setTypeface(null, Typeface.BOLD);
-        lblListHeader.setText(headerTitle);
- 
+        lblListHeader.setText(list.title);
+        
+        //Count items
+        ItemHandler handler = new ItemHandler(this.context);
+        int unbought = handler.getCountUnbought(list.id);
+        int total = handler.getCount(list.id);
+        int bought = total - unbought;
+        number.setText(bought + "/" + total);
+        
+        
         return convertView;
     }
  
@@ -100,5 +118,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
+    }
+    
+    public void update(ShoppingList[] listDataHeader, HashMap<ShoppingList, Item[]> listChildData){
+        this.listDataHeader = listDataHeader;
+        this.listDataChild = listChildData;
     }
 }
