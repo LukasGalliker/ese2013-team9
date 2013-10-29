@@ -88,8 +88,6 @@ public class ItemHandlerTest extends EmulatorTestclass {
 	
 	private void caseGetUnbought() {startCase("getUnbought items in a list"); try {
 		Item[] getList = new ItemHandler(context).getUnbought(0);
-		new ItemHandler(context).getUnbought(-1);
-		
 		assertTrue(getList.length == 1);
 		assertTrue(getList[0].name.equals(item[0].name));
 		assertTrue(getList[0].quantity.equals(item[0].quantity));
