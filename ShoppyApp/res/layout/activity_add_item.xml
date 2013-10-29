@@ -45,7 +45,7 @@
         android:ems="10"
         android:hint="@string/unit"
         android:inputType="textPersonName"
-        android:maxLength="2"
+        android:maxLength="3"
         android:textColor="@color/black" >
         
     </EditText>

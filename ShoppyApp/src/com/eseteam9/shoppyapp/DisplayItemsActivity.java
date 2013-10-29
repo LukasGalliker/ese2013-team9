@@ -1,5 +1,8 @@
 package com.eseteam9.shoppyapp;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -34,7 +37,8 @@ public class DisplayItemsActivity extends Activity {
 		
 		//Create Adapter
 		this.items = new ItemHandler(this).getListItems(this.listId);
-		this.adapter = new ItemAdapter(this, R.id.itemoverview,  this.items);
+		ArrayList<Item> list = new ArrayList<Item>(Arrays.asList(this.items));
+		this.adapter = new ItemAdapter(this, R.id.itemoverview,  list);
 		lv.setAdapter(adapter);
 	}
 
@@ -76,8 +80,10 @@ public class DisplayItemsActivity extends Activity {
 		}
 	}
 	public void updateView(){
+		this.items = new ItemHandler(this).getListItems(this.listId);
+		ArrayList<Item> list = new ArrayList<Item>(Arrays.asList(this.items));
 		adapter.clear();
-		adapter.addAll(new ItemHandler(this).getListItems(this.listId));
+		adapter.addAll(list);
 		adapter.notifyDataSetChanged();
 	}
 	

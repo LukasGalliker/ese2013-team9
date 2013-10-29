@@ -1,8 +1,6 @@
 package com.eseteam9.shoppyapp;
 
 import com.eseteam9.shoppyapp.R;
-import com.eseteam9.shoppyapp.tests.*;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -42,7 +40,7 @@ public class WelcomeScreen extends Activity {
 	    String nickname = editText.getText().toString();
 	    
 		if (nickname.length() == 0)
-	    	Toast.makeText(this, "Please enter a name", 1000).show();
+	    	Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT).show();
 		else{
 		    //get Phone number if possible
 		    TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);

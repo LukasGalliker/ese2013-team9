@@ -1,5 +1,7 @@
 package com.eseteam9.shoppyapp;
 
+import java.util.ArrayList;
+
 import com.eseteam9.shoppyapp.R;
 
 import android.app.Activity;
@@ -12,15 +14,15 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 public class ItemAdapter extends ArrayAdapter<Item> {
-    private Item[] items;
+    private ArrayList<Item> items;
     private Activity activity;
     
-    public ItemAdapter(Activity a, int textViewResourceId, Item[] items){
-    	super(a, textViewResourceId, items);
-        this.items = items;
+    public ItemAdapter(Activity a, int textViewResourceId, ArrayList<Item> list){
+    	super(a, textViewResourceId, list);
+        this.items = list;
         this.activity = a;
     }
- 
+    
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
@@ -29,7 +31,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             v = vi.inflate(R.layout.item_row, null);
         }
  
-        Item item = items[position];
+        Item item = items.get(position);
         if (item != null) {
             TextView name = (TextView) v.findViewById(R.id.itemname);
             if (name != null) {
