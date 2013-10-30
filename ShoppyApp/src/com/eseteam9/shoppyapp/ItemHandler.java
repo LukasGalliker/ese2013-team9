@@ -129,4 +129,12 @@ public class ItemHandler extends LocalDatabaseHandler{
                 c.getInt(4) == 1,
                 new Date(c.getLong(5)));
     }
+
+	public void update(int itemId, String itemname, String quantity) {
+	  	  SQLiteDatabase db = this.getWritableDatabase();
+	  	  SQLiteStatement stmt = db.compileStatement("UPDATE " + TABLE_NAME + " SET " + KEY_NAME + " = '" + itemname + "', " + KEY_QUANTITY + " = '" + quantity + "' WHERE "+ KEY_ID +" = "+ itemId );
+	  	  stmt.execute();
+	  	  db.close();
+		
+	}
 }

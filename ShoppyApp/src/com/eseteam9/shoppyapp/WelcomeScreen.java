@@ -17,7 +17,7 @@ public class WelcomeScreen extends Activity {
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
-        
+       
         //Checks if database of program exists, otherwise continues to DisplayLists
         if (new UserHandler(this).existsUser()){
             Intent intent = new Intent(this, MainActivity.class);
@@ -37,7 +37,7 @@ public class WelcomeScreen extends Activity {
 	//Called when clicking on "Save"-Button
 	public void createDatabase(View view){
 	    EditText editText = (EditText) findViewById(R.id.nickname);
-	    String nickname = editText.getText().toString();
+	    String nickname = editText.getText().toString().trim();
 	    
 		if (nickname.length() == 0)
 	    	Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT).show();
@@ -48,7 +48,7 @@ public class WelcomeScreen extends Activity {
 		    
 		    //Add Entry in DB    
 		    new UserHandler(this).add(new User(nickname, myNumber));
-	        
+		    
 	        //Switch to DisplayListActivity
 	        Intent intent = new Intent(this, MainActivity.class);
 		    startActivity(intent);

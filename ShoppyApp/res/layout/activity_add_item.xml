@@ -17,18 +17,18 @@
         android:ems="10"
         android:hint="@string/itemname"
         android:inputType="textPersonName"
-        android:textColor="@color/black"
-         >
+        android:textColor="@color/black" >
+
         <requestFocus />
-	</EditText>
+    </EditText>
 
     <EditText
         android:id="@+id/quantity"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/item_name"
         android:layout_below="@+id/item_name"
-        android:layout_toLeftOf="@+id/unit"
         android:digits="1234567890,/"
         android:ems="10"
         android:hint="@string/quantity"
@@ -36,29 +36,15 @@
         android:maxLength="5"
         android:textColor="@color/black" />
 
-    <EditText
-        android:id="@+id/unit"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/item_name"
-        android:layout_below="@+id/item_name"
-        android:ems="10"
-        android:hint="@string/unit"
-        android:inputType="textPersonName"
-        android:maxLength="3"
-        android:textColor="@color/black" >
-        
-    </EditText>
-
     <Button
         android:id="@+id/save_item"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/unit"
+        android:layout_alignRight="@+id/quantity"
+        android:layout_below="@+id/quantity"
         android:gravity="center"
-        android:onClick="addItem"
+        android:onClick="manageItem"
         android:text="@string/save" />
 
 </RelativeLayout>

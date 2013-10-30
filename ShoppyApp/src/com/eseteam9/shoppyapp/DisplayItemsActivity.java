@@ -17,6 +17,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class DisplayItemsActivity extends Activity {
 	private int listId;
+	private String listname;
 	private ItemAdapter adapter;
 	private Item[] items; 
 	
@@ -28,7 +29,8 @@ public class DisplayItemsActivity extends Activity {
 		//Get ListID and Name
 		Intent intent = getIntent();
 		this.listId = intent.getIntExtra("LIST_ID", 0);
-		this.setTitle(intent.getStringExtra("LIST_NAME"));
+		this.listname = intent.getStringExtra("LIST_NAME");
+		this.setTitle(listname);
 		
 		//Initialize ListView
 		ListView lv = (ListView)findViewById(R.id.itemoverview);
@@ -67,14 +69,21 @@ public class DisplayItemsActivity extends Activity {
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 	    AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo(); 
-	    int itemId = items[menuInfo.position].id;
+	    Item listItem = items[menuInfo.position];
 	    
 	    switch (item.getItemId()) {
 		  case 0:
-			new ItemHandler(this).delete(itemId);
+			new ItemHandler(this).delete(listItem.id);
 		    updateView();
 		    return true;
-		    
+		  case 1:
+			  Intent intent = new Intent(this, AddItemActivity.class);
+			  intent.putExtra("LIST_ID", listId);
+			  intent.putExtra("ITEM_ID", listItem.id);
+			  intent.putExtra("ITEM_NAME", listItem.name);
+			  intent.putExtra("ITEM_QUANTITY", listItem.quantity);
+			  startActivity(intent);
+			  return true;
 		  default:
 		    return super.onContextItemSelected(item);
 		}
