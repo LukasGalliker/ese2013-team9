@@ -44,7 +44,7 @@ public class AddListActivity extends Activity {
 	public void manageList(View view){
 
 	    EditText editText = (EditText) findViewById(R.id.list_name);
-	    String listname = editText.getText().toString();
+	    String listname = editText.getText().toString().trim();
 		
 		//Check if List has name or already exists
 		if (listname.length() == 0)

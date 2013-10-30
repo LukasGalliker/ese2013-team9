@@ -53,6 +53,21 @@ public class UserHandler extends LocalDatabaseHandler{
         return user;
     }
     
+    public User getSelf() {
+    	SQLiteDatabase db = this.getWritableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " + KEY_ID + " = 1";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        
+        if (cursor != null)
+            cursor.moveToFirst();
+ 
+        User user = parseUser(cursor);
+
+        db.close();
+        return user;
+    }
+    
     public boolean existsUser () {
         SQLiteDatabase db = this.getWritableDatabase();
 

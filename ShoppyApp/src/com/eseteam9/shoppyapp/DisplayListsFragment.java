@@ -41,7 +41,7 @@ public class DisplayListsFragment extends Fragment{
         ExpandableListView elv = (ExpandableListView)view.findViewById(R.id.listoverview);
 		registerForContextMenu(elv);
 		elv.setClickable(true);
-		
+		elv.setGroupIndicator(null);
 		//Get Lists and add items directly if 5 or less items to buy
 		this.lists = new ShoppingListHandler(getActivity()).getAll();
 		Item[] empty = null;
@@ -109,11 +109,12 @@ public class DisplayListsFragment extends Fragment{
 	
 	public void updateAdapter(){
 		this.lists = new ShoppingListHandler(getActivity()).getAll();
+		Item[] empty = null;
 		for (ShoppingList l : this.lists)
-			//if (new ItemHandler(getActivity()).getCountUnbought(l.id) < 6)
-				this.content.put(l, new ItemHandler(getActivity()).getListItems(l.id));
-			//else
-				//this.content.put(l, null);
+			if (new ItemHandler(getActivity()).getCountUnbought(l.id) < 6)
+				this.content.put(l, new ItemHandler(getActivity()).getUnbought(l.id));
+			else
+				this.content.put(l, empty);
 		
 		this.adapter.update(this.lists, this.content);
 		this.adapter.notifyDataSetChanged();
