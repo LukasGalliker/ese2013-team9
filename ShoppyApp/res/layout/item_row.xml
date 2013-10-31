@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="horizontal" >
 
    	<TextView
@@ -12,7 +13,8 @@
 	    android:layout_alignParentLeft="true"
 	    android:layout_alignParentTop="true"
 	    android:padding="10dp"
-        android:textSize="14sp" />
+        android:textSize="18sp"
+        android:gravity="right" />
    	
     <TextView
         android:id="@+id/itemname"
@@ -32,6 +34,7 @@
 	    android:layout_alignParentRight="true"
 	    android:layout_alignParentTop="true"
 	    android:focusable="false"
-	    android:onClick="checkItem" />
+	    android:onClick="checkItem"
+	    android:paddingRight="10dp" />
 
 </RelativeLayout>

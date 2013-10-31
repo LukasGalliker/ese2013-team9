@@ -25,9 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:ems="10"
         android:hint="@string/listname"
-        android:inputType="textPersonName"
+        android:inputType="textAutoComplete"
         android:textColor="@color/black" >
 
 		<requestFocus />

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
  
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
@@ -98,6 +99,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         TextView number = (TextView) convertView.findViewById(R.id.itemsNum);
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(list.title);
+        
+        ImageView arrow = (ImageView) convertView.findViewById(R.id.imageView1);
+        arrow.setTag(list.id);
         
         //Count items
         ItemHandler handler = new ItemHandler(this.context);
