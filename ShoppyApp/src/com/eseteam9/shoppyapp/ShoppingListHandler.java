@@ -46,6 +46,19 @@ public class ShoppingListHandler extends LocalDatabaseHandler{
         db.close();
     }
     
+    public ShoppingList get(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+        
+        ShoppingList list = parseShoppingList(cursor);
+        db.close();
+        return list;
+    }
+    
     public void delete(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, KEY_ID + "=" + id, null);

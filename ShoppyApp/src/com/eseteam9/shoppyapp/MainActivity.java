@@ -173,8 +173,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	    // Handle presses on the action bar items
 	    switch (item.getItemId()) {
 	        case R.id.add_list:
-	            //openAddListView();
-	        	openDialog();
+	        	addDialog();
 	            return true;
 	        case R.id.action_settings:
 	            //openSettings();
@@ -193,11 +192,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		boolean status = ((CheckBox) view).isChecked();
 		int id = (Integer) view.getTag();
 		new ItemHandler(this).checked(id, status);
-		mSectionsPagerAdapter.update();
+		//mSectionsPagerAdapter.update();
 	}
 	
-	
-	private void openDialog() {
+	void addDialog() {
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
 		alert.setTitle("Add List");
@@ -216,12 +214,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			if (listname.length() == 0)
 		    	Toast.makeText(getApplicationContext(), "Please enter a name", Toast.LENGTH_SHORT).show();
 			else if (!new ShoppingListHandler(getApplicationContext()).existsEntry(listname)){
-			    // Add or Edit Entry in DB
 				new ShoppingListHandler(getApplicationContext()).add(new ShoppingList(listname, user.name));
-
-			    //Switch to MainActivity
-			    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-			    startActivity(intent);
+				mSectionsPagerAdapter.update();
 		    } 
 		    else
 		    	Toast.makeText(getApplicationContext(), "This list already exists", Toast.LENGTH_SHORT).show();
@@ -234,7 +228,15 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		  }
 		});
 
-		alert.show();	
+		alert.show();
+	}
+	
+	public void openItemView(View view){
+        Intent intent = new Intent(this, DisplayItemsActivity.class);
+        int listId = (Integer)view.getTag();
+        intent.putExtra("LIST_ID", listId);
+        intent.putExtra("LIST_NAME", new ShoppingListHandler(this).get(listId).title);
+	    startActivity(intent);
 	}
 
 }

@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -24,7 +23,7 @@ public class DisplayListsFragment extends Fragment{
 	private ExpandableListAdapter adapter;
 	private ShoppingList[] lists; 
 	private HashMap<ShoppingList, Item[]> content = new HashMap<ShoppingList, Item[]>();
-	
+	private ExpandableListView elv;
 	
 	public DisplayListsFragment() {
 	}
@@ -38,36 +37,19 @@ public class DisplayListsFragment extends Fragment{
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_display_lists,container, false);
-        ExpandableListView elv = (ExpandableListView)view.findViewById(R.id.listoverview);
+        elv = (ExpandableListView)view.findViewById(R.id.listoverview);
 		registerForContextMenu(elv);
 		elv.setClickable(true);
 		elv.setGroupIndicator(null);
-		//Get Lists and add items directly if 5 or less items to buy
+		
 		this.lists = new ShoppingListHandler(getActivity()).getAll();
-		Item[] empty = null;
 		for (ShoppingList l : this.lists)
-			if (new ItemHandler(getActivity()).getCountUnbought(l.id) < 6)
-				this.content.put(l, new ItemHandler(getActivity()).getUnbought(l.id));
-			else
-				this.content.put(l, empty);
+			this.content.put(l, new ItemHandler(getActivity()).getUnbought(l.id));
 		
 		//Set Adapter
 		this.adapter = new ExpandableListAdapter(getActivity(), this.lists,  this.content);
         elv.setAdapter(adapter);
-        for(int i=0; i < adapter.getGroupCount(); i++)
-        	if (adapter.getChildrenCount(i) > 0)
-        		elv.expandGroup(i);
         
-        //Set Listener
-        elv.setOnGroupClickListener(new OnGroupClickListener() {
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition,long id) {
-                Intent intent = new Intent(getActivity(), DisplayItemsActivity.class);
-                intent.putExtra("LIST_ID", lists[groupPosition].id);
-                intent.putExtra("LIST_NAME", lists[groupPosition].title);
-        	    startActivity(intent);
-        	    return true;
-            };
-        });
 		return view;
 		
 	}
@@ -84,22 +66,19 @@ public class DisplayListsFragment extends Fragment{
 	  }
 	}
 	
-	
 	//Reads what is selected from ContextMenu
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		ExpandableListContextMenuInfo menuInfo = (ExpandableListContextMenuInfo) item.getMenuInfo(); 
 		ShoppingList list = lists[ExpandableListView.getPackedPositionGroup(menuInfo.packedPosition)];
 	    int listId = list.id;
-	    String listname = list.title;
 	    switch (item.getItemId()) {
 		  case 0:
 			new ShoppingListHandler(getActivity()).delete(listId);
 			updateAdapter();
 		    return true;
 		  case 1:
-			  openDialog(list);
-			  updateAdapter();
+			  editDialog(list);
 			  return true;
 		  default:
 		    return super.onContextItemSelected(item);
@@ -119,7 +98,7 @@ public class DisplayListsFragment extends Fragment{
 		this.adapter.notifyDataSetChanged();
 	}
 	
-	private void openDialog(final ShoppingList list) {
+	void editDialog(final ShoppingList list) {
 		AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
 
 		alert.setTitle("Edit List");
@@ -139,12 +118,8 @@ public class DisplayListsFragment extends Fragment{
 			if (listname.length() == 0)
 		    	Toast.makeText(getActivity(), "Please enter a name", Toast.LENGTH_SHORT).show();
 			else if (!new ShoppingListHandler(getActivity()).existsEntry(listname)){
-			    // Add or Edit Entry in DB
 				new ShoppingListHandler(getActivity()).update(list.id, listname);
-
-			    //Switch to MainActivity
-			    Intent intent = new Intent(getActivity(), MainActivity.class);
-			    startActivity(intent);
+				updateAdapter();
 		    } 
 		    else
 		    	Toast.makeText(getActivity(), "This list already exists", Toast.LENGTH_SHORT).show();
@@ -157,7 +132,7 @@ public class DisplayListsFragment extends Fragment{
 		  }
 		});
 
-		alert.show();	
+		alert.show();
 	}
 	
 }
