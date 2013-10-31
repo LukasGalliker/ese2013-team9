@@ -5,7 +5,9 @@ import java.util.Locale;
 import com.eseteam9.shoppyapp.R;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,10 +16,13 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
@@ -118,6 +123,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	 * one of the sections/tabs/pages.
 	 */
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
+		private DisplayListsFragment fragment;
 
 		public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
@@ -129,10 +135,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
 			if (position == 0){
-				Fragment fragment = new DisplayListsFragment();
-				Bundle args = new Bundle();
-				args.putInt(DisplayListsFragment.ARG_SECTION_NUMBER, position + 1);
-				fragment.setArguments(args);
+				fragment = new DisplayListsFragment();
 				return fragment;
 			}
 			
@@ -140,6 +143,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			return fragment;
 		}
 
+		public void update(){
+			fragment.updateAdapter();
+		}
+		
 		@Override
 		public int getCount() {
 			// Show 2 total pages.
@@ -166,7 +173,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	    // Handle presses on the action bar items
 	    switch (item.getItemId()) {
 	        case R.id.add_list:
-	            openAddListView();
+	            //openAddListView();
+	        	openDialog();
 	            return true;
 	        case R.id.action_settings:
 	            //openSettings();
@@ -185,6 +193,48 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		boolean status = ((CheckBox) view).isChecked();
 		int id = (Integer) view.getTag();
 		new ItemHandler(this).checked(id, status);
+		mSectionsPagerAdapter.update();
+	}
+	
+	
+	private void openDialog() {
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+		alert.setTitle("Add List");
+		alert.setMessage("Enter new Listname:");
+
+		// Set an EditText view to get user input 
+		final EditText input = new EditText(this);
+		alert.setView(input);
+
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		public void onClick(DialogInterface dialog, int whichButton) {
+		  Editable value = input.getText();
+		  User user = new UserHandler(getApplicationContext()).get();
+		  String listname = value.toString();
+		  
+			if (listname.length() == 0)
+		    	Toast.makeText(getApplicationContext(), "Please enter a name", Toast.LENGTH_SHORT).show();
+			else if (!new ShoppingListHandler(getApplicationContext()).existsEntry(listname)){
+			    // Add or Edit Entry in DB
+				new ShoppingListHandler(getApplicationContext()).add(new ShoppingList(listname, user.name));
+
+			    //Switch to MainActivity
+			    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+			    startActivity(intent);
+		    } 
+		    else
+		    	Toast.makeText(getApplicationContext(), "This list already exists", Toast.LENGTH_SHORT).show();
+		  }
+		});
+
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		  public void onClick(DialogInterface dialog, int whichButton) {
+		    dialog.cancel();
+		  }
+		});
+
+		alert.show();	
 	}
 
 }
