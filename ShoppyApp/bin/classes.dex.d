@@ -32,6 +32,11 @@ C:\Users\Sebi\Documents\GitHub\ese2013-team9\ShoppyApp\bin\classes\com\eseteam9\
 C:\Users\Sebi\Documents\GitHub\ese2013-team9\ShoppyApp\bin\classes\com\eseteam9\shoppyapp\ShoppingList.class \
 C:\Users\Sebi\Documents\GitHub\ese2013-team9\ShoppyApp\bin\classes\com\eseteam9\shoppyapp\ShoppingListAdapter.class \
 C:\Users\Sebi\Documents\GitHub\ese2013-team9\ShoppyApp\bin\classes\com\eseteam9\shoppyapp\ShoppingListHandler.class \
+C:\Users\Sebi\Documents\GitHub\ese2013-team9\ShoppyApp\bin\classes\com\eseteam9\shoppyapp\test\DatabaseTests.class \
+C:\Users\Sebi\Documents\GitHub\ese2013-team9\ShoppyApp\bin\classes\com\eseteam9\shoppyapp\test\EmulatorTestclass.class \
+C:\Users\Sebi\Documents\GitHub\ese2013-team9\ShoppyApp\bin\classes\com\eseteam9\shoppyapp\test\ItemHandlerTest.class \
+C:\Users\Sebi\Documents\GitHub\ese2013-team9\ShoppyApp\bin\classes\com\eseteam9\shoppyapp\test\ShoppingListHandlerTest.class \
+C:\Users\Sebi\Documents\GitHub\ese2013-team9\ShoppyApp\bin\classes\com\eseteam9\shoppyapp\test\UserHandlerTest.class \
 C:\Users\Sebi\Documents\GitHub\ese2013-team9\ShoppyApp\bin\classes\com\eseteam9\shoppyapp\User.class \
 C:\Users\Sebi\Documents\GitHub\ese2013-team9\ShoppyApp\bin\classes\com\eseteam9\shoppyapp\UserHandler.class \
 C:\Users\Sebi\Documents\GitHub\ese2013-team9\ShoppyApp\bin\classes\com\eseteam9\shoppyapp\WelcomeScreen.class \
