@@ -5,7 +5,9 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,6 +25,7 @@ public class DisplayListsFragment extends Fragment{
 	private ShoppingList[] lists; 
 	private HashMap<ShoppingList, Item[]> content = new HashMap<ShoppingList, Item[]>();
 	private ExpandableListView elv;
+	private final int PICK_CONTACT = 0;
 	
 	public DisplayListsFragment() {
 	}
@@ -79,10 +82,30 @@ public class DisplayListsFragment extends Fragment{
 		  case 1:
 			  editDialog(list);
 			  return true;
-		  default:
-		    return super.onContextItemSelected(item);
+		  case 2:
+		    shareDialog(list);
 		}
+		return true;
 	}
+
+	private void shareDialog(ShoppingList list) {
+		AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+		alert.setTitle("Share List");
+		alert.setMessage("Choose Contact");
+		alert.setPositiveButton("Browse", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					   Intent intent = new Intent(Intent.ACTION_PICK);
+					   intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
+					   startActivityForResult(intent, PICK_CONTACT); 
+					   
+				}
+		 });
+		 alert.show();
+		
+	}
+	
 
 	public void updateAdapter(){
 		this.lists = new ShoppingListHandler(getActivity()).getAll();

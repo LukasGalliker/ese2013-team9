@@ -13,10 +13,13 @@ public class OnlineDatabaseHandler {
 	}
 	
 	public void putUser(User user){
-		ParseObject gameScore = new ParseObject("User");
-		gameScore.put("name", user.name);
-		gameScore.put("key", user.key);
-		gameScore.saveInBackground();
+		ParseObject onlineUser = new ParseObject("User");
+		onlineUser.put("name", user.name);
+		onlineUser.put("key", user.key);
+		onlineUser.saveEventually();
+	}
+	public void putList(ShoppingList list, User user){
+		
 	}
 	
 }

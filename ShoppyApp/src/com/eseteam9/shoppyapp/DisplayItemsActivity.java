@@ -3,6 +3,7 @@ package com.eseteam9.shoppyapp;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import android.R.*;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -31,6 +32,7 @@ public class DisplayItemsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_display_items);
+		
 		
 		//Get ListID and Name
 		Intent intent = getIntent();

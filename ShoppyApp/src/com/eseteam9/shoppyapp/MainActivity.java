@@ -10,6 +10,7 @@ import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.FragmentActivity;
@@ -41,7 +42,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	 */
 	ViewPager mViewPager;
 
-	
+	static public final int PICK_CONTACT = 0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -199,7 +200,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		// Set an EditText view to get user input 
 		final EditText input = new EditText(this);
 		alert.setView(input);
-
+        
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int whichButton) {
 		  Editable value = input.getText();
@@ -222,6 +223,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		    dialog.cancel();
 		  }
 		});
+		
+		
 
 		alert.show();
 	}
