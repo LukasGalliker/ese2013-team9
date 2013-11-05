@@ -84,12 +84,7 @@ public class DisplayItemsActivity extends Activity {
 		    updateView();
 		    return true;
 		  case 1:
-			  Intent intent = new Intent(this, AddItemActivity.class);
-			  intent.putExtra("LIST_ID", listId);
-			  intent.putExtra("ITEM_ID", listItem.id);
-			  intent.putExtra("ITEM_NAME", listItem.name);
-			  intent.putExtra("ITEM_QUANTITY", listItem.quantity);
-			  startActivity(intent);
+			  editDialog(listItem);
 			  return true;
 		  default:
 		    return super.onContextItemSelected(item);
@@ -136,12 +131,6 @@ public class DisplayItemsActivity extends Activity {
 	    }
 	}
 	
-	public void openAddListView(){
-		Intent intent = new Intent(this, AddItemActivity.class);
-		intent.putExtra("LIST_ID", this.listId);
-		startActivity(intent);
-	}
-	
 	void addDialog() {
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
@@ -153,16 +142,60 @@ public class DisplayItemsActivity extends Activity {
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int whichButton) {
 
-		  EditText nameView = (EditText) view.findViewById(R.id.itemname);
+		  EditText nameView = (EditText) view.findViewById(R.id.item_name);
 		  String itemname = nameView.getText().toString();
 		  EditText quantityView = (EditText) view.findViewById(R.id.quantity);
 		  String quantity = quantityView.getText().toString();
-		  //String quantity = value2.toString();
 		  
 			if (itemname.length() == 0)
 		    	Toast.makeText(getApplicationContext(), "Please enter a name", Toast.LENGTH_SHORT).show();
 			else {
 				new ItemHandler(getApplicationContext()).add(new Item(itemname, quantity, listId));
+				items = new ItemHandler(getApplicationContext()).getListItems(listId);
+				ArrayList<Item> list = new ArrayList<Item>(Arrays.asList(items));
+				adapter.clear();
+				adapter.addAll(list);
+				adapter.notifyDataSetChanged();
+		    } 
+		  }
+		});
+
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		  public void onClick(DialogInterface dialog, int whichButton) {
+		    dialog.cancel();
+		  }
+		});
+
+		alert.show();
+	}
+	
+	
+	
+	void editDialog(final Item item) {
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+		alert.setTitle("Edit Item");
+		LayoutInflater infalInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View view = infalInflater.inflate(R.layout.activity_add_item, null);
+		alert.setView(view);
+		EditText nameView = (EditText) view.findViewById(R.id.item_name);
+		nameView.setText(item.name);
+		EditText quantityView = (EditText) view.findViewById(R.id.quantity);
+		quantityView.setText(item.quantity);
+		nameView.setSelection(item.name.length());
+		
+
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		public void onClick(DialogInterface dialog, int whichButton) {
+		  EditText nameView = (EditText) view.findViewById(R.id.item_name);
+		  String itemname = nameView.getText().toString();
+		  EditText quantityView = (EditText) view.findViewById(R.id.quantity);
+		  String quantity = quantityView.getText().toString();
+		  
+			if (itemname.length() == 0)
+		    	Toast.makeText(getBaseContext(), "Please enter a name", Toast.LENGTH_SHORT).show();
+			else{
+				new ItemHandler(getApplicationContext()).update(item.id, itemname, quantity);
 				items = new ItemHandler(getApplicationContext()).getListItems(listId);
 				ArrayList<Item> list = new ArrayList<Item>(Arrays.asList(items));
 				adapter.clear();

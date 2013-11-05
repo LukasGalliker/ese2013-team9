@@ -1,5 +1,8 @@
 package com.eseteam9.shoppyapp;
 
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+import com.parse.ParseObject;
 import com.eseteam9.shoppyapp.R;
 import android.app.Activity;
 import android.content.Context;
@@ -18,6 +21,8 @@ public class WelcomeScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
        
+        Parse.initialize(this, "siN9uAfK3is01V4Yyad62BztutNZN761smpPFdhQ", "zWJquwUQlEw9NHvBuZFFdpMrMIQoIXRy8CjslwY3"); 
+        ParseAnalytics.trackAppOpened(getIntent());
         //Checks if database of program exists, otherwise continues to DisplayLists
         if (new UserHandler(this).existsUser()){
             Intent intent = new Intent(this, MainActivity.class);
@@ -48,6 +53,10 @@ public class WelcomeScreen extends Activity {
 		    
 		    //Add Entry in DB    
 		    new UserHandler(this).add(new User(nickname, myNumber));
+		    
+		    ParseObject user = new ParseObject("User");
+		    user.put("name", nickname);
+		    user.saveInBackground();
 		    
 	        //Switch to DisplayListActivity
 	        Intent intent = new Intent(this, MainActivity.class);
