@@ -183,11 +183,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	    }
 	}
 	
-	public void openAddListView(){
-		Intent intent = new Intent(this, AddListActivity.class);
-		startActivity(intent);
-	}
-	
 	public void checkItem(View view){
 		boolean status = ((CheckBox) view).isChecked();
 		int id = (Integer) view.getTag();
