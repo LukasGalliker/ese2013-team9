@@ -67,6 +67,7 @@ public class UserHandler extends LocalDatabaseHandler{
     private User parseUser(Cursor c){
     	return new User(Integer.parseInt(c.getString(0)),
                 c.getString(1),
-                c.getString(2));
+                c.getString(2),
+                c.getString(3));
     }
 }
