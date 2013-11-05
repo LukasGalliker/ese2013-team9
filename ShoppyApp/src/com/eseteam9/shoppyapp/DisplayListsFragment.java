@@ -17,7 +17,6 @@ import android.widget.Toast;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
-import android.widget.ExpandableListView.OnGroupClickListener;
 
 public class DisplayListsFragment extends Fragment{
 	private ExpandableListAdapter adapter;

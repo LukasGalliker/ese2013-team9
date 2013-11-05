@@ -4,6 +4,9 @@ import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.parse.ParseObject;
 import com.eseteam9.shoppyapp.R;
+
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -48,20 +51,38 @@ public class WelcomeScreen extends Activity {
 	    	Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT).show();
 		else{
 		    //get Phone number if possible
-		    TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-		    String myNumber = tm.getLine1Number();
+		    String email = getEmail(this);
 		    
 		    //Add Entry in DB    
-		    new UserHandler(this).add(new User(nickname, myNumber));
-		    
-		    ParseObject user = new ParseObject("User");
-		    user.put("name", nickname);
-		    user.saveInBackground();
+		    new UserHandler(this).add(new User(nickname, email));
 		    
 	        //Switch to DisplayListActivity
 	        Intent intent = new Intent(this, MainActivity.class);
 		    startActivity(intent);
 		}
 	}
+	
+
+	  static String getEmail(Context context) {
+	    AccountManager accountManager = AccountManager.get(context); 
+	    Account account = getAccount(accountManager);
+
+	    if (account == null) {
+	      return null;
+	    } else {
+	      return account.name;
+	    }
+	  }
+		  
+	  private static Account getAccount(AccountManager accountManager) {
+	    Account[] accounts = accountManager.getAccountsByType("com.google");
+	    Account account;
+	    if (accounts.length > 0) {
+	      account = accounts[0];      
+	    } else {
+	      account = null;
+	    }
+	    return account;
+	  }
 
 }
