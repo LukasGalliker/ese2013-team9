@@ -13,7 +13,7 @@ public class ShoppingListHandler extends LocalDatabaseHandler{
     
     private static final String KEY_ID = "id";
     private static final String KEY_TITLE = "title";
-    private static final String KEY_OWNER = "owner";
+    private static final String KEY_ONLINEKEY = "onlineKey";
     private static final String KEY_ARCHIVED = "archived";
     private static final String KEY_TIMESTAMP = "timestamp";
     
@@ -24,7 +24,7 @@ public class ShoppingListHandler extends LocalDatabaseHandler{
     public static void createTable(SQLiteDatabase db) {
         String CREATE_SHOPPING_LISTS_TABLE = "CREATE TABLE "+ TABLE_NAME + "("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-        		+ KEY_TITLE + " TEXT, " + KEY_OWNER + " TEXT,"
+        		+ KEY_TITLE + " TEXT, " + KEY_ONLINEKEY + " TEXT,"
                 + KEY_ARCHIVED + " INTEGER," + KEY_TIMESTAMP
                 + "DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
         db.execSQL(CREATE_SHOPPING_LISTS_TABLE);
@@ -39,7 +39,7 @@ public class ShoppingListHandler extends LocalDatabaseHandler{
 
         ContentValues values = new ContentValues();
         values.put(KEY_TITLE, shoppingList.title);
-        values.put(KEY_OWNER, shoppingList.owner);
+        values.put(KEY_ONLINEKEY, shoppingList.onlineKey);
         values.put(KEY_ARCHIVED, shoppingList.archived ? 1 : 0);
 
         db.insert(TABLE_NAME, null, values);

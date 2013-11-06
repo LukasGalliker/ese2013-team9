@@ -42,9 +42,9 @@ public class ShoppingListHandlerTest extends EmulatorTestclass {
 		
 		assertTrue(getList.length == 2);
 		assertTrue(getList[0].title.equals(shoppingList[0].title));
-		assertTrue(getList[0].owner.equals(shoppingList[0].owner));
+		assertTrue(getList[0].onlineKey.equals(shoppingList[0].onlineKey));
 		assertTrue(getList[1].title.equals(shoppingList[1].title));
-		assertTrue(getList[1].owner.equals(shoppingList[1].owner));
+		assertTrue(getList[1].onlineKey.equals(shoppingList[1].onlineKey));
 	trySucceeded();} catch (Exception e) {tryFailed(e);} endCase();}
 	
 	private void caseDeleteShoppingList() {startCase("delete shopping list"); try {

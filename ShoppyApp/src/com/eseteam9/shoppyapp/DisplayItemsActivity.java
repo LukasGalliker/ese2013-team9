@@ -2,8 +2,6 @@ package com.eseteam9.shoppyapp;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import android.R.*;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
