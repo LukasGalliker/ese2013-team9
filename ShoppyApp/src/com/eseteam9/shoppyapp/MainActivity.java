@@ -10,7 +10,6 @@ import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.FragmentActivity;
@@ -210,7 +209,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			if (listname.length() == 0)
 		    	Toast.makeText(getApplicationContext(), "Please enter a name", Toast.LENGTH_SHORT).show();
 			else if (!new ShoppingListHandler(getApplicationContext()).existsEntry(listname)){
-				new ShoppingListHandler(getApplicationContext()).add(new ShoppingList(listname, user.name));
+				new ShoppingListHandler(getApplicationContext()).add(new ShoppingList(listname, "0"));
 				mSectionsPagerAdapter.update();
 		    } 
 		    else

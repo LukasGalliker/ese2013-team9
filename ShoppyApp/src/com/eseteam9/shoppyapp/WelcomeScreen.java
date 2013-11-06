@@ -53,8 +53,10 @@ public class WelcomeScreen extends Activity {
 		    //get Phone number if possible
 		    String email = getEmail(this);
 		    
+		    User user = new User(nickname, email);
 		    //Add Entry in DB    
-		    new UserHandler(this).add(new User(nickname, email));
+		    new UserHandler(this).add(user);
+		    new OnlineDatabaseHandler(this).putUser(user);
 		    
 	        //Switch to DisplayListActivity
 	        Intent intent = new Intent(this, MainActivity.class);
