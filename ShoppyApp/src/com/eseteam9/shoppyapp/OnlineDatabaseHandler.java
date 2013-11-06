@@ -1,7 +1,10 @@
 package com.eseteam9.shoppyapp;
 
+import java.util.List;
+
 import android.content.Context;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -17,7 +20,7 @@ public class OnlineDatabaseHandler {
 	}
 	
 	public void putUser(User user){
-		ParseObject onlineUser = new ParseObject("User");
+		ParseObject onlineUser = new ParseObject("Users");
 		onlineUser.put("name", user.name);
 		onlineUser.put("key", user.key);
 		onlineUser.saveEventually();
@@ -53,6 +56,20 @@ public class OnlineDatabaseHandler {
 		    }
 		  }
 		});		
+	}
+	
+	public void getUser(final String key, final Context context){
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
+		query.whereEqualTo("key", key);
+		query.findInBackground(new FindCallback<ParseObject>() {
+		    public void done(List<ParseObject> users, ParseException e) {
+		        if (e == null) {
+		        	ParseObject userObject = users.get(0);
+		            User user = new User(userObject.getString("name"), key);
+		            new UserHandler(context).add(user);
+		        }
+		    }
+		});
 	}
 	
 }

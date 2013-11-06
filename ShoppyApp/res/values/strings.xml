@@ -8,6 +8,7 @@
     <string name="save">Save</string>
     <string name="enter_nickname">Please enter a Nickname:</string>
     <string name="nickname">Nickname</string>
+    <string name="email">Email</string>
     <string name="title_activity_display_lists">Shoppy</string>
     <string name="title_section1">Lists</string>
     <string name="title_section2">Notifications</string>

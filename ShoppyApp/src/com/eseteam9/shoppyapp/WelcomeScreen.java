@@ -39,6 +39,8 @@ public class WelcomeScreen extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.welcome_screen, menu);
+		EditText editText = (EditText) findViewById(R.id.email);
+		editText.setText(getEmail(this));
 		return true;
 	}
     
@@ -46,12 +48,14 @@ public class WelcomeScreen extends Activity {
 	public void createDatabase(View view){
 	    EditText editText = (EditText) findViewById(R.id.nickname);
 	    String nickname = editText.getText().toString().trim();
+	    EditText editText2 = (EditText) findViewById(R.id.email);
+	    String email = editText2.getText().toString().trim();
 	    
 		if (nickname.length() == 0)
 	    	Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT).show();
 		else{
 		    //get Phone number if possible
-		    String email = getEmail(this);
+		    
 		    
 		    User user = new User(nickname, email);
 		    //Add Entry in DB    

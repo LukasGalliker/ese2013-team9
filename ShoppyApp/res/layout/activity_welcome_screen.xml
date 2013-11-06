@@ -8,16 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".WelcomeScreen" >
 
-    
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/nickname"
-        android:textColor="@color/black"
-        android:text="@string/enter_nickname"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -32,23 +22,10 @@
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/textView2"
         android:layout_below="@+id/textView2"
         android:layout_marginTop="16dp"
-        android:src="@drawable/shoppingcart"
-		android:contentDescription="@string/shoppingcart" />
-
-    <EditText
-        android:id="@+id/nickname"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/button1"
-        android:ems="10"
-        android:hint="@string/nickname"
-        android:inputType="textPersonName"
-        android:textColor="@color/black" />
+        android:contentDescription="@string/shoppingcart"
+        android:src="@drawable/shoppingcart" />
 
     <Button
         android:id="@+id/button1"
@@ -57,9 +34,36 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView1"
         android:gravity="center"
         android:onClick="createDatabase"
         android:text="@string/save" />
+
+    <EditText
+        android:id="@+id/nickname"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button1"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/button1"
+        android:ems="10"
+        android:hint="@string/nickname"
+        android:inputType="textPersonName"
+        android:textColor="@color/black" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/nickname"
+        android:layout_alignTop="@+id/button1"
+        android:ems="10"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/black" />
 
 </RelativeLayout>
