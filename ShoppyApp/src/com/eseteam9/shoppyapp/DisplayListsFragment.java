@@ -88,19 +88,25 @@ public class DisplayListsFragment extends Fragment{
 		return true;
 	}
 
-	private void shareDialog(ShoppingList list) {
+	private void shareDialog(final ShoppingList list) {
 		AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
 		alert.setTitle("Share List");
 		alert.setMessage("Choose Contact");
-		alert.setPositiveButton("Browse", new DialogInterface.OnClickListener() {
-				
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					   Intent intent = new Intent(Intent.ACTION_PICK);
-					   intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
-					   startActivityForResult(intent, PICK_CONTACT); 
-					   
-				}
+		alert.setNegativeButton("Browse", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				   Intent intent = new Intent(Intent.ACTION_PICK);
+				   intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
+				   startActivityForResult(intent, PICK_CONTACT); 
+			}	   
+		});
+		
+		alert.setPositiveButton("Share", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				   new OnlineDatabaseHandler(getActivity()).putList(list, new UserHandler(getActivity()).get());
+				   
+			}
 		 });
 		 alert.show();
 		
