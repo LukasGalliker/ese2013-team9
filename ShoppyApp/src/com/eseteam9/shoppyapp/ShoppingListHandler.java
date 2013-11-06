@@ -104,6 +104,13 @@ public class ShoppingListHandler extends LocalDatabaseHandler{
   	  db.close();
     }
     
+    public void updateOnlineKey(int id, String key) {
+    	  SQLiteDatabase db = this.getWritableDatabase();
+    	  SQLiteStatement stmt = db.compileStatement("UPDATE " + TABLE_NAME + " SET " + KEY_ONLINEKEY + " = '" + key + "' WHERE "+ KEY_ID +" = "+ id );
+    	  stmt.execute();
+    	  db.close();
+      }
+    
     public int getCount() {
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_NAME;

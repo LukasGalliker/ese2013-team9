@@ -43,6 +43,6 @@ public class UserHandlerTest extends EmulatorTestclass {
 	private void caseGetUser() {startCase("get user"); try {new UserHandler(context).get();
 		assertTrue(new UserHandler(context).get() != null);
 		assertTrue(user.name.equals(new UserHandler(context).get().name));
-		assertTrue(user.key.equals(new UserHandler(context).get().key));
+		assertTrue(user.email.equals(new UserHandler(context).get().email));
 	trySucceeded();} catch (Exception e) {tryFailed(e);} endCase();}
 }

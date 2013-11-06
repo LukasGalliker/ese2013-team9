@@ -54,15 +54,12 @@ public class WelcomeScreen extends Activity {
 		if (nickname.length() == 0)
 	    	Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT).show();
 		else{
-		    //get Phone number if possible
-		    
-		    
 		    User user = new User(nickname, email);
 		    //Add Entry in DB    
 		    new UserHandler(this).add(user);
 		    new OnlineDatabaseHandler(this).putUser(user);
 		    
-	        //Switch to DisplayListActivity
+	        //Switch to MainActivity
 	        Intent intent = new Intent(this, MainActivity.class);
 		    startActivity(intent);
 		}
