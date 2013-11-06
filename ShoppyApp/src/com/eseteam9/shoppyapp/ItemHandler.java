@@ -17,6 +17,7 @@ public class ItemHandler extends LocalDatabaseHandler{
     private static final String KEY_QUANTITY = "quantity";
     private static final String KEY_BOUGHT = "bought";
     private static final String KEY_TIMESTAMP = "timestamp";
+    private static final String KEY_ONLINEKEY = "onlinekey";
     
     public ItemHandler(Context context) {
     	super(context);
@@ -27,7 +28,7 @@ public class ItemHandler extends LocalDatabaseHandler{
     			+ KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_LIST_ID
     			+ " INTEGER,"+ KEY_NAME + " TEXT," + KEY_QUANTITY + " TEXT,"
     			+ KEY_BOUGHT + " INTEGER," + KEY_TIMESTAMP
-    			+ " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
+    			+ " DATETIME DEFAULT CURRENT_TIMESTAMP," + KEY_ONLINEKEY + " TEXT" + ")";
     	db.execSQL(CREATE_TABLE);
     }
     
@@ -43,6 +44,7 @@ public class ItemHandler extends LocalDatabaseHandler{
         values.put(KEY_LIST_ID, item.listId);
         values.put(KEY_QUANTITY, item.quantity);
         values.put(KEY_BOUGHT, 0);
+        values.put(KEY_ONLINEKEY, "0");
 
         db.insert(TABLE_NAME, null, values);
         db.close();
@@ -127,12 +129,21 @@ public class ItemHandler extends LocalDatabaseHandler{
     			c.getString(2),
     			c.getString(3),
                 c.getInt(4) == 1,
-                new Date(c.getLong(5)));
+                new Date(c.getLong(5)),
+                c.getString(6));
     }
 
 	public void update(int itemId, String itemname, String quantity) {
 	  	  SQLiteDatabase db = this.getWritableDatabase();
 	  	  SQLiteStatement stmt = db.compileStatement("UPDATE " + TABLE_NAME + " SET " + KEY_NAME + " = '" + itemname + "', " + KEY_QUANTITY + " = '" + quantity + "' WHERE "+ KEY_ID +" = "+ itemId );
+	  	  stmt.execute();
+	  	  db.close();
+		
+	}
+	
+	public void updateOnlineKey(int itemId, String key) {
+	  	  SQLiteDatabase db = this.getWritableDatabase();
+	  	  SQLiteStatement stmt = db.compileStatement("UPDATE " + TABLE_NAME + " SET " + KEY_ONLINEKEY + " = '" + key + "' WHERE "+ KEY_ID +" = "+ itemId );
 	  	  stmt.execute();
 	  	  db.close();
 		

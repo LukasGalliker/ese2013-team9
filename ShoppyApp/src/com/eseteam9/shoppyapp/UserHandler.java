@@ -32,7 +32,7 @@ public class UserHandler extends LocalDatabaseHandler{
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, user.name);
-        values.put(KEY_KEY, user.key);
+        values.put(KEY_KEY, user.email);
 
         db.insert(TABLE_NAME, null, values);
         db.close();
