@@ -1,9 +1,8 @@
 package com.eseteam9.shoppyapp;
 
+import java.util.ArrayList;
 import java.util.List;
-
 import android.content.Context;
-
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.Parse;
@@ -34,24 +33,40 @@ public class OnlineDatabaseHandler {
 		listObject.saveEventually(new SaveCallback() {
             public void done(ParseException e) {
                 if (e == null) {
-                	String listKey = listObject.getObjectId();
+                	final String listKey = listObject.getObjectId();
                 	new ShoppingListHandler(context).updateOnlineKey(list.id, listKey);
             		
             		Item[] items = new ItemHandler(context).getListItems(list.id);
-            		for (Item i: items)
-            			putItem(listKey, i);
+            		List<ParseObject> parseItems = new ArrayList<ParseObject>();
+            		
+            	    for (int i = 0; i < items.length; i++ ){
+            	    	ParseObject item = new ParseObject("Item");
+            	    	item = parseItem(items[i]);
+            	    	item.put("list", listKey);
+            	    	parseItems.add(i, item);
+            	    }
+            	    
+            	    ParseObject.saveAllInBackground(parseItems, new SaveCallback() {
+                        public void done(ParseException e) {
+                            if (e == null) {
+                            	final String listKey = listObject.getObjectId();
+                            	ItemHandler handler = new ItemHandler(context);
+                            	handler.deleteListItems(list.id);
+                            	getListItems(listKey, list.id);
+                            }
+                        }
+                    });  
                 }
             }
         });
 	}
 	
-	public void putItem(String listKey, Item item){
+	public ParseObject parseItem(Item item){
 		ParseObject itemObject = new ParseObject("Item");
 		itemObject.put("name", item.name);
 		itemObject.put("quantity", item.quantity);
 		itemObject.put("bought", item.bought);
-		itemObject.put("list", listKey);
-		itemObject.saveEventually();
+		return itemObject;
 	}
 	
 	public void updateItem(String listKey, final Item item){
@@ -84,6 +99,30 @@ public class OnlineDatabaseHandler {
 		  }
 		});		
 	}
+	
+	public void getListItems(final String onlineKey, final int listId){
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("Item");
+		query.whereEqualTo("list", onlineKey);
+		query.findInBackground(new FindCallback<ParseObject>() {
+		  public void done(List<ParseObject> parseItems, ParseException e) {
+		    if (e == null) {
+		      Item[] items = new Item[parseItems.size()];
+		      for (int i=0; i < parseItems.size(); i++){
+		    	  ParseObject itemObject = parseItems.get(i);
+			      Item item = new Item(listId, 
+			    		  				itemObject.getString("name"), 
+			    		  				itemObject.getString("quantity"), 
+			    		  				itemObject.getBoolean("bought"), 
+			    		  				itemObject.getDate("createdAt"), 
+			    		  				itemObject.getObjectId());
+			      items[i] = item;
+		      }
+			new ItemHandler(context).addListItems(listId, items);
+		    }
+		  }
+		});
+	}
+	
 	
 	public void getUser(final String key){
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
