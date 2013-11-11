@@ -171,7 +171,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	public void checkItem(View view){
 		boolean status = ((CheckBox) view).isChecked();
 		int id = (Integer) view.getTag();
-		new ItemHandler(this).checked(id, status);
+		ItemHandler handler = new ItemHandler(this);
+		Item item = handler.get(id);
+		handler.checked(id, status);
+		new OnlineDatabaseHandler(this).checkItem(item.onlineKey, status);
 		//mSectionsPagerAdapter.update();
 	}
 	

@@ -80,6 +80,19 @@ public class ItemHandler extends LocalDatabaseHandler{
     	}
     }
     
+    public Item get(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " + KEY_ID + " = " + id;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+        
+        Item item = parseItem(cursor);
+        db.close();
+        return item;
+    }
+    
     public Item[] getListItems(int listId) {
         String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " + KEY_LIST_ID + " = " + listId + " ORDER BY " + KEY_BOUGHT;
         
