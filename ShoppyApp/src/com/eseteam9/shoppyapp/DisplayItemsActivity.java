@@ -104,7 +104,7 @@ public class DisplayItemsActivity extends Activity {
 		Item item = items[lv.getPositionForView(view)];
 		int id = item.id;
 		new ItemHandler(this).checked(id, status);	
-		
+		new OnlineDatabaseHandler(this).checkItem(item.onlineKey, status);
 	}
 	
 	//Backbutton is pressed

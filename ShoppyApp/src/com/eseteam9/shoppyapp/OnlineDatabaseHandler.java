@@ -84,6 +84,19 @@ public class OnlineDatabaseHandler {
 		});
 	}
 	
+	public void checkItem(String itemKey, final boolean status){
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("Item");
+		 
+		query.getInBackground(itemKey, new GetCallback<ParseObject>() {
+		  public void done(ParseObject itemObject, ParseException e) {
+		    if (e == null) {
+		      itemObject.put("bought", status);
+		      itemObject.saveInBackground();
+		    }
+		  }
+		});
+	}
+	
 	public void shareList(final String onlineKey, final User[] users){
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("SharedList");
 		 
