@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Item {
 	public final int id;
-	public final int listId;
+	public int listId;
 	public final String name;
 	public final String quantity;
 	public final String onlineKey;
@@ -29,5 +29,19 @@ public class Item {
 		this.bought = false;
 		this.timestamp = null;
 		this.onlineKey = "0";
+	}
+	
+	public Item(int listId, String name, String quantity, boolean bought, Date timestamp, String onlineKey) {
+		this.id = 0;
+		this.listId = listId;
+		this.name = name;
+		this.quantity = quantity;
+		this.bought = bought;
+		this.timestamp = timestamp;
+		this.onlineKey = onlineKey;
+	}
+	
+	public void setListId(int listId){
+		this.listId = listId;
 	}
 }

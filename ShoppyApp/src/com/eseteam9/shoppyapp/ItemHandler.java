@@ -38,13 +38,14 @@ public class ItemHandler extends LocalDatabaseHandler{
     
     public void add(Item item) {
     	SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
+        int bought = item.bought ? 1 : 0;
+        
         values.put(KEY_NAME, item.name);
         values.put(KEY_LIST_ID, item.listId);
         values.put(KEY_QUANTITY, item.quantity);
-        values.put(KEY_BOUGHT, 0);
-        values.put(KEY_ONLINEKEY, "0");
+        values.put(KEY_BOUGHT, bought);
+        values.put(KEY_ONLINEKEY, item.onlineKey);
 
         db.insert(TABLE_NAME, null, values);
         db.close();
@@ -54,6 +55,29 @@ public class ItemHandler extends LocalDatabaseHandler{
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, KEY_ID + "=" + id, null);
         db.close();
+    }
+    
+    public void deleteListItems(int listId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, KEY_LIST_ID + "=" + listId, null);
+        db.close();
+    }
+    
+    public void addListItems(int listId, Item[] items) {
+    	for (Item item: items){
+    		SQLiteDatabase db = this.getWritableDatabase();
+	        ContentValues values = new ContentValues();
+	        int bought = item.bought ? 1 : 0;
+	        
+	        values.put(KEY_NAME, item.name);
+	        values.put(KEY_LIST_ID, listId);
+	        values.put(KEY_QUANTITY, item.quantity);
+	        values.put(KEY_BOUGHT, bought);
+	        values.put(KEY_ONLINEKEY, item.onlineKey);
+	        
+	        db.insert(TABLE_NAME, null, values);
+	        db.close();
+    	}
     }
     
     public Item[] getListItems(int listId) {

@@ -42,7 +42,6 @@ public class DisplayListsFragment extends Fragment{
         elv = (ExpandableListView)view.findViewById(R.id.listoverview);
 		registerForContextMenu(elv);
 		elv.setClickable(true);
-		elv.setGroupIndicator(null);
 		
 		this.lists = new ShoppingListHandler(getActivity()).getAll();
 		for (ShoppingList l : this.lists)
