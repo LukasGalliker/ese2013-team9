@@ -199,8 +199,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		  
 		  // generate testobjects
 		  if (listname.equals("test")) {
-			  new ShoppingListHandler(getApplicationContext()).add(new ShoppingList("groceries", "0"));
-			  new ShoppingListHandler(getApplicationContext()).add(new ShoppingList("household articles", "0"));
+			  new ShoppingListHandler(getApplicationContext()).add(new ShoppingList("groceries"));
+			  new ShoppingListHandler(getApplicationContext()).add(new ShoppingList("household articles"));
 			  ShoppingList[] lists = new ShoppingListHandler(getApplicationContext()).getAll();
 			  ShoppingList groceries = null, household_articles = null;
 			  for (ShoppingList list : lists){
