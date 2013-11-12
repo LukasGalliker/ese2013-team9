@@ -11,10 +11,10 @@ import android.widget.TextView;
 
 public class NotificationAdapter extends ArrayAdapter<Notification> {
 	private Context context;
-	private ArrayList<Notification> notifications;
+	private Notification[] notifications;
 	
 	
-	public NotificationAdapter(Context context, int resource, ArrayList<Notification> notifications) {
+	public NotificationAdapter(Context context, int resource, Notification[] notifications) {
 		super(context, resource);
 		this.context=context;
 		this.notifications = notifications;
@@ -29,7 +29,7 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
         }
         
         String message = "";
-        Notification notification = notifications.get(position);
+        Notification notification = notifications[position];
         if (notification != null) {
         	switch (notification.notificationId){
         	case 1: message = "User has added you to Friendlist";
@@ -38,6 +38,8 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
 					break;        	
         	case 3: message = "User bought some stuff from a list";
 					break;  
+        	case 4: message = "No new Notifications!";
+        			break;
         	}
             TextView text = (TextView) v.findViewById(R.id.notificationText);
             if (text != null) {
@@ -47,5 +49,8 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
         return v;
     }
 	
+	public void update(Notification[] notifications){
+		this.notifications = notifications;
+	}
 	
 }

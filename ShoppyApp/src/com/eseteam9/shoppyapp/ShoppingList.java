@@ -17,10 +17,10 @@ public class ShoppingList {
 		this.timestamp = timestamp;
 	}
 	
-	public ShoppingList (String title, String owner) {
+	public ShoppingList (String title) {
 		this.id = 0;
 		this.title = title;
-		this.onlineKey = owner;
+		this.onlineKey = "0";
 		this.archived = false;
 		this.timestamp = null;
 	}

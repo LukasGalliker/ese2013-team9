@@ -88,13 +88,8 @@ public class DisplayListsFragment extends DisplayFragment{
 
 	public void updateAdapter(){
 		this.lists = new ShoppingListHandler(getActivity()).getAll();
-		Item[] empty = null;
 		for (ShoppingList l : this.lists)
-			if (new ItemHandler(getActivity()).getCountUnbought(l.id) < 6)
-				this.content.put(l, new ItemHandler(getActivity()).getUnbought(l.id));
-			else
-				this.content.put(l, empty);
-		
+			this.content.put(l, new ItemHandler(getActivity()).getUnbought(l.id));
 		this.adapter.update(this.lists, this.content);
 		this.adapter.notifyDataSetChanged();
 	}

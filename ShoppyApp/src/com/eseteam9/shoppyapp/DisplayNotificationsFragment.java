@@ -1,9 +1,5 @@
 package com.eseteam9.shoppyapp;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -11,14 +7,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.ExpandableListView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class DisplayNotificationsFragment extends DisplayFragment{
-	private ListAdapter adapter;
+	private NotificationAdapter adapter;
 	private Notification[] notifications; 
 	private ListView lv;
 
@@ -40,12 +34,16 @@ public class DisplayNotificationsFragment extends DisplayFragment{
         lv = (ListView)view.findViewById(R.id.notifications);
 		registerForContextMenu(lv);
 		lv.setClickable(true);
-	
-		if (notifications != null){
-			ArrayList<Notification> notif = new ArrayList<Notification>(Arrays.asList(notifications));
-			this.adapter = new NotificationAdapter(getActivity(), R.id.notifications, notif);
-			lv.setAdapter(adapter);
+	    
+		
+		if (notifications == null){
+			notifications = new Notification[1];
+			notifications[0] = new Notification(4, me.email);
 		}
+		
+		this.adapter = new NotificationAdapter(getActivity(), R.id.notifications, notifications);
+		lv.setAdapter(adapter);
+		
         
 		return view;
 		
@@ -77,5 +75,13 @@ public class DisplayNotificationsFragment extends DisplayFragment{
 		  default:
 		    return super.onContextItemSelected(item);
 		}
+	}
+
+	@Override
+	public void updateAdapter() {
+		User me = new UserHandler(getActivity()).get();
+		this.notifications = new OnlineDatabaseHandler(getActivity()).getNotifications(me.email);
+		this.adapter.update(notifications);
+		this.adapter.notifyDataSetChanged();
 	}
 }

@@ -3,7 +3,7 @@ package com.eseteam9.shoppyapp;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-public class DisplayFragment extends Fragment {
+public abstract class DisplayFragment extends Fragment {
 	
 	public DisplayFragment() {
 	}
@@ -13,5 +13,5 @@ public class DisplayFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);		
 	}
 	
-	public void updateAdapter(){}
+	public abstract void updateAdapter();
 }

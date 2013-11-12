@@ -40,9 +40,11 @@ public class ListDialog extends Dialog {
 				String email = value.toString();
 				if (email.length() != 0){
 					OnlineDatabaseHandler handler = new OnlineDatabaseHandler(context);
-					handler.putList(list, new UserHandler(context).get());
+					User me = new UserHandler(context).get();
+					
+					handler.putList(list, me);
 					handler.shareList(list.onlineKey, email);   
-					OnlineDatabaseHandler.notify(2, new UserHandler(context).get());
+					OnlineDatabaseHandler.notify(2, me);
 				}
 			}
 		 });

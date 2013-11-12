@@ -50,38 +50,32 @@ public class OnlineDatabaseHandler {
 		final ParseObject listObject = new ParseObject("List");
 		listObject.put("title", list.title);
 		listObject.put("owner", user.email);
-		listObject.saveEventually(new SaveCallback() {
-            public void done(ParseException e) {
-                if (e == null) {
-                	final String listKey = listObject.getObjectId();
-                	new ShoppingListHandler(context).updateOnlineKey(list.id, listKey);
-                	putItems(listKey, list.id);
-                }
-                
-            }
-        });
-		Toast.makeText(context, "List '" + list.title + "' is now shared", Toast.LENGTH_SHORT).show();
+		try {
+			listObject.save();
+	    	final String listKey = listObject.getObjectId();
+	    	new ShoppingListHandler(context).updateOnlineKey(list.id, listKey);
+	    	putItems(listKey, list.id);
+			Toast.makeText(context, "List '" + list.title + "' is now shared", Toast.LENGTH_SHORT).show();
+		} catch (ParseException e) {
+			Toast.makeText(context, "No connection. Please try again later", Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 	protected void getList(String listKey) {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("List");
-		query.whereEqualTo("objectId", listKey);
-		query.findInBackground(new FindCallback<ParseObject>() {
-			  public void done(List<ParseObject> parseLists, ParseException e) {
+		query.getInBackground(listKey, new GetCallback<ParseObject>() {
+			  public void done(ParseObject parseList, ParseException e) {
 				    if (e == null) {
-				      for (int i=0; i < parseLists.size(); i++){
-				    	  ParseObject sharedListObject = parseLists.get(i);
-					      ShoppingList list = new ShoppingList(0,
-					    		  sharedListObject.getString("title"), 
-					    		  sharedListObject.getObjectId(), 
-					    		  false,
-					    		  sharedListObject.getDate("createdAt"));
-					      new ShoppingListHandler(context).add(list);
-					      list = new ShoppingListHandler(context).get(sharedListObject.getObjectId());
-				    	  getListItems(sharedListObject.getString("listKey"), list.id);
-				      }
+						ShoppingList list = new ShoppingList(0,
+				    		  parseList.getString("title"), 
+				    		  parseList.getObjectId(), 
+				    		  false,
+				    		  parseList.getDate("createdAt"));
+						 new ShoppingListHandler(context).add(list);
+						 list = new ShoppingListHandler(context).get(parseList.getObjectId());
+					     getListItems(parseList.getObjectId(), list.id);
+				     }
 				 }
-			  }
 		});
 	}
 	
@@ -155,6 +149,7 @@ public class OnlineDatabaseHandler {
 			      items[i] = item;
 		      }
 			new ItemHandler(context).addListItems(listId, items);
+			Toast.makeText(context, "List is now downloaded", Toast.LENGTH_SHORT).show();
 		    }
 		  }
 		});

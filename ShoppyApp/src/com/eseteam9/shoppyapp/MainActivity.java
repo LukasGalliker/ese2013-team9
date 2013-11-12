@@ -108,7 +108,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	 * one of the sections/tabs/pages.
 	 */
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
-		private DisplayFragment fragment;
+		private DisplayListsFragment fragment;
 
 		public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
@@ -116,14 +116,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 		@Override
 		public Fragment getItem(int position) {
+			// getItem is called to instantiate the fragment for the given page.
+			// Return a DummySectionFragment (defined as a static inner class
+			// below) with the page number as its lone argument.
 			if (position == 0){
 				fragment = new DisplayListsFragment();
 				return fragment;
 			}
-			else{
-				fragment = new DisplayNotificationsFragment();
-				return fragment;
-			}
+			
+			Fragment fragment = new ListFragment();
+			return fragment;
 		}
 
 		public void update(){
@@ -163,6 +165,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	            return true;
 	        case R.id.action_refresh:
 	            new OnlineDatabaseHandler(this).getSharedLists();
+	            mSectionsPagerAdapter.update();
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
@@ -192,13 +195,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int whichButton) {
 		  Editable value = input.getText();
-		  User user = new UserHandler(getApplicationContext()).get();
 		  String listname = value.toString();
 		  
 			if (listname.length() == 0)
 		    	Toast.makeText(getApplicationContext(), "Please enter a name", Toast.LENGTH_SHORT).show();
 			else if (!new ShoppingListHandler(getApplicationContext()).existsEntry(listname)){
-				new ShoppingListHandler(getApplicationContext()).add(new ShoppingList(listname, "0"));
+				new ShoppingListHandler(getApplicationContext()).add(new ShoppingList(listname));
 				mSectionsPagerAdapter.update();
 		    } 
 		    else
