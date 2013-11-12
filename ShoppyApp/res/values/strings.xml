@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Shoppy</string>
-    <string name="shoppingcart">ShoppingCart</string>
+    <string name ="shoppingcart">ShoppingCart</string>
     <string name="action_settings">Settings</string>
     <string name="welcome">Welcome to Shoppy!</string>
     <string name="save">Save</string>
@@ -20,12 +20,10 @@
     <string name="title_activity_add_item">Add Item</string>
     <string name="add_a_item">Add Item:</string>
     <string name="title_activity_edit_list">Edit List</string>
-    <string name="edit_list">Edit List</string>
-    <string name="listname">Listname</string>
-    <string name="quantity">Quantity</string>
-    <string name="unit">Unit</string>
-    <string name="itemname">Itemname</string>
-    <string name="refresh">Refresh</string>
-    <string name="title_activity_display_notifications_fragment">DisplayNotificationsFragment</string>
+    <string name ="edit_list">Edit List</string>
+    <string name ="listname">Listname</string>
+    <string name ="quantity">Quantity</string>
+    <string name ="unit">Unit</string>
+    <string name ="itemname">Itemname</string>
 
 </resources>

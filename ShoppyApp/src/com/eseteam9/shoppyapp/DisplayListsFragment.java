@@ -1,6 +1,7 @@
 package com.eseteam9.shoppyapp;
 
 import java.util.HashMap;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -19,11 +20,12 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 
-public class DisplayListsFragment extends DisplayFragment{
+public class DisplayListsFragment extends Fragment{
 	private ExpandableListAdapter adapter;
 	private ShoppingList[] lists; 
 	private HashMap<ShoppingList, Item[]> content = new HashMap<ShoppingList, Item[]>();
 	private ExpandableListView elv;
+	private final int PICK_CONTACT = 0;
 	
 	public DisplayListsFragment() {
 	}
@@ -77,14 +79,38 @@ public class DisplayListsFragment extends DisplayFragment{
 			updateAdapter();
 		    return true;
 		  case 1:
-			  //new ListDialog(getActivity()).editDialog(list);
 			  editDialog(list);
 			  return true;
 		  case 2:
-		    new ListDialog(getActivity()).shareDialog(list);
+		    shareDialog(list);
 		}
 		return true;
 	}
+
+	private void shareDialog(final ShoppingList list) {
+		AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+		alert.setTitle("Share List");
+		alert.setMessage("Choose Contact");
+		alert.setNegativeButton("Browse", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				   Intent intent = new Intent(Intent.ACTION_PICK);
+				   intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
+				   startActivityForResult(intent, PICK_CONTACT); 
+			}	   
+		});
+		
+		alert.setPositiveButton("Share", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				   new OnlineDatabaseHandler(getActivity()).putList(list, new UserHandler(getActivity()).get());
+				   
+			}
+		 });
+		 alert.show();
+		
+	}
+	
 
 	public void updateAdapter(){
 		this.lists = new ShoppingListHandler(getActivity()).getAll();
