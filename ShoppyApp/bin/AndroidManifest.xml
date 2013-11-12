@@ -5,9 +5,9 @@
     android:versionName="1.0" >
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="18" />
@@ -24,6 +24,7 @@
             android:windowSoftInputMode="stateVisible|adjustResize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -43,6 +44,10 @@
         <activity
             android:name="com.eseteam9.shoppyapp.AddItemActivity"
             android:label="@string/title_activity_add_item" >
+        </activity>
+        <activity
+            android:name="com.eseteam9.shoppyapp.DisplayNotificationsFragment"
+            android:label="@string/title_activity_display_notifications_fragment" >
         </activity>
     </application>
 

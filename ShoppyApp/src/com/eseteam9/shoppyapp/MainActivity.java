@@ -108,7 +108,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	 * one of the sections/tabs/pages.
 	 */
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
-		private DisplayListsFragment fragment;
+		private DisplayFragment fragment;
 
 		public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
@@ -116,16 +116,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 		@Override
 		public Fragment getItem(int position) {
-			// getItem is called to instantiate the fragment for the given page.
-			// Return a DummySectionFragment (defined as a static inner class
-			// below) with the page number as its lone argument.
 			if (position == 0){
 				fragment = new DisplayListsFragment();
 				return fragment;
 			}
-			
-			Fragment fragment = new ListFragment();
-			return fragment;
+			else{
+				fragment = new DisplayNotificationsFragment();
+				return fragment;
+			}
 		}
 
 		public void update(){
@@ -162,6 +160,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	            return true;
 	        case R.id.action_settings:
 	            //openSettings();
+	            return true;
+	        case R.id.action_refresh:
+	            new OnlineDatabaseHandler(this).getSharedLists();
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
