@@ -135,7 +135,7 @@ public class DisplayItemsActivity extends Activity {
 
 		alert.setTitle("Add Item");
         LayoutInflater infalInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View view = infalInflater.inflate(R.layout.activity_add_item, null);
+        final View view = infalInflater.inflate(R.layout.dialog_add_item, null);
 		alert.setView(view);
 		
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -175,7 +175,7 @@ public class DisplayItemsActivity extends Activity {
 
 		alert.setTitle("Edit Item");
 		LayoutInflater infalInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View view = infalInflater.inflate(R.layout.activity_add_item, null);
+        final View view = infalInflater.inflate(R.layout.dialog_add_item, null);
 		alert.setView(view);
 		EditText nameView = (EditText) view.findViewById(R.id.item_name);
 		nameView.setText(item.name);

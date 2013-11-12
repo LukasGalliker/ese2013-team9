@@ -163,6 +163,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	        case R.id.action_settings:
 	            //openSettings();
 	            return true;
+	        case R.id.action_refresh:
+	            new OnlineDatabaseHandler(this).getSharedLists();
+	            mSectionsPagerAdapter.update();
+	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
@@ -191,13 +195,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int whichButton) {
 		  Editable value = input.getText();
-		  User user = new UserHandler(getApplicationContext()).get();
 		  String listname = value.toString();
 		  
 			if (listname.length() == 0)
 		    	Toast.makeText(getApplicationContext(), "Please enter a name", Toast.LENGTH_SHORT).show();
 			else if (!new ShoppingListHandler(getApplicationContext()).existsEntry(listname)){
-				new ShoppingListHandler(getApplicationContext()).add(new ShoppingList(listname, "0"));
+				new ShoppingListHandler(getApplicationContext()).add(new ShoppingList(listname));
 				mSectionsPagerAdapter.update();
 		    } 
 		    else
