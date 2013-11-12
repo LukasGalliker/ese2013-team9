@@ -15,4 +15,14 @@ public class User {
 		this.name = name;
 		this.email = email;
 	}
+	
+	public boolean equals(Object other){
+	    if (other == null) return false;
+	    if (other == this) return true;
+	    if (!(other instanceof User))return false;
+	    User that = (User)other;
+	    
+	    return this.name.equals(that.name)
+	    		&& this.email.equals(that.email);
+	}
 }

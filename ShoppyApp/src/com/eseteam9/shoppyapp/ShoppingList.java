@@ -24,4 +24,15 @@ public class ShoppingList {
 		this.archived = false;
 		this.timestamp = null;
 	}
+	
+	public boolean equals(Object other){
+	    if (other == null) return false;
+	    if (other == this) return true;
+	    if (!(other instanceof ShoppingList))return false;
+	    ShoppingList that = (ShoppingList)other;
+	    
+	    return this.title.equals(that.title)
+	    		&& this.onlineKey.equals(that.onlineKey)
+	    		&& this.archived == that.archived;
+	}
 }
