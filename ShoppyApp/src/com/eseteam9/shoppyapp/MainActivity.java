@@ -217,6 +217,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			  new ItemHandler(getApplicationContext()).add(new Item("Bulb, (E26)-screw", "1", household_articles.id));
 			  new ItemHandler(getApplicationContext()).add(new Item("Toilet paper", "1", household_articles.id));
 			  new ItemHandler(getApplicationContext()).add(new Item("Sponge", "2", household_articles.id));
+			  mSectionsPagerAdapter.update();
 			  return;
 		  }
 		  
