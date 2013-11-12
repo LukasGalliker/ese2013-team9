@@ -2,16 +2,13 @@ package com.eseteam9.shoppyapp;
 
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
-import com.parse.ParseObject;
 import com.eseteam9.shoppyapp.R;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -53,6 +50,8 @@ public class WelcomeScreen extends Activity {
 	    
 		if (nickname.length() == 0)
 	    	Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT).show();
+		else if (email.length() == 0)
+			Toast.makeText(this, "Please enter an email", Toast.LENGTH_SHORT).show();
 		else{
 		    User user = new User(nickname, email);
 		    //Add Entry in DB    

@@ -1,7 +1,5 @@
 package com.eseteam9.shoppyapp;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

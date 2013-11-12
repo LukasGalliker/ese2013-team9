@@ -18,6 +18,7 @@ public class ListDialog extends Dialog {
 		this.context = context;
 	}
 	
+	//Share a list
 	public void shareDialog(final ShoppingList list) {
 		AlertDialog.Builder alert = new AlertDialog.Builder(context);
 		alert.setTitle("Share List");
@@ -48,10 +49,10 @@ public class ListDialog extends Dialog {
 				}
 			}
 		 });
-		 alert.show();
+		alert.show();
 	}
 
-	
+	//Edit a list
 	void editDialog(final ShoppingList list) {
 		AlertDialog.Builder alert = new AlertDialog.Builder(context);
 
@@ -63,7 +64,7 @@ public class ListDialog extends Dialog {
 		alert.setView(input);
 		input.setText(list.title);
 		input.setSelection(list.title.length());
-
+		
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int whichButton) {
 		  Editable value = input.getText();
