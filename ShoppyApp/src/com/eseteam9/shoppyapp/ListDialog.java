@@ -41,8 +41,8 @@ public class ListDialog extends Dialog {
 				if (email.length() != 0){
 					OnlineDatabaseHandler handler = new OnlineDatabaseHandler(context);
 					User me = new UserHandler(context).get();
-					
-					handler.putList(list, me);
+					if (list.onlineKey !="0")
+						handler.putList(list, me);
 					handler.shareList(list.onlineKey, email);   
 					OnlineDatabaseHandler.notify(2, me);
 				}

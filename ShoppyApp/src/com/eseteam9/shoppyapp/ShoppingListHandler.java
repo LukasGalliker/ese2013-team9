@@ -89,6 +89,17 @@ public class ShoppingListHandler extends LocalDatabaseHandler{
         return false;
     }
     
+    public boolean existsKey(String onlineKey) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " + KEY_ONLINEKEY + " = '" + onlineKey + "'";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.getCount() > 0)
+        	return true;
+        db.close();
+        return false;
+    }
+    
     public ShoppingList[] getAll() {
         String selectQuery = "SELECT  * FROM " + TABLE_NAME;
         
@@ -119,7 +130,7 @@ public class ShoppingListHandler extends LocalDatabaseHandler{
     
     public void updateOnlineKey(int id, String key) {
     	  SQLiteDatabase db = this.getWritableDatabase();
-    	  SQLiteStatement stmt = db.compileStatement("UPDATE " + TABLE_NAME + " SET " + KEY_ONLINEKEY + " = '" + key + "' WHERE "+ KEY_ID +" = "+ id );
+    	  SQLiteStatement stmt = db.compileStatement("UPDATE " + TABLE_NAME + " SET " + KEY_ONLINEKEY + " = '" + key + "' WHERE "+ KEY_ID +" = " + id );
     	  stmt.execute();
     	  db.close();
       }

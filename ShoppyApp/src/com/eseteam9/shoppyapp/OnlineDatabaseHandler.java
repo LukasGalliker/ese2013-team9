@@ -97,10 +97,19 @@ public class OnlineDatabaseHandler {
 		query.findInBackground(new FindCallback<ParseObject>() {
 			  public void done(List<ParseObject> parseLists, ParseException e) {
 				    if (e == null) {
+				      boolean noEntry = true;
 				      for (int i=0; i < parseLists.size(); i++){
 				    	  ParseObject sharedListObject = parseLists.get(i);
-				    	  getList(sharedListObject.getString("listKey"));
+				    	  String key = sharedListObject.getString("listKey");
+				    	  boolean existsEntry = new ShoppingListHandler(context).existsKey(key);
+				    	  if (!existsEntry){
+				    		  noEntry = false;
+				    		  getList(key);
+				    	  }
+				    	  	
 				      }
+				      if (noEntry)
+				    	  Toast.makeText(context, "No new Lists", Toast.LENGTH_SHORT).show();
 				 }
 			  }
 		});
@@ -149,7 +158,7 @@ public class OnlineDatabaseHandler {
 			      items[i] = item;
 		      }
 			new ItemHandler(context).addListItems(listId, items);
-			Toast.makeText(context, "List is now downloaded", Toast.LENGTH_SHORT).show();
+			Toast.makeText(context, "List downloaded", Toast.LENGTH_SHORT).show();
 		    }
 		  }
 		});
