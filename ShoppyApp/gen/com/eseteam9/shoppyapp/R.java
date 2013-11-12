@@ -36,42 +36,49 @@ public final class R {
         public static final int shoppingcart=0x7f020005;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a0010;
-        public static final int add_list=0x7f0a0011;
-        public static final int button1=0x7f0a0002;
-        public static final int email=0x7f0a0009;
-        public static final int imageView1=0x7f0a0007;
-        public static final int item_name=0x7f0a0000;
-        public static final int itemname=0x7f0a000c;
-        public static final int itemoverview=0x7f0a0004;
-        public static final int itemsNum=0x7f0a000f;
-        public static final int list_name=0x7f0a0003;
-        public static final int listname=0x7f0a000e;
+        public static final int action_refresh=0x7f0a0015;
+        public static final int action_settings=0x7f0a0013;
+        public static final int add_list=0x7f0a0014;
+        public static final int button1=0x7f0a0004;
+        public static final int button2=0x7f0a0012;
+        public static final int email=0x7f0a0006;
+        public static final int imageView1=0x7f0a0003;
+        public static final int item_name=0x7f0a0007;
+        public static final int itemname=0x7f0a000d;
+        public static final int itemoverview=0x7f0a0000;
+        public static final int itemsNum=0x7f0a0010;
+        public static final int list_name=0x7f0a0009;
+        public static final int listname=0x7f0a000f;
         public static final int listoverview=0x7f0a000a;
-        public static final int nickname=0x7f0a0008;
-        public static final int pager=0x7f0a0005;
-        public static final int quantity=0x7f0a0001;
-        public static final int quantityText=0x7f0a000b;
-        public static final int status=0x7f0a000d;
-        public static final int textView2=0x7f0a0006;
+        public static final int nickname=0x7f0a0005;
+        public static final int notificationText=0x7f0a0011;
+        public static final int notifications=0x7f0a000b;
+        public static final int pager=0x7f0a0001;
+        public static final int quantity=0x7f0a0008;
+        public static final int quantityText=0x7f0a000c;
+        public static final int status=0x7f0a000e;
+        public static final int textView2=0x7f0a0002;
     }
     public static final class layout {
-        public static final int activity_add_item=0x7f030000;
-        public static final int activity_add_list=0x7f030001;
-        public static final int activity_display_items=0x7f030002;
-        public static final int activity_display_lists=0x7f030003;
-        public static final int activity_welcome_screen=0x7f030004;
+        public static final int activity_display_items=0x7f030000;
+        public static final int activity_display_lists=0x7f030001;
+        public static final int activity_welcome_screen=0x7f030002;
+        public static final int dialog_add_item=0x7f030003;
+        public static final int dialog_add_list=0x7f030004;
         public static final int fragment_display_lists=0x7f030005;
-        public static final int item_row=0x7f030006;
-        public static final int list_row=0x7f030007;
+        public static final int fragment_display_notifications=0x7f030006;
+        public static final int item_row=0x7f030007;
+        public static final int list_row=0x7f030008;
+        public static final int notification_row=0x7f030009;
     }
     public static final class menu {
         public static final int add_item=0x7f090000;
         public static final int add_list=0x7f090001;
         public static final int display_items=0x7f090002;
         public static final int display_lists=0x7f090003;
-        public static final int edit_list=0x7f090004;
-        public static final int welcome_screen=0x7f090005;
+        public static final int display_notifications=0x7f090004;
+        public static final int edit_list=0x7f090005;
+        public static final int welcome_screen=0x7f090006;
     }
     public static final class string {
         public static final int action_settings=0x7f070002;
@@ -87,12 +94,14 @@ public final class R {
         public static final int listname=0x7f070014;
         public static final int nickname=0x7f070006;
         public static final int quantity=0x7f070015;
+        public static final int refresh=0x7f070018;
         public static final int save=0x7f070004;
         public static final int shoppingcart=0x7f070001;
         public static final int title_activity_add_item=0x7f070010;
         public static final int title_activity_add_list=0x7f07000d;
         public static final int title_activity_display_items=0x7f07000f;
         public static final int title_activity_display_lists=0x7f070008;
+        public static final int title_activity_display_notifications_fragment=0x7f070019;
         public static final int title_activity_edit_list=0x7f070012;
         public static final int title_section1=0x7f070009;
         public static final int title_section2=0x7f07000a;
