@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.ArrayAdapter;
 /**
  * Provides the Options context menu on a List.
  * 
@@ -53,7 +52,7 @@ public class ListDialog extends Dialog {
 				if (email.length() != 0){
 					OnlineDatabaseHandler handler = new OnlineDatabaseHandler(context);
 					User me = new UserHandler(context).get();
-					if (list.onlineKey !="0")
+					if (list.onlineKey =="0")
 						handler.putList(list, me);
 					handler.shareList(list.onlineKey, email);   
 					OnlineDatabaseHandler.notify(2, me);
@@ -122,10 +121,8 @@ public class ListDialog extends Dialog {
 			public void onClick(DialogInterface dialog, int which) {
 				Editable value = input.getText();
 				String email = value.toString();
-				if (email.length() != 0){
-					OnlineDatabaseHandler handler = new OnlineDatabaseHandler(context);
-					handler.getUser(email);
-				}
+				if (email.length() != 0)
+					new OnlineDatabaseHandler(context).getUser(email);
 			}
 		 });
 		alert.show();

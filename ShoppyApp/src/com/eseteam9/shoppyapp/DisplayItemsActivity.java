@@ -88,6 +88,7 @@ public class DisplayItemsActivity extends Activity {
 	    switch (item.getItemId()) {
 		  case 0:
 			new ItemHandler(this).delete(listItem.id);
+			new OnlineDatabaseHandler(this).deleteItem(listItem.onlineKey);
 		    updateView();
 		    return true;
 		  case 1:
@@ -152,17 +153,21 @@ public class DisplayItemsActivity extends Activity {
 		
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int whichButton) {
-
+		  Context context = getApplicationContext();
 		  EditText nameView = (EditText) view.findViewById(R.id.item_name);
 		  String itemname = nameView.getText().toString();
 		  EditText quantityView = (EditText) view.findViewById(R.id.quantity);
 		  String quantity = quantityView.getText().toString();
 		  
 			if (itemname.length() == 0)
-		    	Toast.makeText(getApplicationContext(), "Please enter a name", Toast.LENGTH_SHORT).show();
+		    	Toast.makeText(context, "Please enter a name", Toast.LENGTH_SHORT).show();
 			else {
-				new ItemHandler(getApplicationContext()).add(new Item(itemname, quantity, listId));
-				items = new ItemHandler(getApplicationContext()).getListItems(listId);
+				ShoppingList oldList = new ShoppingListHandler(context).get(listId);
+				new ItemHandler(context).add(new Item(itemname, quantity, listId));
+				
+				if (oldList.onlineKey != "0")
+					new OnlineDatabaseHandler(context).putItems(oldList.onlineKey, listId);
+				items = new ItemHandler(context).getListItems(listId);
 				ArrayList<Item> list = new ArrayList<Item>(Arrays.asList(items));
 				adapter.clear();
 				adapter.addAll(list);
@@ -198,6 +203,7 @@ public class DisplayItemsActivity extends Activity {
 
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int whichButton) {
+		  Context context = getApplicationContext();
 		  EditText nameView = (EditText) view.findViewById(R.id.item_name);
 		  String itemname = nameView.getText().toString();
 		  EditText quantityView = (EditText) view.findViewById(R.id.quantity);
@@ -206,8 +212,8 @@ public class DisplayItemsActivity extends Activity {
 			if (itemname.length() == 0)
 		    	Toast.makeText(getBaseContext(), "Please enter a name", Toast.LENGTH_SHORT).show();
 			else{
-				new ItemHandler(getApplicationContext()).update(item.id, itemname, quantity);
-				items = new ItemHandler(getApplicationContext()).getListItems(listId);
+				new ItemHandler(context).update(item.id, itemname, quantity);
+				items = new ItemHandler(context).getListItems(listId);
 				ArrayList<Item> list = new ArrayList<Item>(Arrays.asList(items));
 				adapter.clear();
 				adapter.addAll(list);
