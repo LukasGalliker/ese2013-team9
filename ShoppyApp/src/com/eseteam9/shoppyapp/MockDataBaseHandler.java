@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 /**
- * Is used as a 
+ * Is used for the tests, does generally the same as the LocalDatabaseHandler, but optimized for testing.
  * 
  * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  * @extends SQLiteOpenHelper

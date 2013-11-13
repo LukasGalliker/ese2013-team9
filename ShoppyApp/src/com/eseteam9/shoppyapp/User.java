@@ -1,5 +1,9 @@
 package com.eseteam9.shoppyapp;
-
+/**
+ * This class provides the main structure of an User.
+ * 
+ * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ */
 public class User {
 	public final int id;
 	public final String name, email;

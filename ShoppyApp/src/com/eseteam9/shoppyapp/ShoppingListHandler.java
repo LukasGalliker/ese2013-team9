@@ -7,7 +7,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
-
+/**
+ * Converts the actions which can be executed on the Shopping lists to it's corresponding
+ * SQL commands and runs them on the LocalDatabase.
+ * 
+ * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @extends LocalDatabaseHandler
+ */
 public class ShoppingListHandler extends LocalDatabaseHandler{
     public static final String TABLE_NAME = "shopping_lists";
     

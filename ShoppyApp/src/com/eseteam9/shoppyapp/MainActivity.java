@@ -22,6 +22,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 /**
+ * Manages the "home-screen" with the two tabs, sets the general View of it.
  * 
  * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  * @extends FragmentActivity
