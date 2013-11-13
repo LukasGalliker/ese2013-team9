@@ -185,4 +185,23 @@ public class ItemHandler extends LocalDatabaseHandler{
 	  	  db.close();
 		
 	}
+	
+	public String[] getAllNames(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        String names[] = new String[cursor.getCount()];
+        
+        if (cursor.moveToFirst()) {
+        	int i = 0;
+            do {
+            	names[i] = cursor.getString(2);
+            	i++;
+            } while (cursor.moveToNext());
+        }
+
+        db.close();
+        return names;
+	}
 }

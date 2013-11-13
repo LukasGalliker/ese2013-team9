@@ -26,6 +26,7 @@
     <string name="unit">Unit</string>
     <string name="itemname">Itemname</string>
     <string name="refresh">Refresh</string>
+    <string name="add_friend">Add Friend</string>
     <string name="title_activity_display_notifications_fragment">DisplayNotificationsFragment</string>
 
 </resources>
