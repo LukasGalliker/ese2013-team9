@@ -16,7 +16,13 @@ import android.widget.Toast;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
-
+/**
+ * This class displays all the lists and provides the add button. 
+ * Is one of the tabs in the "home-screen".
+ * 
+ * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @extends DisplayFragment
+ */
 public class DisplayListsFragment extends DisplayFragment{
 	private ExpandableListAdapter adapter;
 	private ShoppingList[] lists; 

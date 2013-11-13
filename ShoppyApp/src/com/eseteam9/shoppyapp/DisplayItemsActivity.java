@@ -21,7 +21,13 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-
+/**
+ * This class is responsible to display all the items of a list and makes them clickable (long hold on an item
+ * brings up the options menu on that item). Add items is also possible.
+ * 
+ * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @extends Activity
+ */
 public class DisplayItemsActivity extends Activity {
 	private int listId;
 	private String listname;

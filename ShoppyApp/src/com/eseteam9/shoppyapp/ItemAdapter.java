@@ -12,7 +12,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
-
+/**
+ * This class transforms an Array of Item Objects in it's corresponding string representation.
+ * 
+ * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @extends ArrayAdapter<Item>
+ */
 public class ItemAdapter extends ArrayAdapter<Item> {
     private ArrayList<Item> items;
     private Activity activity;
