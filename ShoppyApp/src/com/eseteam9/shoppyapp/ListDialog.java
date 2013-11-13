@@ -35,7 +35,7 @@ public class ListDialog extends Dialog {
 		
 		ArrayAdapter<String> arr = new ArrayAdapter<String>(context,android.R.layout.simple_dropdown_item_1line, new UserHandler(context).getAllNames());
 		input.setAdapter(arr);
-		
+		/*
 		alert.setNegativeButton("Browse", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -43,18 +43,19 @@ public class ListDialog extends Dialog {
 				   intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
 			}	   
 		});
-		
+		*/
 		alert.setPositiveButton("Share", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
+				String key = list.onlineKey;
 				Editable value = input.getText();
 				String email = value.toString();
 				if (email.length() != 0){
-					OnlineDatabaseHandler handler = new OnlineDatabaseHandler(context);
 					User me = new UserHandler(context).get();
-					if (list.onlineKey =="0")
-						handler.putList(list, me);
-					handler.shareList(list.onlineKey, email);   
+					OnlineDatabaseHandler handler = new OnlineDatabaseHandler(context);
+					//if (key.trim() == "0")
+				    handler.putList(list, me);
+					handler.shareList(key, email);   
 					OnlineDatabaseHandler.notify(2, me);
 				}
 			}

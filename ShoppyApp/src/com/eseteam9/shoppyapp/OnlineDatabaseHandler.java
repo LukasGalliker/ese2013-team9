@@ -157,7 +157,7 @@ public class OnlineDatabaseHandler {
 	    	parseItems.add(i, item);
 	    }
 	    
-	    //Save Items and update local OnlineKey
+	    //Save Items and update local OnlineKey (to Change!)
 	    ParseObject.saveAllInBackground(parseItems, new SaveCallback() {
             public void done(ParseException e) {
                 if (e == null) {
