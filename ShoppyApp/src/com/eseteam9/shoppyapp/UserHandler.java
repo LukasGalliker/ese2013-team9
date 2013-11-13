@@ -4,7 +4,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
+/**
+ * Converts the actions which can be executed on a User into SQL commands and runs them on
+ * the LocalDatabase.
+ * 
+ * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @extends LocalDatabaseHandler
+ */
 public class UserHandler extends LocalDatabaseHandler{
     public static final String TABLE_NAME = "users";
     

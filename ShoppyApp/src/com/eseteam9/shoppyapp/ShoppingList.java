@@ -1,7 +1,11 @@
 package com.eseteam9.shoppyapp;
 
 import java.util.Date;
-
+/**
+ * This class provides the main structure of a ShoppingList.
+ * 
+ * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ */
 public class ShoppingList {
 	public final int id;
 	public final String title;

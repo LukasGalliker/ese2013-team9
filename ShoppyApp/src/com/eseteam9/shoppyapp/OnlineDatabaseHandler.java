@@ -12,7 +12,11 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseException;
 import com.parse.SaveCallback;
-
+/**
+ * This class communicates between the Online Database and the User.
+ * 
+ * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ */
 public class OnlineDatabaseHandler {
 	Context context;
 	Notification[] notifications;
