@@ -14,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -137,6 +139,10 @@ public class DisplayItemsActivity extends Activity {
         LayoutInflater infalInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View view = infalInflater.inflate(R.layout.dialog_add_item, null);
 		alert.setView(view);
+		
+		AutoCompleteTextView act=(AutoCompleteTextView)view.findViewById(R.id.item_name);
+		ArrayAdapter<String> arr = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, new ItemHandler(this).getAllNames());
+		act.setAdapter(arr);
 		
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int whichButton) {

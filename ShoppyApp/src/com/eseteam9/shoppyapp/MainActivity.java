@@ -167,6 +167,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	            new OnlineDatabaseHandler(this).getSharedLists();
 	            mSectionsPagerAdapter.update();
 	            return true;
+	        case R.id.add_friend:
+	            new ListDialog(this).addFriendDialog();
+	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }

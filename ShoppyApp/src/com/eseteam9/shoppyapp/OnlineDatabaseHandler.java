@@ -22,7 +22,6 @@ public class OnlineDatabaseHandler {
 		Parse.initialize(context, "siN9uAfK3is01V4Yyad62BztutNZN761smpPFdhQ", "zWJquwUQlEw9NHvBuZFFdpMrMIQoIXRy8CjslwY3"); 
 	}
 	
-	
 	//USER
 	public void putUser(User user){
 		ParseObject onlineUser = new ParseObject("Users");
@@ -32,17 +31,27 @@ public class OnlineDatabaseHandler {
 	}
 	
 	public void getUser(final String key){
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("User");
-		query.whereEqualTo("key", key);
-		query.findInBackground(new FindCallback<ParseObject>() {
-		    public void done(List<ParseObject> users, ParseException e) {
-		        if (e == null) {
-		        	ParseObject userObject = users.get(0);
-		            User user = new User(userObject.getString("name"), key);
-		            new UserHandler(context).add(user);
-		        }
-		    }
-		});
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
+		if (!new UserHandler(context).existsUser(key)){
+			query.whereEqualTo("key", key);
+			query.findInBackground(new FindCallback<ParseObject>() {
+			    public void done(List<ParseObject> users, ParseException e) {
+			        if (e == null) {
+				        if (users.size()>0){
+				        	ParseObject userObject = users.get(0);
+				            User user = new User(userObject.getString("name"), key);
+				            
+				            new UserHandler(context).add(user);
+			        	}
+			        	else
+			        		Toast.makeText(context, "No such user found", Toast.LENGTH_SHORT).show();
+			        	
+			        }
+			        else
+			        	Toast.makeText(context, "No connection. Please try again later", Toast.LENGTH_SHORT).show();
+			    }
+			});
+		}
 	}
 	
 	//LISTS
@@ -113,6 +122,22 @@ public class OnlineDatabaseHandler {
 				 }
 			  }
 		});
+	}
+	
+	protected void syncList(final ShoppingList list) {
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("List");
+		if (list.onlineKey != "0"){
+			query.getInBackground(list.onlineKey, new GetCallback<ParseObject>() {
+				  public void done(ParseObject parseList, ParseException e) {
+					    if (e == null) {
+					    	if (parseList != null){
+							new ShoppingListHandler(context).update(list.id, parseList.getString("title"));
+							//Sync items of list
+					    	}
+					     }
+					 }
+			});
+		}
 	}
 	
 	

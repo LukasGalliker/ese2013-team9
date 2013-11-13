@@ -8,7 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".AddList" >
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/item_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         android:textColor="@color/black" >
 
         <requestFocus />
-    </EditText>
+    </AutoCompleteTextView>
 
     <EditText
         android:id="@+id/quantity"

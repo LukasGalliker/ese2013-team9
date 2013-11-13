@@ -7,8 +7,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.ContactsContract;
 import android.text.Editable;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.ArrayAdapter;
 
 public class ListDialog extends Dialog {
 	private Context context;
@@ -18,12 +21,16 @@ public class ListDialog extends Dialog {
 		this.context = context;
 	}
 	
+	//Share a list
 	public void shareDialog(final ShoppingList list) {
 		AlertDialog.Builder alert = new AlertDialog.Builder(context);
 		alert.setTitle("Share List");
 		alert.setMessage("Enter Email or choose from Contacts");
-		final EditText input = new EditText(context);
+		final AutoCompleteTextView input = new AutoCompleteTextView(context);
 		alert.setView(input);
+		
+		ArrayAdapter<String> arr = new ArrayAdapter<String>(context,android.R.layout.simple_dropdown_item_1line, new UserHandler(context).getAllNames());
+		input.setAdapter(arr);
 		
 		alert.setNegativeButton("Browse", new DialogInterface.OnClickListener() {
 			@Override
@@ -48,10 +55,10 @@ public class ListDialog extends Dialog {
 				}
 			}
 		 });
-		 alert.show();
+		alert.show();
 	}
 
-	
+	//Edit a list
 	void editDialog(final ShoppingList list) {
 		AlertDialog.Builder alert = new AlertDialog.Builder(context);
 
@@ -63,7 +70,7 @@ public class ListDialog extends Dialog {
 		alert.setView(input);
 		input.setText(list.title);
 		input.setSelection(list.title.length());
-
+		
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int whichButton) {
 		  Editable value = input.getText();
@@ -86,6 +93,36 @@ public class ListDialog extends Dialog {
 		  }
 		});
 
+		alert.show();
+	}
+	
+	//Share a list
+	public void addFriendDialog() {
+		AlertDialog.Builder alert = new AlertDialog.Builder(context);
+		alert.setTitle("Add Friend");
+		alert.setMessage("Enter Email or choose from Contacts");
+		final EditText input = new EditText(context);
+		alert.setView(input);
+		
+		alert.setNegativeButton("Browse", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				   Intent intent = new Intent(Intent.ACTION_PICK);
+				   intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
+			}	   
+		});
+		
+		alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				Editable value = input.getText();
+				String email = value.toString();
+				if (email.length() != 0){
+					OnlineDatabaseHandler handler = new OnlineDatabaseHandler(context);
+					handler.getUser(email);
+				}
+			}
+		 });
 		alert.show();
 	}
 }
