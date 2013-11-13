@@ -215,24 +215,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		  
 		  // generate testobjects
 		  if (listname.equals("test")) {
-			  new ShoppingListHandler(getApplicationContext()).add(new ShoppingList("groceries"));
-			  new ShoppingListHandler(getApplicationContext()).add(new ShoppingList("household articles"));
-			  ShoppingList[] lists = new ShoppingListHandler(getApplicationContext()).getAll();
-			  ShoppingList groceries = null, household_articles = null;
-			  for (ShoppingList list : lists){
-				  if (list.title.equals("groceries")) groceries = list;
-				  if (list.title.equals("household articles")) household_articles = list;
-			  }
-			  
-			  new ItemHandler(getApplicationContext()).add(new Item("Apples", "1kg", groceries.id));
-			  new ItemHandler(getApplicationContext()).add(new Item("Rice", "2kg", groceries.id));
-			  new ItemHandler(getApplicationContext()).add(new Item("Peanuts", "1", groceries.id));
-			  new ItemHandler(getApplicationContext()).add(new Item("Coffe powder", "500g", groceries.id));
-			  new ItemHandler(getApplicationContext()).add(new Item("Bottled water", "2l", groceries.id));
-			  
-			  new ItemHandler(getApplicationContext()).add(new Item("Bulb, (E26)-screw", "1", household_articles.id));
-			  new ItemHandler(getApplicationContext()).add(new Item("Toilet paper", "1", household_articles.id));
-			  new ItemHandler(getApplicationContext()).add(new Item("Sponge", "2", household_articles.id));
+			  initializeList();
 			  mSectionsPagerAdapter.update();
 			  return;
 		  }
@@ -259,6 +242,27 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		alert.show();
 	}
 	
+	protected void initializeList() {
+		  new ShoppingListHandler(getApplicationContext()).add(new ShoppingList("groceries"));
+		  new ShoppingListHandler(getApplicationContext()).add(new ShoppingList("household articles"));
+		  ShoppingList[] lists = new ShoppingListHandler(getApplicationContext()).getAll();
+		  ShoppingList groceries = null, household_articles = null;
+		  for (ShoppingList list : lists){
+			  if (list.title.equals("groceries")) groceries = list;
+			  if (list.title.equals("household articles")) household_articles = list;
+		  }
+		  
+		  new ItemHandler(getApplicationContext()).add(new Item("Apples", "1kg", groceries.id));
+		  new ItemHandler(getApplicationContext()).add(new Item("Rice", "2kg", groceries.id));
+		  new ItemHandler(getApplicationContext()).add(new Item("Peanuts", "1", groceries.id));
+		  new ItemHandler(getApplicationContext()).add(new Item("Coffe powder", "500g", groceries.id));
+		  new ItemHandler(getApplicationContext()).add(new Item("Bottled water", "2l", groceries.id));
+		  
+		  new ItemHandler(getApplicationContext()).add(new Item("Bulb, (E26)-screw", "1", household_articles.id));
+		  new ItemHandler(getApplicationContext()).add(new Item("Toilet paper", "1", household_articles.id));
+		  new ItemHandler(getApplicationContext()).add(new Item("Sponge", "2", household_articles.id));
+	}
+
 	public void openItemView(View view){
         Intent intent = new Intent(this, DisplayItemsActivity.class);
         int listId = (Integer)view.getTag();
