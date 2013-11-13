@@ -7,7 +7,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
-
+/**
+ * This class is responsible that action on the items (e.g. adding items to a list, deleting items, check items ) 
+ * are saved correctly and it provides methods to let other classes display all items in a list, all unbought items etc..
+ * 
+ * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @extends LocalDatabaseHandler
+ */
 public class ItemHandler extends LocalDatabaseHandler{
     public static final String TABLE_NAME = "items";
     

@@ -21,7 +21,12 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
-
+/**
+ * 
+ * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @extends FragmentActivity
+ * @implements ActionBar.TabListener
+ */
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 	SectionsPagerAdapter mSectionsPagerAdapter;
 	ViewPager mViewPager;
@@ -175,6 +180,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	    }
 	}
 	
+	/**
+	 * Checks an item and updates the Online Database.
+	 * @param view
+	 */
 	public void checkItem(View view){
 		boolean status = ((CheckBox) view).isChecked();
 		int id = (Integer) view.getTag();
@@ -185,6 +194,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		//mSectionsPagerAdapter.update();
 	}
 	
+	/**
+	 * Opens
+	 */
 	void addDialog() {
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 

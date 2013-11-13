@@ -10,9 +10,14 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
- 
+ /**
+  * This class is responisble to make the Lists expandable so it is responsible to display the items of a list
+  * in an expandable list view
+  * 
+  * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+  * @extends BaseExpandableListAdapter
+  */
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
- 
     private Context context;
     private ShoppingList[] listDataHeader;
     private HashMap<ShoppingList, Item[]> listDataChild;

@@ -3,7 +3,13 @@ package com.eseteam9.shoppyapp;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
+/**
+ * This class manages the general interface and calls different handlers. Creates a Database on which
+ * the other handlers can operate.
+ * 
+ * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @extends SQLiteOpenHelper
+ */
 public class LocalDatabaseHandler extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "local.db";

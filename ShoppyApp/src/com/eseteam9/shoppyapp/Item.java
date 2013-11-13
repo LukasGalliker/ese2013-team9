@@ -1,7 +1,12 @@
 package com.eseteam9.shoppyapp;
 
 import java.util.Date;
-
+/**
+ * This class structures the Items used in the shopping lists. It holds all the basic information an item
+ * needs and provides 3 different ways to instantiate it.
+ * 
+ * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ */
 public class Item {
 	public final int id;
 	public int listId;
