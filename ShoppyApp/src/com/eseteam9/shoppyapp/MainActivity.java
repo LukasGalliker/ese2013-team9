@@ -24,7 +24,7 @@ import android.widget.Toast;
 /**
  * Manages the "home-screen" with the two tabs, sets the general View of it.
  * 
- * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @author Sï¿½bastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  * @extends FragmentActivity
  * @implements ActionBar.TabListener
  */
@@ -188,10 +188,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	public void checkItem(View view){
 		boolean status = ((CheckBox) view).isChecked();
 		int id = (Integer) view.getTag();
-		ItemHandler handler = new ItemHandler(this);
-		Item item = handler.get(id);
-		handler.checked(id, status);
-		new OnlineDatabaseHandler(this).checkItem(item.onlineKey, status);
+		//ItemHandler handler = new ItemHandler(this);
+		//Item item = handler.get(id);
+		//handler.checked(id, status);
+		Item item = new Item(this, id);
+		item.bought(status);
+		new OnlineDatabaseHandler(this).checkItem(item.onlineKey(), status);
 		//mSectionsPagerAdapter.update();
 	}
 	
@@ -222,8 +224,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		  
 			if (listname.length() == 0)
 		    	Toast.makeText(getApplicationContext(), "Please enter a name", Toast.LENGTH_SHORT).show();
-			else if (!new ShoppingListHandler(getApplicationContext()).existsEntry(listname)){
-				new ShoppingListHandler(getApplicationContext()).add(new ShoppingList(listname));
+			//else if (!new ShoppingListHandler(getApplicationContext()).existsEntry(listname)){
+			else if (!ShoppingLists.existsTitle(getApplicationContext(), listname)){
+				//new ShoppingListHandler(getApplicationContext()).add(new ShoppingList(listname));
+				new ShoppingList(getApplicationContext(), listname);
 				mSectionsPagerAdapter.update();
 		    } 
 		    else
@@ -243,31 +247,32 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	}
 	
 	protected void initializeList() {
-		  new ShoppingListHandler(getApplicationContext()).add(new ShoppingList("groceries"));
-		  new ShoppingListHandler(getApplicationContext()).add(new ShoppingList("household articles"));
-		  ShoppingList[] lists = new ShoppingListHandler(getApplicationContext()).getAll();
+		  new ShoppingList(getApplicationContext(), "Groceries");
+		  new ShoppingList(getApplicationContext(), "Household articles");
+		  ShoppingList[] lists = ShoppingLists.getAll(this);
 		  ShoppingList groceries = null, household_articles = null;
 		  for (ShoppingList list : lists){
-			  if (list.title.equals("groceries")) groceries = list;
-			  if (list.title.equals("household articles")) household_articles = list;
+			  if (list.title().equals("Groceries")) groceries = list;
+			  if (list.title().equals("Household articles")) household_articles = list;
 		  }
 		  
-		  new ItemHandler(getApplicationContext()).add(new Item("Apples", "1kg", groceries.id));
-		  new ItemHandler(getApplicationContext()).add(new Item("Rice", "2kg", groceries.id));
-		  new ItemHandler(getApplicationContext()).add(new Item("Peanuts", "1", groceries.id));
-		  new ItemHandler(getApplicationContext()).add(new Item("Coffe powder", "500g", groceries.id));
-		  new ItemHandler(getApplicationContext()).add(new Item("Bottled water", "2l", groceries.id));
+		  new Item(getApplicationContext(), groceries.id(), "Apples", "1kg");
+		  new Item(getApplicationContext(), groceries.id(), "Rice", "2kg");
+		  new Item(getApplicationContext(), groceries.id(), "Peanuts", "1");
+		  new Item(getApplicationContext(), groceries.id(), "Coffe powder", "500g");
+		  new Item(getApplicationContext(), groceries.id(), "Bottled water", "2l");
 		  
-		  new ItemHandler(getApplicationContext()).add(new Item("Bulb, (E26)-screw", "1", household_articles.id));
-		  new ItemHandler(getApplicationContext()).add(new Item("Toilet paper", "1", household_articles.id));
-		  new ItemHandler(getApplicationContext()).add(new Item("Sponge", "2", household_articles.id));
+		  new  Item(getApplicationContext(), household_articles.id(), "Bulb, (E26)-screw", "1");
+		  new  Item(getApplicationContext(), household_articles.id(), "Toilet pape", "1");
+		  new  Item(getApplicationContext(), household_articles.id(), "Sponge", "2");
 	}
 
 	public void openItemView(View view){
         Intent intent = new Intent(this, DisplayItemsActivity.class);
         int listId = (Integer)view.getTag();
         intent.putExtra("LIST_ID", listId);
-        intent.putExtra("LIST_NAME", new ShoppingListHandler(this).get(listId).title);
+        //intent.putExtra("LIST_NAME", new ShoppingListHandler(this).get(listId).title);
+        intent.putExtra("LIST_NAME", new ShoppingList(this, listId).title());
 	    startActivity(intent);
 	}
 

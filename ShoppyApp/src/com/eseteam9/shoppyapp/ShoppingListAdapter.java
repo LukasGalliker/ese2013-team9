@@ -16,7 +16,7 @@ import android.widget.TextView;
  * This class converts the Array of ShoppingLists to it's String representation based on the listname and the items
  * based on the title.
  * 
- * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @author Sï¿½bastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  * @extends ArrayAdapter<ShoppingList>
  */
 public class ShoppingListAdapter extends ArrayAdapter<ShoppingList> {
@@ -41,7 +41,7 @@ public class ShoppingListAdapter extends ArrayAdapter<ShoppingList> {
         if (list != null) {
             TextView itemView = (TextView) v.findViewById(R.id.listname);
             if (itemView != null) {
-                itemView.setText(list.title);
+                itemView.setText(list.title());
             }
         }
         return v;

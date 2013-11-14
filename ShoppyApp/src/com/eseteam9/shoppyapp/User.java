@@ -1,32 +1,49 @@
 package com.eseteam9.shoppyapp;
-/**
- * This class provides the main structure of an User.
- * 
- * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
- */
-public class User {
-	public final int id;
-	public final String name, email;
 
-	public User (int id, String name, String email) {
-		this.id = id;
-		this.name = name;
-		this.email = email;
+import android.content.Context;
+import android.database.Cursor;
+
+public class User {
+	private final Context context;
+	
+	private int id;
+		public int id(){return id;}
+	
+	private String name;
+		public String name(){return name;}
+		public void name(String name){this.name = name;}
+	
+	private String email;
+		public String email(){return email;}
+		public void email(String email){this.email = email;}
+	
+	public User(Context context, String name, String email){
+		this.context = context;
+		UserValueSet valueSet = lHandler().add(new UserValueSet(name, email));
+		copyValues(valueSet);
 	}
 	
-	public User (String name, String email) {
-		this.id = 0;
-		this.name = name;
-		this.email = email;
+	public User(Context context, int id){
+		this.context = context;
+		loadById(id);
 	}
 	
-	public boolean equals(Object other){
-	    if (other == null) return false;
-	    if (other == this) return true;
-	    if (!(other instanceof User))return false;
-	    User that = (User)other;
-	    
-	    return this.name.equals(that.name)
-	    		&& this.email.equals(that.email);
+	public User(Context context, Cursor cursor){
+		this.context = context;
+		copyValues(new UserValueSet(cursor));
+	}
+	
+	private void loadById(int id){
+		copyValues(lHandler().getById(id));
+	}
+	
+	private UserHandler lHandler(){
+		return new UserHandler(context);
+	}
+	
+	private void copyValues(UserValueSet set){
+		this.id = set.id;
+		this.name = set.name;
+		this.email = set.email;
 	}
 }

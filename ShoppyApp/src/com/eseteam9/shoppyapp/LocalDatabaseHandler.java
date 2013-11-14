@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * This class manages the general interface and calls different handlers. Creates a Database on which
  * the other handlers can operate.
  * 
- * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @author Sï¿½bastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  * @extends SQLiteOpenHelper
  */
 public class LocalDatabaseHandler extends SQLiteOpenHelper {

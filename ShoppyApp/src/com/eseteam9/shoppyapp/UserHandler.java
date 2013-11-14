@@ -4,14 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-/**
- * Converts the actions which can be executed on a User into SQL commands and runs them on
- * the LocalDatabase.
- * 
- * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
- * @extends LocalDatabaseHandler
- */
+
 public class UserHandler extends LocalDatabaseHandler{
+	private final Context context;
+	
     public static final String TABLE_NAME = "users";
     
     private static final String KEY_ID = "id";
@@ -20,6 +16,7 @@ public class UserHandler extends LocalDatabaseHandler{
     
     public UserHandler(Context context) {
     	super(context);
+    	this.context = context;
     }
 	
 	public static void createTable(SQLiteDatabase db) {
@@ -33,18 +30,27 @@ public class UserHandler extends LocalDatabaseHandler{
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
 	}
 	
-    public void add(User user) {
+    public UserValueSet add(UserValueSet valueSet) {
     	SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, user.name);
-        values.put(KEY_EMAIL, user.email);
+        values.put(KEY_NAME, valueSet.name);
+        values.put(KEY_EMAIL, valueSet.email);
 
         db.insert(TABLE_NAME, null, values);
         db.close();
+        db = this.getWritableDatabase();
+        
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToLast();
+        UserValueSet returnValueSet = new UserValueSet(cursor);
+        
+        db.close();
+        return returnValueSet;
     }
     
-    public User get() {
+    public User getOwner(){
     	SQLiteDatabase db = this.getWritableDatabase();
 
         String selectQuery = "SELECT  * FROM " + TABLE_NAME;
@@ -53,10 +59,25 @@ public class UserHandler extends LocalDatabaseHandler{
         if (cursor != null)
             cursor.moveToFirst();
  
-        User user = parseUser(cursor);
+        User returnUser = new User(context, cursor);
 
         db.close();
-        return user;
+        return returnUser;
+    }
+    
+    public UserValueSet getById(int id) {
+    	SQLiteDatabase db = this.getWritableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " + KEY_ID + " = " + id;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        
+        if (cursor != null)
+            cursor.moveToFirst();
+ 
+        UserValueSet returnValueSet = new UserValueSet(cursor);
+
+        db.close();
+        return returnValueSet;
     }
     
 	public String[] getAllNames(){
@@ -64,45 +85,43 @@ public class UserHandler extends LocalDatabaseHandler{
         String selectQuery = "SELECT  * FROM " + TABLE_NAME;
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        String names[] = new String[cursor.getCount()];
+        String returnNames[] = new String[cursor.getCount()];
         
         if (cursor.moveToFirst()) {
         	int i = 0;
             do {
-            	names[i] = cursor.getString(2);
+            	returnNames[i] = cursor.getString(2);
             	i++;
             } while (cursor.moveToNext());
         }
 
         db.close();
-        return names;
+        return returnNames;
 	}
     
-    public boolean existsUser () {
+    public boolean existsUser(){
         SQLiteDatabase db = this.getWritableDatabase();
 
         String selectQuery = "SELECT  * FROM " + TABLE_NAME;
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.getCount() > 0)
+        if (cursor.getCount() > 0){
+        	db.close();
         	return true;
+        }
         db.close();
         return false;
     }
     
-    public boolean existsUser (String email) {
+    public boolean existsUserByEmail(String email){
         SQLiteDatabase db = this.getWritableDatabase();
 
         String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " + KEY_EMAIL + " = '" + email + "'";
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.getCount() > 0)
+        if (cursor.getCount() > 0){
+        	db.close();
         	return true;
+        }
         db.close();
         return false;
-    }
-    
-    private User parseUser(Cursor c){
-    	return new User(Integer.parseInt(c.getString(0)),
-                c.getString(1),
-                c.getString(2));
     }
 }

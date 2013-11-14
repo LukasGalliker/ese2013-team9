@@ -17,7 +17,7 @@ import android.widget.Toast;
  * Is called ONLY when the user starts the app the first time and asks the user to specify his name and email
  * address (used for the share feauture).
  * 
- * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @author Sï¿½bastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  * @extends Activity
  */
 public class WelcomeScreen extends Activity {
@@ -30,12 +30,11 @@ public class WelcomeScreen extends Activity {
         Parse.initialize(this, "siN9uAfK3is01V4Yyad62BztutNZN761smpPFdhQ", "zWJquwUQlEw9NHvBuZFFdpMrMIQoIXRy8CjslwY3"); 
         ParseAnalytics.trackAppOpened(getIntent());
         //Checks if database of program exists, otherwise continues to DisplayLists
-        if (new UserHandler(this).existsUser()){
+        //if (new UserHandler(this).existsUser()){
+        if (Users.existsUser(this)){
             Intent intent = new Intent(this, MainActivity.class);
     	    startActivity(intent);
         }
-        
-        //new DatabaseTests(this);
     }
 
 	@Override
@@ -59,9 +58,10 @@ public class WelcomeScreen extends Activity {
 		else if (email.length() == 0)
 			Toast.makeText(this, "Please enter an email", Toast.LENGTH_SHORT).show();
 		else{
-		    User user = new User(nickname, email);
+		    //User user = new User(nickname, email);
 		    //Add Entry in DB    
-		    new UserHandler(this).add(user);
+		    //new UserHandler(this).add(user);
+			User user = new User(this, nickname, email);
 		    new OnlineDatabaseHandler(this).putUser(user);
 		    
 	        //Switch to MainActivity

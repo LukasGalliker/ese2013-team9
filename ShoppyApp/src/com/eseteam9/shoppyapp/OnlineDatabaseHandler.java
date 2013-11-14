@@ -15,7 +15,7 @@ import com.parse.SaveCallback;
 /**
  * This class communicates between the Online Database and the User.
  * 
- * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @author Sï¿½bastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  */
 public class OnlineDatabaseHandler {
 	Context context;
@@ -29,23 +29,24 @@ public class OnlineDatabaseHandler {
 	//USER
 	public void putUser(User user){
 		ParseObject onlineUser = new ParseObject("Users");
-		onlineUser.put("name", user.name);
-		onlineUser.put("key", user.email);
+		onlineUser.put("name", user.name());
+		onlineUser.put("key", user.email());
 		onlineUser.saveEventually();
 	}
 	
 	public void getUser(final String key){
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
-		if (!new UserHandler(context).existsUser(key)){
+		//if (!new UserHandler(context).existsUser(key)){
+		if (!Users.existsUserByEmail(context, key)){
 			query.whereEqualTo("key", key);
 			query.findInBackground(new FindCallback<ParseObject>() {
 			    public void done(List<ParseObject> users, ParseException e) {
 			        if (e == null) {
 				        if (users.size()>0){
 				        	ParseObject userObject = users.get(0);
-				            User user = new User(userObject.getString("name"), key);
-				            
-				            new UserHandler(context).add(user);
+				            //User user = new User(userObject.getString("name"), key);
+				            //new UserHandler(context).add(user);
+				            new User(context, userObject.getString("name"), key);
 			        	}
 			        	else
 			        		Toast.makeText(context, "No such user found", Toast.LENGTH_SHORT).show();
@@ -61,14 +62,15 @@ public class OnlineDatabaseHandler {
 	//LISTS
 	public void putList(final ShoppingList list, User user){
 		final ParseObject listObject = new ParseObject("List");
-		listObject.put("title", list.title);
-		listObject.put("owner", user.email);
+		listObject.put("title", list.title());
+		listObject.put("owner", user.email());
 		try {
 			listObject.save();
 	    	final String listKey = listObject.getObjectId();
-	    	new ShoppingListHandler(context).updateOnlineKey(list.id, listKey);
-	    	putItems(listKey, list.id);
-			Toast.makeText(context, "List '" + list.title + "' is now shared", Toast.LENGTH_SHORT).show();
+	    	list.onlineKey(listKey);
+	    	//new newShoppingListHandler(context).updateOnlineKey(list.id(), listKey);
+	    	putItems(listKey, list.id());
+			Toast.makeText(context, "List '" + list.title() + "' is now shared", Toast.LENGTH_SHORT).show();
 		} catch (ParseException e) {
 			Toast.makeText(context, "No connection. Please try again later", Toast.LENGTH_SHORT).show();
 		}
@@ -79,14 +81,17 @@ public class OnlineDatabaseHandler {
 		query.getInBackground(listKey, new GetCallback<ParseObject>() {
 			  public void done(ParseObject parseList, ParseException e) {
 				    if (e == null) {
-						ShoppingList list = new ShoppingList(0,
-				    		  parseList.getString("title"), 
-				    		  parseList.getObjectId(), 
-				    		  false,
-				    		  parseList.getDate("createdAt"));
-						 new ShoppingListHandler(context).add(list);
-						 list = new ShoppingListHandler(context).get(parseList.getObjectId());
-					     getListItems(parseList.getObjectId(), list.id);
+						//ShoppingList list = new ShoppingList(0,
+				    	//	  parseList.getString("title"), 
+				    	//	  parseList.getObjectId(), 
+				    	//	  false,
+				    	//	  parseList.getDate("createdAt"));
+						//new ShoppingListHandler(context).add(list);
+						//list = new ShoppingListHandler(context).get(parseList.getObjectId());
+				    	ShoppingList list = new ShoppingList(context, parseList.getString("title"));
+				    	list.onlineKey(parseList.getObjectId());
+				    	list.timestamp(parseList.getDate("createdAt"));
+					    getListItems(parseList.getObjectId(), list.id());
 				     }
 				 }
 		});
@@ -105,8 +110,9 @@ public class OnlineDatabaseHandler {
 	
 	public void getSharedLists(){
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("SharedList");
-		User me = new UserHandler(context).get();
-		query.whereEqualTo("userKey", me.email);
+		//User me = new UserHandler(context).get();
+		User me = Users.getOwner(context);
+		query.whereEqualTo("userKey", me.email());
 		query.findInBackground(new FindCallback<ParseObject>() {
 			  public void done(List<ParseObject> parseLists, ParseException e) {
 				    if (e == null) {
@@ -114,8 +120,9 @@ public class OnlineDatabaseHandler {
 				      for (int i=0; i < parseLists.size(); i++){
 				    	  ParseObject sharedListObject = parseLists.get(i);
 				    	  String key = sharedListObject.getString("listKey");
-				    	  boolean existsEntry = new ShoppingListHandler(context).existsKey(key);
-				    	  if (!existsEntry){
+				    	  //boolean existsEntry = new ShoppingListHandler(context).existsKey(key);
+				    	  //if (!existsEntry){
+				    	  if(!ShoppingLists.existsOnlineKey(context, key)){
 				    		  noEntry = false;
 				    		  getList(key);
 				    	  }
@@ -130,12 +137,13 @@ public class OnlineDatabaseHandler {
 	
 	protected void syncList(final ShoppingList list) {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("List");
-		if (list.onlineKey != "0"){
-			query.getInBackground(list.onlineKey, new GetCallback<ParseObject>() {
+		if (list.onlineKey() != "0"){
+			query.getInBackground(list.onlineKey(), new GetCallback<ParseObject>() {
 				  public void done(ParseObject parseList, ParseException e) {
 					    if (e == null) {
 					    	if (parseList != null){
-							new ShoppingListHandler(context).update(list.id, parseList.getString("title"));
+							//new ShoppingListHandler(context).update(list.id, parseList.getString("title"));
+					    		list.title(parseList.getString("title"));
 							//Sync items of list
 					    	}
 					     }
@@ -147,7 +155,8 @@ public class OnlineDatabaseHandler {
 	
 	//ITEMS
 	public void putItems(final String listKey, final int listid){
-		Item[] items = new ItemHandler(context).getListItems(listid);
+		//Item[] items = new ItemHandler(context).getListItems(listid);
+		Item[] items = Items.getByListId(context, listid);
 		List<ParseObject> parseItems = new ArrayList<ParseObject>();
 		
 	    for (int i = 0; i < items.length; i++ ){
@@ -161,8 +170,9 @@ public class OnlineDatabaseHandler {
 	    ParseObject.saveAllInBackground(parseItems, new SaveCallback() {
             public void done(ParseException e) {
                 if (e == null) {
-                	ItemHandler handler = new ItemHandler(context);
-                	handler.deleteListItems(listid);
+                	//ItemHandler handler = new ItemHandler(context);
+                	//handler.deleteListItems(listid);
+                	Items.deleteByListId(context, listid);
                 	getListItems(listKey, listid);
                 }
             }
@@ -175,8 +185,16 @@ public class OnlineDatabaseHandler {
 		query.findInBackground(new FindCallback<ParseObject>() {
 		  public void done(List<ParseObject> parseItems, ParseException e) {
 		    if (e == null) {
-		      Item[] items = new Item[parseItems.size()];
+		      //newItem[] items = new newItem[parseItems.size()];
+		      Item item;
 		      for (int i=0; i < parseItems.size(); i++){
+		    	  ParseObject itemObject = parseItems.get(i);
+		    	  item = new Item(context, listId, itemObject.getString("name"), itemObject.getString("quantity"));
+		    	  item.onlineKey(itemObject.getObjectId());
+		    	  item.bought(itemObject.getBoolean("bought"));
+		    	  item.timestamp(itemObject.getDate("createdAt"));
+		      }
+		    /*
 		    	  ParseObject itemObject = parseItems.get(i);
 			      Item item = new Item(listId, 
 			    		  				itemObject.getString("name"), 
@@ -187,6 +205,7 @@ public class OnlineDatabaseHandler {
 			      items[i] = item;
 		      }
 			new ItemHandler(context).addListItems(listId, items);
+			*/
 			Toast.makeText(context, "List downloaded", Toast.LENGTH_SHORT).show();
 		    }
 		  }
@@ -209,12 +228,12 @@ public class OnlineDatabaseHandler {
 	public void updateItem(String listKey, final Item item){
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Item");
 		 
-		query.getInBackground(item.onlineKey, new GetCallback<ParseObject>() {
+		query.getInBackground(item.onlineKey(), new GetCallback<ParseObject>() {
 		  public void done(ParseObject itemObject, ParseException e) {
 		    if (e == null) {
-		      itemObject.put("bought", item.bought);
-		      itemObject.put("name", item.name);
-		      itemObject.put("quantity", item.quantity);
+		      itemObject.put("bought", item.bought());
+		      itemObject.put("name", item.name());
+		      itemObject.put("quantity", item.quantity());
 		      itemObject.saveInBackground();
 		    }
 		  }
@@ -235,9 +254,9 @@ public class OnlineDatabaseHandler {
 	
 	public ParseObject parseItem(Item item){
 		ParseObject itemObject = new ParseObject("Item");
-		itemObject.put("name", item.name);
-		itemObject.put("quantity", item.quantity);
-		itemObject.put("bought", item.bought);
+		itemObject.put("name", item.name());
+		itemObject.put("quantity", item.quantity());
+		itemObject.put("bought", item.bought());
 		return itemObject;
 	}
 	
@@ -245,7 +264,7 @@ public class OnlineDatabaseHandler {
 	//NOTIFICATIONS
 	public static void notify(int notificationId, User user){
 			ParseObject onlineUser = new ParseObject("Notifications");
-			onlineUser.put("userKey", user.email);
+			onlineUser.put("userKey", user.email());
 			onlineUser.put("notification", notificationId);
 			onlineUser.saveEventually();
 	}

@@ -15,7 +15,7 @@ import android.widget.TextView;
 /**
  * This class transforms an Array of Item Objects in it's corresponding string representation.
  * 
- * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @author Sï¿½bastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  * @extends ArrayAdapter<Item>
  */
 public class ItemAdapter extends ArrayAdapter<Item> {
@@ -40,15 +40,15 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         if (item != null) {
             TextView name = (TextView) v.findViewById(R.id.itemname);
             if (name != null) {
-            	name.setText(item.name);
+            	name.setText(item.name());
             }
             TextView quantity = (TextView) v.findViewById(R.id.quantityText);
             if (quantity != null) {
-            	quantity.setText(item.quantity);
+            	quantity.setText(item.quantity());
             }
             CheckBox CheckBought = (CheckBox) v.findViewById(R.id.status);
             if (CheckBought != null) {
-            	if (item.bought){
+            	if (item.bought()){
             		CheckBought.setChecked(true);
             	}	
             	else

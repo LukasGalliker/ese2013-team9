@@ -1,65 +1,75 @@
 package com.eseteam9.shoppyapp;
 
 import java.util.Date;
-/**
- * This class structures the Items used in the shopping lists. It holds all the basic information an item
- * needs and provides 3 different ways to instantiate it.
- * 
- * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
- */
-public class Item {
-	public final int id;
-	public int listId;
-	public final String name;
-	public final String quantity;
-	public final String onlineKey;
-	public final boolean bought;
-	public final Date timestamp;
+import android.content.Context;
+import android.database.Cursor;
+
+public class Item{
+	private final Context context;
 	
-	public Item(int id, int listId, String name, String quantity, boolean bought, Date timestamp, String onlineKey) {
-		this.id = id;
-		this.listId = listId;
-		this.name = name;
-		this.quantity = quantity;
-		this.bought = bought;
-		this.timestamp = timestamp;
-		this.onlineKey = onlineKey;
+	private int id;
+		public int id(){return this.id;}
+	
+	private String onlineKey;
+		public String onlineKey(){return this.onlineKey;}
+		public void onlineKey(String onlineKey){this.onlineKey = onlineKey; update();}
+	
+	private int listId;
+		public int listId(){return this.listId;}
+		public void listId(int listId){this.listId = listId; update();}
+	
+	private String name;
+		public String name(){return this.name;}
+		public void name(String name){this.name = name; update();}
+	
+	private String quantity;
+		public String quantity(){return this.quantity;}
+		public void quantity(String quantity){this.quantity = quantity; update();}
+	
+	private boolean bought;
+		public boolean bought(){return this.bought;}
+		public void bought(boolean bought){this.bought = bought; update();}
+
+	private Date timestamp;
+		public Date timestamp(){return timestamp;}
+		public void timestamp(Date timestamp){this.timestamp = timestamp; update();}
+
+	public Item(Context context, int listId, String name, String quantity){
+		this.context = context;
+		ItemValueSet valueSet = lHandler().add(new ItemValueSet(listId, name, quantity));
+		copyValues(valueSet);
+	}
+		
+	public Item(Context context, int id){
+		this.context = context;
+		loadById(id);
 	}
 	
-	public Item(String name, String quantity, int listId) {
-		this.id = 0;
-		this.listId = listId;
-		this.name = name;
-		this.quantity = quantity;
-		this.bought = false;
-		this.timestamp = null;
-		this.onlineKey = "0";
+	public Item(Context context, Cursor cursor){
+		this.context = context;
+		copyValues(new ItemValueSet(cursor));
 	}
 	
-	public Item(int listId, String name, String quantity, boolean bought, Date timestamp, String onlineKey) {
-		this.id = 0;
-		this.listId = listId;
-		this.name = name;
-		this.quantity = quantity;
-		this.bought = bought;
-		this.timestamp = timestamp;
-		this.onlineKey = onlineKey;
+	private void update(){
+		lHandler().update(new ItemValueSet(id, onlineKey, listId, name, quantity, bought, timestamp));
+		loadById(id);
 	}
 	
-	public void setListId(int listId){
-		this.listId = listId;
+	private void loadById(int id){
+		copyValues(lHandler().getById(id));
 	}
 	
-	public boolean equals(Object other){
-	    if (other == null) return false;
-	    if (other == this) return true;
-	    if (!(other instanceof Item))return false;
-	    Item that = (Item)other;
-	    
-	    return this.listId == that.listId
-	    		&& this.name.equals(that.name)
-	    		&& this.quantity.equals(that.quantity)
-	    		&& this.onlineKey.equals(that.onlineKey)
-	    		&& this.bought == that.bought;
+	private ItemHandler lHandler(){
+		return new ItemHandler(context);
+	}
+	
+	private void copyValues(ItemValueSet set){
+		this.id = set.id;
+		this.listId = set.listId;
+		this.onlineKey = set.onlineKey;
+		this.name = set.name;
+		this.quantity = set.quantity;
+		this.bought = set.bought;
+		this.timestamp = set.timestamp;
 	}
 }

@@ -20,7 +20,7 @@ import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
  * This class displays all the lists and provides the add button. 
  * Is one of the tabs in the "home-screen".
  * 
- * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @author Sï¿½bastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  * @extends DisplayFragment
  */
 public class DisplayListsFragment extends DisplayFragment{
@@ -47,7 +47,8 @@ public class DisplayListsFragment extends DisplayFragment{
 		
 		this.lists = new ShoppingListHandler(getActivity()).getAll();
 		for (ShoppingList l : this.lists)
-			this.content.put(l, new ItemHandler(getActivity()).getUnbought(l.id));
+			//this.content.put(l, new ItemHandler(getActivity()).getUnbought(l.id()));
+			this.content.put(l, Items.getUnboughtByListId(getActivity(), l.id()));
 		
 		//Set Adapter
 		this.adapter = new ExpandableListAdapter(getActivity(), this.lists,  this.content);
@@ -74,10 +75,11 @@ public class DisplayListsFragment extends DisplayFragment{
 	public boolean onContextItemSelected(MenuItem item) {
 		ExpandableListContextMenuInfo menuInfo = (ExpandableListContextMenuInfo) item.getMenuInfo(); 
 		ShoppingList list = lists[ExpandableListView.getPackedPositionGroup(menuInfo.packedPosition)];
-	    int listId = list.id;
+	    int listId = list.id();
 	    switch (item.getItemId()) {
 		  case 0:
-			new ShoppingListHandler(getActivity()).delete(listId);
+			//new newShoppingListHandler(getActivity()).delete(listId);
+			new ShoppingList(getActivity(), listId).delete();
 			updateAdapter();
 		    return true;
 		  case 1:
@@ -93,7 +95,8 @@ public class DisplayListsFragment extends DisplayFragment{
 	public void updateAdapter(){
 		this.lists = new ShoppingListHandler(getActivity()).getAll();
 		for (ShoppingList l : this.lists)
-			this.content.put(l, new ItemHandler(getActivity()).getUnbought(l.id));
+			//this.content.put(l, new ItemHandler(getActivity()).getUnbought(l.id()));
+			this.content.put(l, Items.getUnboughtByListId(getActivity(), l.id()));
 		this.adapter.update(this.lists, this.content);
 		this.adapter.notifyDataSetChanged();
 	}
@@ -107,8 +110,8 @@ public class DisplayListsFragment extends DisplayFragment{
 		// Set an EditText view to get user input 
 		final EditText input = new EditText(getActivity());
 		alert.setView(input);
-		input.setText(list.title);
-		input.setSelection(list.title.length());
+		input.setText(list.title());
+		input.setSelection(list.title().length());
 
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int whichButton) {
@@ -117,8 +120,10 @@ public class DisplayListsFragment extends DisplayFragment{
 		  
 			if (listname.length() == 0)
 		    	Toast.makeText(getActivity(), "Please enter a name", Toast.LENGTH_SHORT).show();
-			else if (!new ShoppingListHandler(getActivity()).existsEntry(listname)){
-				new ShoppingListHandler(getActivity()).update(list.id, listname);
+			//else if (!new newShoppingListHandler(getActivity()).existsEntry(listname)){
+			else if (!ShoppingLists.existsTitle(getActivity(), listname)){
+				//new newShoppingListHandler(getActivity()).update(list.id, listname);
+				list.title(listname);
 				updateAdapter();
 		    } 
 		    else

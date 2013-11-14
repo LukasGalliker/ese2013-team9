@@ -12,11 +12,11 @@ import android.database.sqlite.SQLiteStatement;
 /**
  * Is used for the tests, does generally the same as the LocalDatabaseHandler, but optimized for testing.
  * 
- * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @author Sï¿½bastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  * @extends SQLiteOpenHelper
  */
 public class MockDataBaseHandler extends  SQLiteOpenHelper {
-	
+	private final Context context;
 	
 
 	public static final int DATABASE_VERSION = 1;
@@ -30,6 +30,7 @@ public class MockDataBaseHandler extends  SQLiteOpenHelper {
     public MockDataBaseHandler(Context context, String name,
 			CursorFactory factory, int version) {
 		super(context, name, factory, version);
+		this.context = context;
 		// TODO Auto-generated constructor stub
 	}
     public static void createTable(SQLiteDatabase db) {
@@ -49,9 +50,9 @@ public class MockDataBaseHandler extends  SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_TITLE, shoppingList.title);
-        values.put(KEY_ONLINEKEY, shoppingList.onlineKey);
-        values.put(KEY_ARCHIVED, shoppingList.archived ? 1 : 0);
+        values.put(KEY_TITLE, shoppingList.title());
+        values.put(KEY_ONLINEKEY, shoppingList.onlineKey());
+        values.put(KEY_ARCHIVED, shoppingList.archived() ? 1 : 0);
 
         db.insert(TABLE_NAME, null, values);
         db.close();
@@ -65,7 +66,7 @@ public class MockDataBaseHandler extends  SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
         
-        ShoppingList list = parseShoppingList(cursor);
+        ShoppingList list = new ShoppingList(context, cursor);
         db.close();
         return list;
     }
@@ -98,7 +99,7 @@ public class MockDataBaseHandler extends  SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
         	int i = 0;
             do {
-                returnArray[i] = parseShoppingList(cursor);
+                returnArray[i] = new ShoppingList(context, cursor);
                 i++;
             } while (cursor.moveToNext());
         }
@@ -130,14 +131,6 @@ public class MockDataBaseHandler extends  SQLiteOpenHelper {
         int returnInt = cursor.getCount();
         db.close();
         return returnInt;
-    }
-    
-    private ShoppingList parseShoppingList(Cursor c) {
-    	return new ShoppingList(c.getInt(0),
-    			c.getString(1),
-    			c.getString(2),
-                c.getInt(3) == 1,
-                new Date(c.getLong(4)));
     }
 
 	@Override

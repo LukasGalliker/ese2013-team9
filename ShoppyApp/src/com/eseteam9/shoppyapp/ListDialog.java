@@ -14,7 +14,7 @@ import android.widget.Toast;
 /**
  * Provides the Options context menu on a List.
  * 
- * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @author Sï¿½bastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  * @extends Dialog
  */
 public class ListDialog extends Dialog {
@@ -33,7 +33,8 @@ public class ListDialog extends Dialog {
 		final AutoCompleteTextView input = new AutoCompleteTextView(context);
 		alert.setView(input);
 		
-		ArrayAdapter<String> arr = new ArrayAdapter<String>(context,android.R.layout.simple_dropdown_item_1line, new UserHandler(context).getAllNames());
+		//ArrayAdapter<String> arr = new ArrayAdapter<String>(context,android.R.layout.simple_dropdown_item_1line, new UserHandler(context).getAllNames());
+		ArrayAdapter<String> arr = new ArrayAdapter<String>(context,android.R.layout.simple_dropdown_item_1line, Users.getAllNames(context));
 		input.setAdapter(arr);
 		/*
 		alert.setNegativeButton("Browse", new DialogInterface.OnClickListener() {
@@ -47,11 +48,12 @@ public class ListDialog extends Dialog {
 		alert.setPositiveButton("Share", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				String key = list.onlineKey;
+				String key = list.onlineKey();
 				Editable value = input.getText();
 				String email = value.toString();
 				if (email.length() != 0){
-					User me = new UserHandler(context).get();
+					//User me = new UserHandler(context).get();
+					User me = Users.getOwner(context);
 					OnlineDatabaseHandler handler = new OnlineDatabaseHandler(context);
 					//if (key.trim() == "0")
 				    handler.putList(list, me);
@@ -73,8 +75,8 @@ public class ListDialog extends Dialog {
 		// Set an EditText view to get user input 
 		final EditText input = new EditText(context);
 		alert.setView(input);
-		input.setText(list.title);
-		input.setSelection(list.title.length());
+		input.setText(list.title());
+		input.setSelection(list.title().length());
 		
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int whichButton) {
@@ -83,8 +85,10 @@ public class ListDialog extends Dialog {
 		  
 			if (listname.length() == 0)
 		    	Toast.makeText(context, "Please enter a name", Toast.LENGTH_SHORT).show();
-			else if (!new ShoppingListHandler(context).existsEntry(listname)){
-				new ShoppingListHandler(context).update(list.id, listname);
+			//else if (!new ShoppingListHandler(context).existsEntry(listname)){
+			else if (!ShoppingLists.existsTitle(context, listname)){
+				//new ShoppingListHandler(context).update(list.id, listname);
+				list.title(listname);
 				//updateAdapter();
 		    } 
 		    else
