@@ -2,6 +2,10 @@ package test;
 
 import android.test.AndroidTestCase;
 import com.eseteam9.shoppyapp.*;
+import com.eseteam9.shoppyapp.handlers.ItemHandler;
+import com.eseteam9.shoppyapp.handlers.LocalDatabaseHandler;
+import com.eseteam9.shoppyapp.shoppingclasses.Item;
+
 import java.util.Date;
 
 public class ItemHandlerTest extends AndroidTestCase {

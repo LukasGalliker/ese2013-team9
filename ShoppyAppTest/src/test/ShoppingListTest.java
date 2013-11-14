@@ -1,7 +1,8 @@
 package test;
 
 import junit.framework.TestCase;
-import com.eseteam9.shoppyapp.ShoppingList;
+
+import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
 
 import java.util.Date;
 

@@ -2,6 +2,9 @@ package test;
 
 import android.test.AndroidTestCase;
 import com.eseteam9.shoppyapp.*;
+import com.eseteam9.shoppyapp.handlers.LocalDatabaseHandler;
+import com.eseteam9.shoppyapp.handlers.ShoppingListHandler;
+import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
 
 public class ShoppingListHandlerTest extends AndroidTestCase {
 	private ShoppingListHandler sHandler(){

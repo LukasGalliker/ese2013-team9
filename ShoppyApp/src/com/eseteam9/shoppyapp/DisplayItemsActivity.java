@@ -2,6 +2,12 @@ package com.eseteam9.shoppyapp;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
+import com.eseteam9.shoppyapp.shoppingclasses.Item;
+import com.eseteam9.shoppyapp.shoppingclasses.Items;
+import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;

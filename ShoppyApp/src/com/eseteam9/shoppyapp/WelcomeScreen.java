@@ -3,6 +3,10 @@ package com.eseteam9.shoppyapp;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.eseteam9.shoppyapp.R;
+import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
+import com.eseteam9.shoppyapp.shoppingclasses.User;
+import com.eseteam9.shoppyapp.shoppingclasses.Users;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;

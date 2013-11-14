@@ -3,6 +3,7 @@ package com.eseteam9.shoppyapp;
 import java.util.List;
 
 import com.eseteam9.shoppyapp.R;
+import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
 
 import android.app.Activity;
 import android.content.Context;

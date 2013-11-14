@@ -1,5 +1,9 @@
 package com.eseteam9.shoppyapp;
 
+import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
+import com.eseteam9.shoppyapp.shoppingclasses.User;
+import com.eseteam9.shoppyapp.shoppingclasses.Users;
+
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;

@@ -2,6 +2,9 @@ package test;
 
 import android.test.AndroidTestCase;
 import com.eseteam9.shoppyapp.*;
+import com.eseteam9.shoppyapp.handlers.LocalDatabaseHandler;
+import com.eseteam9.shoppyapp.handlers.UserHandler;
+import com.eseteam9.shoppyapp.shoppingclasses.User;
 
 public class UserHandlerTest extends AndroidTestCase {
 	private UserHandler uHandler(){

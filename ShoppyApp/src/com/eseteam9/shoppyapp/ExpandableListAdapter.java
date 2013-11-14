@@ -1,6 +1,11 @@
 package com.eseteam9.shoppyapp;
 
 import java.util.HashMap; 
+
+import com.eseteam9.shoppyapp.shoppingclasses.Item;
+import com.eseteam9.shoppyapp.shoppingclasses.Items;
+import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
+
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;

@@ -1,7 +1,8 @@
 package test;
 
 import junit.framework.TestCase;
-import com.eseteam9.shoppyapp.User;
+
+import com.eseteam9.shoppyapp.shoppingclasses.User;
 
 public class UserTest extends TestCase {
 	

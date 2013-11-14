@@ -1,5 +1,11 @@
 package com.eseteam9.shoppyapp;
 
+import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
+import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
+import com.eseteam9.shoppyapp.shoppingclasses.ShoppingLists;
+import com.eseteam9.shoppyapp.shoppingclasses.User;
+import com.eseteam9.shoppyapp.shoppingclasses.Users;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;

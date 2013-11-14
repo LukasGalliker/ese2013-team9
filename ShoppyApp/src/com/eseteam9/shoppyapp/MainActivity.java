@@ -2,6 +2,11 @@ package com.eseteam9.shoppyapp;
 
 import java.util.Locale;
 import com.eseteam9.shoppyapp.R;
+import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
+import com.eseteam9.shoppyapp.shoppingclasses.Item;
+import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
+import com.eseteam9.shoppyapp.shoppingclasses.ShoppingLists;
+
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;

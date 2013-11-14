@@ -1,6 +1,13 @@
 package com.eseteam9.shoppyapp;
 
 import java.util.HashMap;
+
+import com.eseteam9.shoppyapp.handlers.ShoppingListHandler;
+import com.eseteam9.shoppyapp.shoppingclasses.Item;
+import com.eseteam9.shoppyapp.shoppingclasses.Items;
+import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
+import com.eseteam9.shoppyapp.shoppingclasses.ShoppingLists;
+
 import android.text.Editable;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
