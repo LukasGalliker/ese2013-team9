@@ -25,9 +25,10 @@ public class ShoppingListHandler extends LocalDatabaseHandler{
     public static void createTable(SQLiteDatabase db) {
         String CREATE_SHOPPING_LISTS_TABLE = "CREATE TABLE "+ TABLE_NAME + "("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-        		+ KEY_TITLE + " TEXT, " + KEY_ONLINE_KEY + " TEXT,"
-                + KEY_ARCHIVED + " INTEGER," + KEY_TIMESTAMP
-                + "DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
+        		+ KEY_TITLE + " TEXT, "
+                + KEY_ONLINE_KEY + " TEXT,"
+                + KEY_ARCHIVED + " INTEGER,"
+                + KEY_TIMESTAMP + "DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
         db.execSQL(CREATE_SHOPPING_LISTS_TABLE);
     }
     
@@ -70,6 +71,37 @@ public class ShoppingListHandler extends LocalDatabaseHandler{
         return valueSet;
     }
     
+    public ShoppingList[] getAll() {
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
+        
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        
+        ShoppingList returnArray[] = new ShoppingList[cursor.getCount()];
+     
+        if (cursor.moveToFirst()) {
+        	int i = 0;
+            do {
+                returnArray[i] = new ShoppingList(context, cursor);
+                i++;
+            } while (cursor.moveToNext());
+        }
+
+        db.close();
+        return returnArray;
+    }
+    
+    public void update(ShoppingListValueSet valueSet) {
+    	  SQLiteDatabase db = this.getWritableDatabase();
+    	  SQLiteStatement stmt = db.compileStatement("UPDATE " + TABLE_NAME + " SET "
+    			  + KEY_TITLE + " = '" + valueSet.title + "', "
+    			  + KEY_ONLINE_KEY + " = '" + valueSet.onlineKey + "', "
+    			  + KEY_ARCHIVED + " = " + (valueSet.archived ? 1 : 0) + " "
+    			  + "WHERE " + KEY_ID + " = " + valueSet.id );
+    	  stmt.execute();
+    	  db.close();
+      }
+    
     public void deleteById(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, KEY_ID + "=" + id, null);
@@ -96,36 +128,5 @@ public class ShoppingListHandler extends LocalDatabaseHandler{
         	return true;
         db.close();
         return false;
-    }
-    
-    public ShoppingList[] getAll() {
-        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
-        
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        
-        ShoppingList returnArray[] = new ShoppingList[cursor.getCount()];
-     
-        if (cursor.moveToFirst()) {
-        	int i = 0;
-            do {
-                returnArray[i] = new ShoppingList(context, cursor);
-                i++;
-            } while (cursor.moveToNext());
-        }
-
-        db.close();
-        return returnArray;
-    }
-    
-    public void update(ShoppingListValueSet valueSet) {
-  	  SQLiteDatabase db = this.getWritableDatabase();
-  	  SQLiteStatement stmt = db.compileStatement("UPDATE " + TABLE_NAME + " SET "
-  			  + KEY_TITLE + " = '" + valueSet.title + "', "
-  			  + KEY_ONLINE_KEY + " = '" + valueSet.onlineKey + "', "
-  			  + KEY_ARCHIVED + " = " + (valueSet.archived ? 1 : 0) + " "
-  			  + "WHERE " + KEY_ID + " = " + valueSet.id );
-  	  stmt.execute();
-  	  db.close();
     }
 }

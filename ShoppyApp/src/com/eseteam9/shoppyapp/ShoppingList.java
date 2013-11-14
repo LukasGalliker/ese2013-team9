@@ -42,10 +42,6 @@ public class ShoppingList{
 		copyValues(new ShoppingListValueSet(cursor));
 	}
 	
-	public void delete(){
-		lHandler().deleteById(id);
-	}
-	
 	private void update(){
 		lHandler().update(new ShoppingListValueSet(id, onlineKey, title, archived, timestamp));
 		loadById(id);

@@ -14,4 +14,8 @@ public abstract class ShoppingLists {
 	public static boolean existsOnlineKey(Context context, String onlineKey){
 		return new ShoppingListHandler(context).existsOnlineKey(onlineKey);
 	}
+	
+	public static void deleteById(Context context, int id){
+		new ShoppingListHandler(context).deleteById(id);
+	}
 }

@@ -21,7 +21,8 @@ public class UserHandler extends LocalDatabaseHandler{
 	
 	public static void createTable(SQLiteDatabase db) {
 		String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "("
-				+ KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME + " TEXT,"
+				+ KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ KEY_NAME + " TEXT,"
 				+ KEY_EMAIL + " TEXT" + ")";
 		db.execSQL(CREATE_TABLE);
 	}
@@ -50,21 +51,6 @@ public class UserHandler extends LocalDatabaseHandler{
         return returnValueSet;
     }
     
-    public User getOwner(){
-    	SQLiteDatabase db = this.getWritableDatabase();
-
-        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        
-        if (cursor != null)
-            cursor.moveToFirst();
- 
-        User returnUser = new User(context, cursor);
-
-        db.close();
-        return returnUser;
-    }
-    
     public UserValueSet getById(int id) {
     	SQLiteDatabase db = this.getWritableDatabase();
 
@@ -78,6 +64,21 @@ public class UserHandler extends LocalDatabaseHandler{
 
         db.close();
         return returnValueSet;
+    }
+    
+    public User getOwner(){
+    	SQLiteDatabase db = this.getWritableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        
+        if (cursor != null)
+            cursor.moveToFirst();
+ 
+        User returnUser = new User(context, cursor);
+
+        db.close();
+        return returnUser;
     }
     
 	public String[] getAllNames(){

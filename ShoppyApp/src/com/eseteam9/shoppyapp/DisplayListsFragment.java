@@ -79,7 +79,7 @@ public class DisplayListsFragment extends DisplayFragment{
 	    switch (item.getItemId()) {
 		  case 0:
 			//new newShoppingListHandler(getActivity()).delete(listId);
-			new ShoppingList(getActivity(), listId).delete();
+			ShoppingLists.deleteById(getActivity(), listId);
 			updateAdapter();
 		    return true;
 		  case 1:

@@ -26,10 +26,13 @@ public class ItemHandler extends LocalDatabaseHandler{
 	    
 	    public static void createTable(SQLiteDatabase db) {
 	    	String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME + "("
-	    			+ KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_LIST_ID
-	    			+ " INTEGER,"+ KEY_NAME + " TEXT," + KEY_QUANTITY + " TEXT,"
-	    			+ KEY_BOUGHT + " INTEGER," + KEY_TIMESTAMP
-	    			+ " DATETIME DEFAULT CURRENT_TIMESTAMP," + KEY_ONLINEKEY + " TEXT" + ")";
+	    			+ KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+	    			+ KEY_LIST_ID + " INTEGER,"
+	    			+ KEY_NAME + " TEXT,"
+	    			+ KEY_QUANTITY + " TEXT,"
+	    			+ KEY_BOUGHT + " INTEGER,"
+	    			+ KEY_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
+	    			+ KEY_ONLINEKEY + " TEXT" + ")";
 	    	db.execSQL(CREATE_TABLE);
 	    }
 	    
@@ -62,18 +65,6 @@ public class ItemHandler extends LocalDatabaseHandler{
 	        return returnValueSet;
 	    }
 	    
-	    public void deleteById(int id) {
-	        SQLiteDatabase db = this.getWritableDatabase();
-	        db.delete(TABLE_NAME, KEY_ID + "=" + id, null);
-	        db.close();
-	    }
-	    
-	    public void deleteByListId(int listId) {
-	        SQLiteDatabase db = this.getWritableDatabase();
-	        db.delete(TABLE_NAME, KEY_LIST_ID + "=" + listId, null);
-	        db.close();
-	    }
-	    
 	    public ItemValueSet getById(int id) {
 	        SQLiteDatabase db = this.getWritableDatabase();
 
@@ -85,25 +76,6 @@ public class ItemHandler extends LocalDatabaseHandler{
 	        ItemValueSet valueSet = new ItemValueSet(cursor);
 	        db.close();
 	        return valueSet;
-	    }
-	    
-	    public Item[] getUnboughtByListId(int listId){
-	        SQLiteDatabase db = this.getWritableDatabase();
-	        String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_BOUGHT + " = " + 0 + " AND " + KEY_LIST_ID + " = " + listId;
-	        Cursor cursor = db.rawQuery(selectQuery, null);
-
-	        Item returnArray[] = new Item[cursor.getCount()];
-	        
-	        if (cursor.moveToFirst()) {
-	                int i = 0;
-	            do {
-	                    returnArray[i] = new Item(context, cursor);
-	                    i++;
-	            } while (cursor.moveToNext());
-	        }
-	        
-	        db.close();
-	        return returnArray;
 	    }
 	    
 	    public Item[] getByListId(int listId) {
@@ -126,6 +98,25 @@ public class ItemHandler extends LocalDatabaseHandler{
 	        return returnArray;
 	    }
 	    
+	    public Item[] getUnboughtByListId(int listId){
+	        SQLiteDatabase db = this.getWritableDatabase();
+	        String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_BOUGHT + " = " + 0 + " AND " + KEY_LIST_ID + " = " + listId;
+	        Cursor cursor = db.rawQuery(selectQuery, null);
+
+	        Item returnArray[] = new Item[cursor.getCount()];
+	        
+	        if (cursor.moveToFirst()) {
+	                int i = 0;
+	            do {
+	                    returnArray[i] = new Item(context, cursor);
+	                    i++;
+	            } while (cursor.moveToNext());
+	        }
+	        
+	        db.close();
+	        return returnArray;
+	    }
+	    
 		public void update(ItemValueSet valueSet) {
 		  	  SQLiteDatabase db = this.getWritableDatabase();
 		  	  SQLiteStatement stmt = db.compileStatement("UPDATE " + TABLE_NAME + " SET "
@@ -138,6 +129,18 @@ public class ItemHandler extends LocalDatabaseHandler{
 		  	  stmt.execute();
 		  	  db.close();
 		}
+	    
+	    public void deleteById(int id) {
+	        SQLiteDatabase db = this.getWritableDatabase();
+	        db.delete(TABLE_NAME, KEY_ID + "=" + id, null);
+	        db.close();
+	    }
+	    
+	    public void deleteByListId(int listId) {
+	        SQLiteDatabase db = this.getWritableDatabase();
+	        db.delete(TABLE_NAME, KEY_LIST_ID + "=" + listId, null);
+	        db.close();
+	    }
 		
 		public String[] getAllNames(){
 	        SQLiteDatabase db = this.getWritableDatabase();
