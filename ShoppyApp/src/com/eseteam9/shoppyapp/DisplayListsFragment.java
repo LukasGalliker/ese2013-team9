@@ -52,7 +52,8 @@ public class DisplayListsFragment extends DisplayFragment{
 		registerForContextMenu(elv);
 		elv.setClickable(true);
 		
-		this.lists = new ShoppingListHandler(getActivity()).getAll();
+		//this.lists = new ShoppingListHandler(getActivity()).getAll();
+		this.lists = ShoppingLists.getAll(getActivity());
 		for (ShoppingList l : this.lists)
 			//this.content.put(l, new ItemHandler(getActivity()).getUnbought(l.id()));
 			this.content.put(l, Items.getUnboughtByListId(getActivity(), l.id()));
@@ -100,7 +101,8 @@ public class DisplayListsFragment extends DisplayFragment{
 	}
 
 	public void updateAdapter(){
-		this.lists = new ShoppingListHandler(getActivity()).getAll();
+		//this.lists = new ShoppingListHandler(getActivity()).getAll();
+		this.lists = ShoppingLists.getAll(getActivity());
 		for (ShoppingList l : this.lists)
 			//this.content.put(l, new ItemHandler(getActivity()).getUnbought(l.id()));
 			this.content.put(l, Items.getUnboughtByListId(getActivity(), l.id()));
