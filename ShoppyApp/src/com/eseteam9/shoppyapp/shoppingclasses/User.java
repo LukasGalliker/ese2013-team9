@@ -30,11 +30,6 @@ public class User {
 		loadById(id);
 	}
 
-	public User(Context context, Cursor cursor) {
-		this.context = context;
-		copyValues(new UserValueSet(cursor));
-	}
-
 	private void loadById(int id) {
 		copyValues(lHandler().getById(id));
 	}

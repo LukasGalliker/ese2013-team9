@@ -47,7 +47,7 @@ public class UserHandler extends ObjectHandler {
 		Cursor cursor = getAll();
 		cursor.moveToFirst();
 
-		User returnUser = new User(context, cursor);
+		User returnUser = new User(context, cursor.getInt(0));
 		closeDB();
 		return returnUser;
 	}

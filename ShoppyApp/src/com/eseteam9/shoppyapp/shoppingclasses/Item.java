@@ -48,11 +48,6 @@ public class Item {
 		loadById(id);
 	}
 
-	public Item(Context context, Cursor cursor) {
-		this.context = context;
-		copyValues(new ItemValueSet(cursor));
-	}
-
 	private void update() {
 		lHandler().update(new ItemValueSet(id, onlineKey, listId, name, quantity, bought, timestamp));
 		loadById(id);

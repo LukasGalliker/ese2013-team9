@@ -52,7 +52,7 @@ public class ShoppingListHandler extends ObjectHandler {
 
 		ShoppingList[] returnArray = new ShoppingList[cursor.getCount()];
 		if(cursor.moveToFirst())
-			do returnArray[cursor.getPosition()] = new ShoppingList(context, cursor);
+			do returnArray[cursor.getPosition()] = new ShoppingList(context, cursor.getInt(0));
 			while(cursor.moveToNext());
 
 		closeDB();

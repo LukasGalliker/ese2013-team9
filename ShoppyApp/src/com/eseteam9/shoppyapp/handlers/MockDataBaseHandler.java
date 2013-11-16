@@ -68,7 +68,7 @@ public class MockDataBaseHandler extends  SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
         
-        ShoppingList list = new ShoppingList(context, cursor);
+        ShoppingList list = new ShoppingList(context, cursor.getInt(0));
         db.close();
         return list;
     }
@@ -101,7 +101,7 @@ public class MockDataBaseHandler extends  SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
         	int i = 0;
             do {
-                returnArray[i] = new ShoppingList(context, cursor);
+                returnArray[i] = new ShoppingList(context, cursor.getInt(0));
                 i++;
             } while (cursor.moveToNext());
         }

@@ -56,7 +56,7 @@ public class ItemHandler extends ObjectHandler {
 
 		Item[] returnArray = new Item[cursor.getCount()];
 		if(cursor.moveToFirst())
-			do returnArray[cursor.getPosition()] = new Item(context, cursor);
+			do returnArray[cursor.getPosition()] = new Item(context, cursor.getInt(0));
 			while(cursor.moveToNext());
 
 		closeDB();
@@ -68,7 +68,7 @@ public class ItemHandler extends ObjectHandler {
 
 		Item[] returnArray = new Item[cursor.getCount()];
 		if(cursor.moveToFirst())
-			do returnArray[cursor.getPosition()] = new Item(context, cursor);
+			do returnArray[cursor.getPosition()] = new Item(context, cursor.getInt(0));
 			while(cursor.moveToNext());
 
 		closeDB();

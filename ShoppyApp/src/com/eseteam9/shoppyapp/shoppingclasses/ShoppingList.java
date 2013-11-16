@@ -40,11 +40,6 @@ public class ShoppingList {
 		loadById(id);
 	}
 
-	public ShoppingList(Context context, Cursor cursor) {
-		this.context = context;
-		copyValues(new ShoppingListValueSet(cursor));
-	}
-
 	private void update(){
 		lHandler().update(new ShoppingListValueSet(id, onlineKey, title, archived, timestamp));
 		loadById(id);
