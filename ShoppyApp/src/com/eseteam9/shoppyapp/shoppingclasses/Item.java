@@ -1,11 +1,9 @@
 package com.eseteam9.shoppyapp.shoppingclasses;
 
 import java.util.Date;
-
 import com.eseteam9.shoppyapp.handlers.ItemHandler;
 import com.eseteam9.shoppyapp.valuesets.ItemValueSet;
 import android.content.Context;
-import android.database.Cursor;
 
 public class Item {
 	private final Context context;

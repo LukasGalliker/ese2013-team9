@@ -3,7 +3,6 @@ package com.eseteam9.shoppyapp.shoppingclasses;
 import com.eseteam9.shoppyapp.handlers.UserHandler;
 import com.eseteam9.shoppyapp.valuesets.UserValueSet;
 import android.content.Context;
-import android.database.Cursor;
 
 public class User {
 	private final Context context;
