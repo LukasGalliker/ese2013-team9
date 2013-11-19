@@ -2,6 +2,12 @@ package com.eseteam9.shoppyapp;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
+import com.eseteam9.shoppyapp.shoppingclasses.Item;
+import com.eseteam9.shoppyapp.shoppingclasses.Items;
+import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -25,7 +31,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * This class is responsible to display all the items of a list and makes them clickable (long hold on an item
  * brings up the options menu on that item). Add items is also possible.
  * 
- * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @author Sï¿½bastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  * @extends Activity
  */
 public class DisplayItemsActivity extends Activity {
@@ -52,7 +58,8 @@ public class DisplayItemsActivity extends Activity {
 		lv.setClickable(true);
 		
 		//Create Adapter
-		this.items = new ItemHandler(this).getListItems(this.listId);
+		//this.items = newItem.getByListId(this, this.listId);
+		this.items = Items.getByListId(this, this.listId);
 		ArrayList<Item> list = new ArrayList<Item>(Arrays.asList(this.items));
 		this.adapter = new ItemAdapter(this, R.id.itemoverview,  list);
 		lv.setAdapter(adapter);
@@ -87,8 +94,9 @@ public class DisplayItemsActivity extends Activity {
 	    
 	    switch (item.getItemId()) {
 		  case 0:
-			new ItemHandler(this).delete(listItem.id);
-			new OnlineDatabaseHandler(this).deleteItem(listItem.onlineKey);
+			Items.deleteById(this, listItem.id());
+			//new ItemHandler(this).delete(listItem.id());
+			new OnlineDatabaseHandler(this).deleteItem(listItem.onlineKey());
 		    updateView();
 		    return true;
 		  case 1:
@@ -99,7 +107,8 @@ public class DisplayItemsActivity extends Activity {
 		}
 	}
 	public void updateView(){
-		this.items = new ItemHandler(this).getListItems(this.listId);
+		//this.items = newItem.getByListId(this, this.listId);
+		this.items = Items.getByListId(this, this.listId);
 		ArrayList<Item> list = new ArrayList<Item>(Arrays.asList(this.items));
 		adapter.clear();
 		adapter.addAll(list);
@@ -111,9 +120,10 @@ public class DisplayItemsActivity extends Activity {
 		boolean status = ((CheckBox) view).isChecked();
 		ListView lv = (ListView) findViewById(R.id.itemoverview);
 		Item item = items[lv.getPositionForView(view)];
-		int id = item.id;
-		new ItemHandler(this).checked(id, status);	
-		new OnlineDatabaseHandler(this).checkItem(item.onlineKey, status);
+		//int id = item.id();
+		//new ItemHandler(this).checked(id, status);	
+		item.bought(status);
+		new OnlineDatabaseHandler(this).checkItem(item.onlineKey(), status);
 	}
 	
 	//Backbutton is pressed
@@ -148,7 +158,8 @@ public class DisplayItemsActivity extends Activity {
 		alert.setView(view);
 		
 		AutoCompleteTextView act=(AutoCompleteTextView)view.findViewById(R.id.item_name);
-		ArrayAdapter<String> arr = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, new ItemHandler(this).getAllNames());
+		//ArrayAdapter<String> arr = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, new ItemHandler(this).getAllNames());
+		ArrayAdapter<String> arr = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, Items.getAllNames(this));
 		act.setAdapter(arr);
 		
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -162,12 +173,15 @@ public class DisplayItemsActivity extends Activity {
 			if (itemname.length() == 0)
 		    	Toast.makeText(context, "Please enter a name", Toast.LENGTH_SHORT).show();
 			else {
-				ShoppingList oldList = new ShoppingListHandler(context).get(listId);
-				new ItemHandler(context).add(new Item(itemname, quantity, listId));
+				//ShoppingList oldList = new ShoppingListHandler(context).get(listId);
+				ShoppingList oldList = new ShoppingList(context, listId);
+				//new ItemHandler(context).add(new Item(itemname, quantity, listId));
+				new Item(context, listId, itemname, quantity);
 				
-				if (oldList.onlineKey != "0")
-					new OnlineDatabaseHandler(context).putItems(oldList.onlineKey, listId);
-				items = new ItemHandler(context).getListItems(listId);
+				if (oldList.onlineKey() != "0")
+					new OnlineDatabaseHandler(context).putItems(oldList.onlineKey(), listId);
+				//items = newItem.getByListId(context, listId);
+				items = Items.getByListId(context, listId);
 				ArrayList<Item> list = new ArrayList<Item>(Arrays.asList(items));
 				adapter.clear();
 				adapter.addAll(list);
@@ -195,10 +209,10 @@ public class DisplayItemsActivity extends Activity {
         final View view = infalInflater.inflate(R.layout.dialog_add_item, null);
 		alert.setView(view);
 		EditText nameView = (EditText) view.findViewById(R.id.item_name);
-		nameView.setText(item.name);
+		nameView.setText(item.name());
 		EditText quantityView = (EditText) view.findViewById(R.id.quantity);
-		quantityView.setText(item.quantity);
-		nameView.setSelection(item.name.length());
+		quantityView.setText(item.quantity());
+		nameView.setSelection(item.name().length());
 		
 
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -212,8 +226,11 @@ public class DisplayItemsActivity extends Activity {
 			if (itemname.length() == 0)
 		    	Toast.makeText(getBaseContext(), "Please enter a name", Toast.LENGTH_SHORT).show();
 			else{
-				new ItemHandler(context).update(item.id, itemname, quantity);
-				items = new ItemHandler(context).getListItems(listId);
+				//new ItemHandler(context).update(item.id(), itemname, quantity);
+				item.name(itemname);
+				item.quantity(quantity);
+				//items = newItem.getByListId(context, listId);
+				items = Items.getByListId(context, listId);
 				ArrayList<Item> list = new ArrayList<Item>(Arrays.asList(items));
 				adapter.clear();
 				adapter.addAll(list);

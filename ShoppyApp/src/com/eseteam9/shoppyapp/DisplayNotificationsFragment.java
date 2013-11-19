@@ -1,5 +1,9 @@
 package com.eseteam9.shoppyapp;
 
+import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
+import com.eseteam9.shoppyapp.shoppingclasses.User;
+import com.eseteam9.shoppyapp.shoppingclasses.Users;
+
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -13,7 +17,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 /**
  * This class is responsible of handling the notifications.
  * 
- * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @author Sï¿½bastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  * @extends DisplayFragment
  */
 public class DisplayNotificationsFragment extends DisplayFragment{
@@ -33,8 +37,9 @@ public class DisplayNotificationsFragment extends DisplayFragment{
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		User me = new UserHandler(getActivity()).get();
-		this.notifications = new OnlineDatabaseHandler(getActivity()).getNotifications(me.email);
+		//User me = new UserHandler(getActivity()).get();
+		User me = Users.getOwner(getActivity());
+		this.notifications = new OnlineDatabaseHandler(getActivity()).getNotifications(me.email());
         View view =  inflater.inflate(R.layout.fragment_display_notifications,container, false);
         lv = (ListView)view.findViewById(R.id.notifications);
 		registerForContextMenu(lv);
@@ -43,7 +48,7 @@ public class DisplayNotificationsFragment extends DisplayFragment{
 		
 		if (notifications == null){
 			notifications = new Notification[1];
-			notifications[0] = new Notification(4, me.email);
+			notifications[0] = new Notification(4, me.email());
 		}
 		
 		this.adapter = new NotificationAdapter(getActivity(), R.id.notifications, notifications);
@@ -84,8 +89,9 @@ public class DisplayNotificationsFragment extends DisplayFragment{
 
 	@Override
 	public void updateAdapter() {
-		User me = new UserHandler(getActivity()).get();
-		this.notifications = new OnlineDatabaseHandler(getActivity()).getNotifications(me.email);
+		//User me = new UserHandler(getActivity()).get();
+		User me = Users.getOwner(getActivity());
+		this.notifications = new OnlineDatabaseHandler(getActivity()).getNotifications(me.email());
 		this.adapter.update(notifications);
 		this.adapter.notifyDataSetChanged();
 	}
