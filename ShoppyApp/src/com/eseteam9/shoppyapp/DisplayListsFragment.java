@@ -2,7 +2,6 @@ package com.eseteam9.shoppyapp;
 
 import java.util.HashMap;
 
-import com.eseteam9.shoppyapp.handlers.ShoppingListHandler;
 import com.eseteam9.shoppyapp.shoppingclasses.Item;
 import com.eseteam9.shoppyapp.shoppingclasses.Items;
 import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
@@ -10,6 +9,7 @@ import com.eseteam9.shoppyapp.shoppingclasses.ShoppingLists;
 
 import android.text.Editable;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -101,11 +101,10 @@ public class DisplayListsFragment extends DisplayFragment{
 	}
 
 	public void updateAdapter(){
-		//this.lists = new ShoppingListHandler(getActivity()).getAll();
-		this.lists = ShoppingLists.getAll(getActivity());
+		Context context = getActivity();
+		this.lists = ShoppingLists.getAll(context);
 		for (ShoppingList l : this.lists)
-			//this.content.put(l, new ItemHandler(getActivity()).getUnbought(l.id()));
-			this.content.put(l, Items.getUnboughtByListId(getActivity(), l.id()));
+			this.content.put(l, Items.getUnboughtByListId(context, l.id()));
 		this.adapter.update(this.lists, this.content);
 		this.adapter.notifyDataSetChanged();
 	}
