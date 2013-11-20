@@ -8,9 +8,7 @@ import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
 import com.eseteam9.shoppyapp.shoppingclasses.ShoppingLists;
 
 import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.app.FragmentTransaction;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,13 +17,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Toast;
 /**
  * Manages the "home-screen" with the two tabs, sets the general View of it.
  * 
@@ -34,7 +29,7 @@ import android.widget.Toast;
  * @implements ActionBar.TabListener
  */
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
-	SectionsPagerAdapter mSectionsPagerAdapter;
+	static SectionsPagerAdapter mSectionsPagerAdapter;
 	ViewPager mViewPager;
 
 	static public final int PICK_CONTACT = 0;
@@ -169,7 +164,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	    // Handle presses on the action bar items
 	    switch (item.getItemId()) {
 	        case R.id.add_list:
-	        	addDialog();
+	        	new ListDialog(this).addDialog();
 	            return true;
 	        case R.id.action_settings:
 	            //openSettings();
@@ -202,74 +197,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		//mSectionsPagerAdapter.update();
 	}
 	
-	/**
-	 * Opens
-	 */
-	void addDialog() {
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
-		alert.setTitle("Add List");
-		alert.setMessage("Enter new Listname:");
-
-		// Set an EditText view to get user input 
-		final EditText input = new EditText(this);
-		alert.setView(input);
-        
-		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-		public void onClick(DialogInterface dialog, int whichButton) {
-		  Editable value = input.getText();
-		  String listname = value.toString();
-		  
-		  // generate testobjects
-		  if (listname.equals("test")) {
-			  initializeList();
-			  mSectionsPagerAdapter.update();
-			  return;
-		  }
-		  
-			if (listname.length() == 0)
-		    	Toast.makeText(getApplicationContext(), "Please enter a name", Toast.LENGTH_SHORT).show();
-			//else if (!new ShoppingListHandler(getApplicationContext()).existsEntry(listname)){
-			else if (!ShoppingLists.existsTitle(getApplicationContext(), listname)){
-				//new ShoppingListHandler(getApplicationContext()).add(new ShoppingList(listname));
-				new ShoppingList(getApplicationContext(), listname);
-				mSectionsPagerAdapter.update();
-		    } 
-		    else
-		    	Toast.makeText(getApplicationContext(), "This list already exists", Toast.LENGTH_SHORT).show();
-		  }
-		});
-
-		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-		  public void onClick(DialogInterface dialog, int whichButton) {
-		    dialog.cancel();
-		  }
-		});
-		
-		
-
-		alert.show();
-	}
-	
-	protected void initializeList() {
-		  new ShoppingList(getApplicationContext(), "Groceries");
-		  new ShoppingList(getApplicationContext(), "Household articles");
-		  ShoppingList[] lists = ShoppingLists.getAll(this);
-		  ShoppingList groceries = null, household_articles = null;
-		  for (ShoppingList list : lists){
-			  if (list.title().equals("Groceries")) groceries = list;
-			  if (list.title().equals("Household articles")) household_articles = list;
-		  }
-		  
-		  new Item(getApplicationContext(), groceries.id(), "Apples", "1kg");
-		  new Item(getApplicationContext(), groceries.id(), "Rice", "2kg");
-		  new Item(getApplicationContext(), groceries.id(), "Peanuts", "1");
-		  new Item(getApplicationContext(), groceries.id(), "Coffe powder", "500g");
-		  new Item(getApplicationContext(), groceries.id(), "Bottled water", "2l");
-		  
-		  new  Item(getApplicationContext(), household_articles.id(), "Bulb, (E26)-screw", "1");
-		  new  Item(getApplicationContext(), household_articles.id(), "Toilet pape", "1");
-		  new  Item(getApplicationContext(), household_articles.id(), "Sponge", "2");
+	public static void updateAdapter(){
+		mSectionsPagerAdapter.update();
 	}
 
 	public void openItemView(View view){

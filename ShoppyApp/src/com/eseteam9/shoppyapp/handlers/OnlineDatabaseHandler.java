@@ -12,7 +12,6 @@ import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
 import com.eseteam9.shoppyapp.shoppingclasses.ShoppingLists;
 import com.eseteam9.shoppyapp.shoppingclasses.User;
 import com.eseteam9.shoppyapp.shoppingclasses.Users;
-import com.eseteam9.shoppyapp.valuesets.*;
 import com.parse.*;
 /**
  * This class communicates between the Online Database and the User.
@@ -46,8 +45,6 @@ public class OnlineDatabaseHandler {
 			        if (e == null) {
 				        if (users.size()>0){
 				        	ParseObject userObject = users.get(0);
-				            //User user = new User(userObject.getString("name"), key);
-				            //new UserHandler(context).add(user);
 				            new User(context, userObject.getString("name"), key);
 			        	}
 			        	else
@@ -62,20 +59,23 @@ public class OnlineDatabaseHandler {
 	}
 	
 	//LISTS
-	public void putList(final ShoppingList list, User user){
+	public void putList(final ShoppingList list, final String friendEmail){
 		final ParseObject listObject = new ParseObject("List");
 		listObject.put("title", list.title());
-		listObject.put("owner", user.email());
-		try {
-			listObject.save();
-	    	final String listKey = listObject.getObjectId();
-	    	list.onlineKey(listKey);
-	    	//new newShoppingListHandler(context).updateOnlineKey(list.id(), listKey);
-	    	putItems(listKey, list.id());
-			Toast.makeText(context, "List '" + list.title() + "' is now shared", Toast.LENGTH_SHORT).show();
-		} catch (ParseException e) {
-			Toast.makeText(context, "No connection. Please try again later", Toast.LENGTH_SHORT).show();
-		}
+		listObject.put("owner", Users.getOwner(context).email());
+		listObject.saveEventually(new SaveCallback() {
+			@Override
+			public void done(ParseException e) {
+				if (e == null) {
+			    	final String listKey = listObject.getObjectId();
+			    	list.onlineKey(listKey);
+			    	putItems(listKey, list.id());
+			    	shareList(listKey, friendEmail);
+			    	shareList(listKey, Users.getOwner(context).email());
+				}else
+					Toast.makeText(context, "There was an error. Please try again later", Toast.LENGTH_SHORT).show();
+			}
+		});
 	}
 	
 	protected void getList(String listKey) {
@@ -83,13 +83,6 @@ public class OnlineDatabaseHandler {
 		query.getInBackground(listKey, new GetCallback<ParseObject>() {
 			  public void done(ParseObject parseList, ParseException e) {
 				    if (e == null) {
-						//ShoppingList list = new ShoppingList(0,
-				    	//	  parseList.getString("title"), 
-				    	//	  parseList.getObjectId(), 
-				    	//	  false,
-				    	//	  parseList.getDate("createdAt"));
-						//new ShoppingListHandler(context).add(list);
-						//list = new ShoppingListHandler(context).get(parseList.getObjectId());
 				    	ShoppingList list = new ShoppingList(context, parseList.getString("title"));
 				    	list.onlineKey(parseList.getObjectId());
 				    	list.timestamp(parseList.getDate("createdAt"));
@@ -100,19 +93,23 @@ public class OnlineDatabaseHandler {
 	}
 	
 	public void shareList(final String onlineKey, final String email){
-		ParseObject onlineUser = new ParseObject("SharedList");
-		onlineUser.put("userKey", email);
-		onlineUser.put("listKey", onlineKey);
-		try {
-			onlineUser.save();
-		} catch (ParseException e) {
-			Toast.makeText(context, "No connection. Please try again later", Toast.LENGTH_SHORT).show();
-		}
+		ParseObject shareList = new ParseObject("SharedList");
+		
+		shareList.put("userKey", email);
+		shareList.put("listKey", onlineKey);
+		
+		shareList.saveInBackground(new SaveCallback() {
+	        public void done(ParseException e) {
+	            if (e == null) {
+	            	Toast.makeText(context, "List ist now shared", Toast.LENGTH_SHORT).show();
+	            }else
+	            	Toast.makeText(context, "There was an Error. Please try again later", Toast.LENGTH_SHORT).show();
+	        }
+	    });
 	}
 	
 	public void getSharedLists(){
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("SharedList");
-		//User me = new UserHandler(context).get();
 		User me = Users.getOwner(context);
 		query.whereEqualTo("userKey", me.email());
 		query.findInBackground(new FindCallback<ParseObject>() {
@@ -122,13 +119,10 @@ public class OnlineDatabaseHandler {
 				      for (int i=0; i < parseLists.size(); i++){
 				    	  ParseObject sharedListObject = parseLists.get(i);
 				    	  String key = sharedListObject.getString("listKey");
-				    	  //boolean existsEntry = new ShoppingListHandler(context).existsKey(key);
-				    	  //if (!existsEntry){
 				    	  if(!ShoppingLists.existsOnlineKey(context, key)){
 				    		  noEntry = false;
 				    		  getList(key);
 				    	  }
-				    	  	
 				      }
 				      if (noEntry)
 				    	  Toast.makeText(context, "No new Lists", Toast.LENGTH_SHORT).show();
