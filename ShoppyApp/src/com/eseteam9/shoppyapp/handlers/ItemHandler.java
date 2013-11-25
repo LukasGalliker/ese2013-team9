@@ -28,7 +28,7 @@ public class ItemHandler extends ObjectHandler {
 				+ KEY_NAME + " TEXT,"
 				+ KEY_QUANTITY + " TEXT,"
 				+ KEY_BOUGHT + " INTEGER,"
-				+ KEY_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
+				+ KEY_TIMESTAMP + " INTEGER,"
 				+ KEY_ONLINEKEY + " TEXT" + ")";
 		db.execSQL(CREATE_TABLE);
 	}

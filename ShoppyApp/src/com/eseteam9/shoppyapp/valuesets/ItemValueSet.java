@@ -52,7 +52,7 @@ public class ItemValueSet {
 		returnValues.put(ItemHandler.KEY_LIST_ID, listId);
 		returnValues.put(ItemHandler.KEY_QUANTITY, quantity);
 		returnValues.put(ItemHandler.KEY_BOUGHT, (bought ? 1 : 0));
-		//returnValues.put(ItemHandler.KEY_BOUGHT, timestamp);
+		returnValues.put(ItemHandler.KEY_BOUGHT, timestamp.getTime());
 		return returnValues;
 	}
 

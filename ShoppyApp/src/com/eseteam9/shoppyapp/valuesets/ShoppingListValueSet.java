@@ -43,7 +43,7 @@ public class ShoppingListValueSet {
 		returnValues.put(ShoppingListHandler.KEY_ONLINE_KEY, onlineKey);
 		returnValues.put(ShoppingListHandler.KEY_TITLE, title);
 		returnValues.put(ShoppingListHandler.KEY_ARCHIVED, (archived ? 1 : 0));
-		//returnValues.put(ItemHandler.KEY_BOUGHT, timestamp);
+		returnValues.put(ShoppingListHandler.KEY_TIMESTAMP, timestamp.getTime());
 		return returnValues;
 	}
 
