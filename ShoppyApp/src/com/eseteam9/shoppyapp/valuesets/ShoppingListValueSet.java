@@ -26,7 +26,7 @@ public class ShoppingListValueSet {
 		this.onlineKey = "0";
 		this.title = title;
 		this.archived = false;
-		this.timestamp = null;
+		this.timestamp = new Date();
 	}
 
 	public ShoppingListValueSet(Cursor c) {

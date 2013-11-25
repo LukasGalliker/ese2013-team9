@@ -25,7 +25,7 @@ public class ShoppingListHandler extends ObjectHandler {
 			+ KEY_TITLE + " TEXT, "
 			+ KEY_ONLINE_KEY + " TEXT,"
 			+ KEY_ARCHIVED + " INTEGER,"
-			+ KEY_TIMESTAMP + "INTEGER" + ")";
+			+ KEY_TIMESTAMP + " INTEGER" + ")";
 		db.execSQL(CREATE_SHOPPING_LISTS_TABLE);
 	}
 
