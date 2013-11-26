@@ -188,7 +188,7 @@ public class OnlineDatabaseHandler {
 		    	  item = new Item(context, listId, itemObject.getString("name"), itemObject.getString("quantity"));
 		    	  item.onlineKey(itemObject.getObjectId());
 		    	  item.bought(itemObject.getBoolean("bought"));
-		    	  item.timestamp(itemObject.getDate("createdAt"));
+		    	  item.timestamp(itemObject.getUpdatedAt());
 		      }
 		    /*
 		    	  ParseObject itemObject = parseItems.get(i);
