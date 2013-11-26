@@ -170,6 +170,18 @@ public class OnlineDatabaseHandler {
         });  
 	}
 	
+	public void putItem(final String listKey, final int listId, Item item){
+    	ParseObject parseItem = parseItem(item);
+    	parseItem.put("list", listKey);
+	    
+	    parseItem.saveInBackground(new SaveCallback() {
+            public void done(ParseException e) {
+                if (e == null)
+                	getListItems(listKey, listId);
+            }
+        });  
+	}
+	
 	public void getListItems(final String onlineKey, final int listId){
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Item");
 		query.whereEqualTo("list", onlineKey);
