@@ -11,6 +11,14 @@ public abstract class Items {
 	public static Item[] getUnboughtByListId(Context context, int listId){
 		return new ItemHandler(context).getUnboughtByListId(listId);
 	}
+	
+	public static boolean existsOnlineKey(Context context, String onlineKey){
+		return new ItemHandler(context).existsOnlineKey(onlineKey);
+	}
+	
+	public static Item getByOnlineKey(Context context, String key){
+		return new ItemHandler(context).getByOnlineKey(key);
+	}
 
 	public static String[] getAllNames(Context context){
 		return new ItemHandler(context).getAllNames();

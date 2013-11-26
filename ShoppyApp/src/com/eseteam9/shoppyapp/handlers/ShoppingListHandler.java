@@ -47,6 +47,15 @@ public class ShoppingListHandler extends ObjectHandler {
 		return returnValueSet;
 	}
 
+	public ShoppingList getByOnlineKey(String key) {
+		Cursor cursor = getAll(KEY_ONLINE_KEY + " = '" + key + "'");
+		cursor.moveToFirst();
+
+		ShoppingListValueSet returnValueSet = new ShoppingListValueSet(cursor);
+		closeDB();
+		return new ShoppingList(context, returnValueSet.id);
+	}
+	
 	public ShoppingList[] getAllLists() {
 		Cursor cursor = getAll();
 

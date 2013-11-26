@@ -173,14 +173,12 @@ public class DisplayItemsActivity extends Activity {
 			if (itemname.length() == 0)
 		    	Toast.makeText(context, "Please enter a name", Toast.LENGTH_SHORT).show();
 			else {
-				//ShoppingList oldList = new ShoppingListHandler(context).get(listId);
 				ShoppingList oldList = new ShoppingList(context, listId);
-				//new ItemHandler(context).add(new Item(itemname, quantity, listId));
 				new Item(context, listId, itemname, quantity);
 				
-				if (oldList.onlineKey() != "0")
-					new OnlineDatabaseHandler(context).putItems(oldList.onlineKey(), listId);
-				//items = newItem.getByListId(context, listId);
+				if (oldList.onlineKey().length() > 8)
+					new OnlineDatabaseHandler(context).putItem(oldList.onlineKey(), listId, new Item(context, listId, itemname, quantity));
+				
 				items = Items.getByListId(context, listId);
 				ArrayList<Item> list = new ArrayList<Item>(Arrays.asList(items));
 				adapter.clear();

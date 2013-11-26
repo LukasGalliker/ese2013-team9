@@ -184,14 +184,9 @@ public class ListDialog extends Dialog {
 	}
 	
 	protected void initializeList() {
-		  new ShoppingList(context, "Groceries");
-		  new ShoppingList(context, "Household articles");
 		  ShoppingList[] lists = ShoppingLists.getAll(context);
-		  ShoppingList groceries = null, household_articles = null;
-		  for (ShoppingList list : lists){
-			  if (list.title().equals("Groceries")) groceries = list;
-			  if (list.title().equals("Household articles")) household_articles = list;
-		  }
+		  ShoppingList groceries = new ShoppingList(context, "Groceries"); 
+		  ShoppingList household_articles = new ShoppingList(context, "Household articles");
 		  
 		  new Item(context, groceries.id(), "Apples", "1kg");
 		  new Item(context, groceries.id(), "Rice", "2kg");

@@ -1,5 +1,6 @@
 package com.eseteam9.shoppyapp.valuesets;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import com.eseteam9.shoppyapp.handlers.ShoppingListHandler;
@@ -26,7 +27,8 @@ public class ShoppingListValueSet {
 		this.onlineKey = "0";
 		this.title = title;
 		this.archived = false;
-		this.timestamp = new Date();
+		Calendar c = Calendar.getInstance();
+		this.timestamp = c.getTime();
 	}
 
 	public ShoppingListValueSet(Cursor c) {
