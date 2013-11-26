@@ -31,7 +31,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * This class is responsible to display all the items of a list and makes them clickable (long hold on an item
  * brings up the options menu on that item). Add items is also possible.
  * 
- * @author S�bastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @author Sebastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  * @extends Activity
  */
 public class DisplayItemsActivity extends Activity {
@@ -106,8 +106,8 @@ public class DisplayItemsActivity extends Activity {
 		    return super.onContextItemSelected(item);
 		}
 	}
+	
 	public void updateView(){
-		//this.items = newItem.getByListId(this, this.listId);
 		this.items = Items.getByListId(this, this.listId);
 		ArrayList<Item> list = new ArrayList<Item>(Arrays.asList(this.items));
 		adapter.clear();

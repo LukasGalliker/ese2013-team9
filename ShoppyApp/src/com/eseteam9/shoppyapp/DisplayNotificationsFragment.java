@@ -17,7 +17,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 /**
  * This class is responsible of handling the notifications.
  * 
- * @author S�bastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @author Sebastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  * @extends DisplayFragment
  */
 public class DisplayNotificationsFragment extends DisplayFragment{

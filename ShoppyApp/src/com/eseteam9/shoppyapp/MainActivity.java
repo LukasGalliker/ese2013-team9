@@ -5,7 +5,6 @@ import com.eseteam9.shoppyapp.R;
 import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
 import com.eseteam9.shoppyapp.shoppingclasses.Item;
 import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
-import com.eseteam9.shoppyapp.shoppingclasses.ShoppingLists;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -22,9 +21,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 /**
- * Manages the "home-screen" with the two tabs, sets the general View of it.
+ * This is the Main Activity, where Lists and Notifications are shown as Fragments in different Tabs.
  * 
- * @author S�bastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @author Sebastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  * @extends FragmentActivity
  * @implements ActionBar.TabListener
  */

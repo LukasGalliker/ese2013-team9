@@ -19,7 +19,7 @@ import android.widget.TextView;
   * This class is responisble to make the Lists expandable so it is responsible to display the items of a list
   * in an expandable list view
   * 
-  * @author S�bastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+  * @author Sebastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
   * @extends BaseExpandableListAdapter
   */
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
