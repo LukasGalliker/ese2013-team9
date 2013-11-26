@@ -19,4 +19,8 @@ public abstract class ShoppingLists {
 	public static void deleteById(Context context, int id){
 		new ShoppingListHandler(context).deleteById(id);
 	}
+	
+	public static ShoppingList getByOnlineKey(Context context, String key){
+		return new ShoppingListHandler(context).getByOnlineKey(key);
+	}
 }

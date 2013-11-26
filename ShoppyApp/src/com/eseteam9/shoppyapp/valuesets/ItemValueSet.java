@@ -47,7 +47,7 @@ public class ItemValueSet {
 	public ContentValues getContentValues(boolean withId) {
 		ContentValues returnValues = new ContentValues();
 		if(withId) returnValues.put(ItemHandler.KEY_ID, id);
-		returnValues.put(ItemHandler.KEY_ONLINEKEY, onlineKey);
+		returnValues.put(ItemHandler.KEY_ONLINE_KEY, onlineKey);
 		returnValues.put(ItemHandler.KEY_NAME, name);
 		returnValues.put(ItemHandler.KEY_LIST_ID, listId);
 		returnValues.put(ItemHandler.KEY_QUANTITY, quantity);

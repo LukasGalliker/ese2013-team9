@@ -10,7 +10,7 @@ public class ItemHandler extends ObjectHandler {
 	public static final String TABLE_NAME = "items";
 
 	public static final String KEY_ID = "id";
-	public static final String KEY_ONLINEKEY = "onlinekey";
+	public static final String KEY_ONLINE_KEY = "onlinekey";
 	public static final String KEY_LIST_ID = "listid";
 	public static final String KEY_NAME = "name";
 	public static final String KEY_QUANTITY = "quantity";
@@ -29,7 +29,7 @@ public class ItemHandler extends ObjectHandler {
 				+ KEY_QUANTITY + " TEXT,"
 				+ KEY_BOUGHT + " INTEGER,"
 				+ KEY_TIMESTAMP + " INTEGER,"
-				+ KEY_ONLINEKEY + " TEXT" + ")";
+				+ KEY_ONLINE_KEY + " TEXT" + ")";
 		db.execSQL(CREATE_TABLE);
 	}
 
@@ -118,5 +118,20 @@ public class ItemHandler extends ObjectHandler {
 		ItemValueSet returnValueSet = new ItemValueSet(cursor);
 		closeDB();
 		return returnValueSet;
+	}
+	
+	public boolean existsOnlineKey(String onlineKey) {
+		boolean returnBoolean = getAll(KEY_ONLINE_KEY + " = '" + onlineKey + "'").getCount() > 0;
+		closeDB();
+		return returnBoolean;
+	}
+	
+	public Item getByOnlineKey(String key) {
+		Cursor cursor = getAll(KEY_ONLINE_KEY + " = '" + key + "'");
+		cursor.moveToFirst();
+
+		ItemValueSet returnValueSet = new ItemValueSet(cursor);
+		closeDB();
+		return new Item(context, returnValueSet.id);
 	}
 }
