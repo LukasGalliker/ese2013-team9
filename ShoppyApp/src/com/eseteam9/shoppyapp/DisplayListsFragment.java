@@ -27,7 +27,7 @@ import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
  * This class displays all the lists and provides the add button. 
  * Is one of the tabs in the "home-screen".
  * 
- * @author S�bastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @author Sebastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  * @extends DisplayFragment
  */
 public class DisplayListsFragment extends DisplayFragment{

@@ -4,7 +4,6 @@ import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
 import com.eseteam9.shoppyapp.shoppingclasses.Item;
 import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
 import com.eseteam9.shoppyapp.shoppingclasses.ShoppingLists;
-import com.eseteam9.shoppyapp.shoppingclasses.User;
 import com.eseteam9.shoppyapp.shoppingclasses.Users;
 
 import android.app.AlertDialog;
@@ -21,7 +20,7 @@ import android.widget.Toast;
 /**
  * Provides the Options context menu on a List.
  * 
- * @author S�bastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @author Sebastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  * @extends Dialog
  */
 public class ListDialog extends Dialog {
@@ -184,7 +183,6 @@ public class ListDialog extends Dialog {
 	}
 	
 	protected void initializeList() {
-		  ShoppingList[] lists = ShoppingLists.getAll(context);
 		  ShoppingList groceries = new ShoppingList(context, "Groceries"); 
 		  ShoppingList household_articles = new ShoppingList(context, "Household articles");
 		  

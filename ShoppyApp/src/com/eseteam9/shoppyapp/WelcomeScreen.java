@@ -18,10 +18,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 /**
- * Is called ONLY when the user starts the app the first time and asks the user to specify his name and email
+ * Is called ONLY on first App Startup and asks the user to specify his name and email
  * address (used for the share feauture).
  * 
- * @author S�bastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @author Sebastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  * @extends Activity
  */
 public class WelcomeScreen extends Activity {

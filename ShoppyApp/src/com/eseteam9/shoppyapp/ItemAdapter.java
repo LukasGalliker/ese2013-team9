@@ -16,7 +16,7 @@ import android.widget.TextView;
 /**
  * This class transforms an Array of Item Objects in it's corresponding string representation.
  * 
- * @author S�bastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @author Sebastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  * @extends ArrayAdapter<Item>
  */
 public class ItemAdapter extends ArrayAdapter<Item> {

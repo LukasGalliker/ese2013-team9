@@ -9,7 +9,7 @@ import android.widget.TextView;
 /**
  * This class converts the Array of notification to it's String representation based on the NotificationID.
  * 
- * @author SŽbastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @author Sebastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  * @extends ArrayAdapter<Notification>
  */
 public class NotificationAdapter extends ArrayAdapter<Notification> {
