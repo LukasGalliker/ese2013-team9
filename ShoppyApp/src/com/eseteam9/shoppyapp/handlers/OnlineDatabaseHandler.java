@@ -68,9 +68,11 @@ public class OnlineDatabaseHandler {
 			@Override
 			public void done(ParseException e) {
 				if (e == null) {
-			    	final String listKey = listObject.getObjectId();
+			    	addFriend(Users.getOwner(context).email(),friendEmail);
+					final String listKey = listObject.getObjectId();
 			    	list.onlineKey(listKey);
 			    	putItems(listKey, list.id());
+			    	
 			    	shareList(listKey, friendEmail);
 			    	shareList(listKey, Users.getOwner(context).email());
 				}else
@@ -79,6 +81,29 @@ public class OnlineDatabaseHandler {
 		});
 	}
 	
+protected void addFriend(String email, final String friendEmail) {
+	final ParseObject listObject = new ParseObject("Friends");
+	listObject.put("UserId", email);
+	listObject.put("FriendId", friendEmail);
+	listObject.saveEventually(new SaveCallback() {
+		
+		@Override
+		public void done(ParseException e) {
+			if (e==null){
+		    OnlineDatabaseHandler.notify(1, friendEmail);
+			}
+			else{
+				Toast.makeText(context, "There was an error. Please try again later", Toast.LENGTH_SHORT).show();
+			
+		}
+
+		
+			
+		}
+	});
+}
+
+
 	protected void getList(String listKey) {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("List");
 		query.getInBackground(listKey, new GetCallback<ParseObject>() {
@@ -278,9 +303,9 @@ public class OnlineDatabaseHandler {
 	
 	
 	//NOTIFICATIONS
-	public static void notify(int notificationId, User user){
+	public static void notify(int notificationId, String email){
 			ParseObject onlineUser = new ParseObject("Notifications");
-			onlineUser.put("userKey", user.email());
+			onlineUser.put("userKey", email);
 			onlineUser.put("notification", notificationId);
 			onlineUser.saveEventually();
 	}
