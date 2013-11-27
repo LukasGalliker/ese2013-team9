@@ -86,7 +86,6 @@ public class DisplayListsFragment extends DisplayFragment{
 	    int listId = list.id();
 	    switch (item.getItemId()) {
 		  case 0:
-			//new newShoppingListHandler(getActivity()).delete(listId);
 			ShoppingLists.deleteById(getActivity(), listId);
 			updateAdapter();
 		    return true;
@@ -128,9 +127,7 @@ public class DisplayListsFragment extends DisplayFragment{
 		  
 			if (listname.length() == 0)
 		    	Toast.makeText(getActivity(), "Please enter a name", Toast.LENGTH_SHORT).show();
-			//else if (!new newShoppingListHandler(getActivity()).existsEntry(listname)){
 			else if (!ShoppingLists.existsTitle(getActivity(), listname)){
-				//new newShoppingListHandler(getActivity()).update(list.id, listname);
 				list.title(listname);
 				updateAdapter();
 		    } 

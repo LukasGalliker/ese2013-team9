@@ -37,23 +37,19 @@ public class DisplayNotificationsFragment extends DisplayFragment{
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		//User me = new UserHandler(getActivity()).get();
 		User me = Users.getOwner(getActivity());
-		this.notifications = new OnlineDatabaseHandler(getActivity()).getNotifications(me.email());
         View view =  inflater.inflate(R.layout.fragment_display_notifications,container, false);
         lv = (ListView)view.findViewById(R.id.notifications);
 		registerForContextMenu(lv);
 		lv.setClickable(true);
-	    
-		
 		if (notifications == null){
 			notifications = new Notification[1];
-			notifications[0] = new Notification(4, me.email());
+			notifications[0] = new Notification(4, me.email(), "");
 		}
 		
 		this.adapter = new NotificationAdapter(getActivity(), R.id.notifications, notifications);
 		lv.setAdapter(adapter);
-		
+		updateAdapter();	
         
 		return view;
 		
@@ -89,10 +85,7 @@ public class DisplayNotificationsFragment extends DisplayFragment{
 
 	@Override
 	public void updateAdapter() {
-		//User me = new UserHandler(getActivity()).get();
 		User me = Users.getOwner(getActivity());
-		this.notifications = new OnlineDatabaseHandler(getActivity()).getNotifications(me.email());
-		this.adapter.update(notifications);
-		this.adapter.notifyDataSetChanged();
+		new OnlineDatabaseHandler(getActivity()).getNotifications(me.email(), this.adapter);
 	}
 }

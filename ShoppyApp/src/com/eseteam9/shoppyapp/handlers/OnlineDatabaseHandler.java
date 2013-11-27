@@ -6,7 +6,9 @@ import java.util.List;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.eseteam9.shoppyapp.MainActivity;
 import com.eseteam9.shoppyapp.Notification;
+import com.eseteam9.shoppyapp.NotificationAdapter;
 import com.eseteam9.shoppyapp.shoppingclasses.Item;
 import com.eseteam9.shoppyapp.shoppingclasses.Items;
 import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
@@ -17,11 +19,10 @@ import com.parse.*;
 /**
  * This class communicates between the Online Database and the User.
  * 
- * @author S�bastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @author Sebastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  */
 public class OnlineDatabaseHandler {
 	Context context;
-	Notification[] notifications;
 	
 	public OnlineDatabaseHandler(Context context){
 		this.context = context;
@@ -36,21 +37,19 @@ public class OnlineDatabaseHandler {
 		onlineUser.saveEventually();
 	}
 	
-	public void getUser(final String key){
+	public void getUser(final String email){
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
-		//if (!new UserHandler(context).existsUser(key)){
-		if (!Users.existsUserByEmail(context, key)){
-			query.whereEqualTo("key", key);
+		if (!Users.existsUserByEmail(context, email)){
+			query.whereEqualTo("key", email);
 			query.findInBackground(new FindCallback<ParseObject>() {
 			    public void done(List<ParseObject> users, ParseException e) {
 			        if (e == null) {
 				        if (users.size()>0){
 				        	ParseObject userObject = users.get(0);
-				            new User(context, userObject.getString("name"), key);
+				            new User(context, userObject.getString("name"), email);
 			        	}
 			        	else
-			        		Toast.makeText(context, "No such user found", Toast.LENGTH_SHORT).show();
-			        	
+			        		Toast.makeText(context, "No user found with email '" + email + "'", Toast.LENGTH_SHORT).show(); 	
 			        }
 			        else
 			        	Toast.makeText(context, "No connection. Please try again later", Toast.LENGTH_SHORT).show();
@@ -59,51 +58,45 @@ public class OnlineDatabaseHandler {
 		}
 	}
 	
+	public void addFriend(final String email, final String friendEmail) {
+		getUser(friendEmail);
+		final ParseObject listObject = new ParseObject("Friends");
+		listObject.put("UserId", email);
+		listObject.put("FriendId", friendEmail);
+		listObject.saveEventually(new SaveCallback() {
+			@Override
+			public void done(ParseException e) {
+				if (e==null)
+					OnlineDatabaseHandler.notify(1, friendEmail, email);
+				else
+					Toast.makeText(context, "There was an error. Please try again later", Toast.LENGTH_SHORT).show();			
+			}
+		});
+	}
+	
+	
 	//LISTS
 	public void putList(final ShoppingList list, final String friendEmail){
 		final ParseObject listObject = new ParseObject("List");
+		final String myEmail = Users.getOwner(context).email();
 		listObject.put("title", list.title());
-		listObject.put("owner", Users.getOwner(context).email());
+		listObject.put("owner", myEmail);
 		listObject.saveEventually(new SaveCallback() {
 			@Override
 			public void done(ParseException e) {
 				if (e == null) {
-			    	addFriend(Users.getOwner(context).email(),friendEmail);
-					final String listKey = listObject.getObjectId();
+			    	final String listKey = listObject.getObjectId();
 			    	list.onlineKey(listKey);
 			    	putItems(listKey, list.id());
-			    	
 			    	shareList(listKey, friendEmail);
-			    	shareList(listKey, Users.getOwner(context).email());
+			    	shareList(listKey, myEmail);
+			    	addFriend(myEmail, friendEmail);
 				}else
 					Toast.makeText(context, "There was an error. Please try again later", Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
 	
-protected void addFriend(String email, final String friendEmail) {
-	final ParseObject listObject = new ParseObject("Friends");
-	listObject.put("UserId", email);
-	listObject.put("FriendId", friendEmail);
-	listObject.saveEventually(new SaveCallback() {
-		
-		@Override
-		public void done(ParseException e) {
-			if (e==null){
-		    OnlineDatabaseHandler.notify(1, friendEmail);
-			}
-			else{
-				Toast.makeText(context, "There was an error. Please try again later", Toast.LENGTH_SHORT).show();
-			
-		}
-
-		
-			
-		}
-	});
-}
-
-
 	protected void getList(String listKey) {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("List");
 		query.getInBackground(listKey, new GetCallback<ParseObject>() {
@@ -126,9 +119,9 @@ protected void addFriend(String email, final String friendEmail) {
 		
 		shareList.saveInBackground(new SaveCallback() {
 	        public void done(ParseException e) {
-	            if (e == null) {
+	            if (e == null)
 	            	Toast.makeText(context, "List ist now shared", Toast.LENGTH_SHORT).show();
-	            }else
+	            else
 	            	Toast.makeText(context, "There was an Error. Please try again later", Toast.LENGTH_SHORT).show();
 	        }
 	    });
@@ -149,6 +142,7 @@ protected void addFriend(String email, final String friendEmail) {
 				    	  else
 				    		  syncList(ShoppingLists.getByOnlineKey(context, key));				    	  
 				      }
+				      MainActivity.updateAdapter();
 				      Toast.makeText(context, "Lists Refreshed", Toast.LENGTH_SHORT).show();
 				 }
 			  }
@@ -157,7 +151,7 @@ protected void addFriend(String email, final String friendEmail) {
 	
 	public void syncList(final ShoppingList list) {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("List");
-		if (list.onlineKey() != "0"){
+		if (list.onlineKey().length() > 7){
 			query.getInBackground(list.onlineKey(), new GetCallback<ParseObject>() {
 				  public void done(ParseObject parseList, ParseException e) {
 					    if ((e == null) && (parseList != null)) {
@@ -171,6 +165,19 @@ protected void addFriend(String email, final String friendEmail) {
 					 }
 			});
 		}
+	}
+	
+	public void updateList(String listKey){
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("List");
+		 
+		query.getInBackground(listKey, new GetCallback<ParseObject>() {
+		  public void done(ParseObject listObject, ParseException e) {
+		    if (e == null) {
+		      listObject.put("owner", Users.getOwner(context).email());
+		      listObject.saveInBackground();
+		    }
+		  }
+		});
 	}
 	
 	
@@ -204,7 +211,8 @@ protected void addFriend(String email, final String friendEmail) {
                 if (e == null)
                 	getListItems(listKey, listId);
             }
-        });  
+        }); 
+	    
 	}
 	
 	public void getListItems(final String onlineKey, final int listId){
@@ -234,6 +242,8 @@ protected void addFriend(String email, final String friendEmail) {
 		query.getInBackground(itemKey, new GetCallback<ParseObject>() {
 		  public void done(ParseObject itemObject, ParseException e) {
 		    if (e == null) {
+		      String listKey = itemObject.getString("list");
+		      updateList(listKey);
 		      itemObject.put("bought", status);
 		      itemObject.saveInBackground();
 		    }
@@ -303,32 +313,38 @@ protected void addFriend(String email, final String friendEmail) {
 	
 	
 	//NOTIFICATIONS
-	public static void notify(int notificationId, String email){
+	public static void notify(int notificationId, String email, String data){
 			ParseObject onlineUser = new ParseObject("Notifications");
 			onlineUser.put("userKey", email);
 			onlineUser.put("notification", notificationId);
+			onlineUser.put("data", data);
 			onlineUser.saveEventually();
 	}
 
-	public Notification[] getNotifications(String email) {
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("Notification");
+	public void getNotifications(final String email, final NotificationAdapter adapter) {
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("Notifications");
 		query.whereEqualTo("userKey", email);
 		query.findInBackground(new FindCallback<ParseObject>() {
 		    public void done(List<ParseObject> parseItems, ParseException e) {
 		        if (e == null) {
-		        	notifications = new Notification[parseItems.size()];
+		        	Notification[] notifications = null;
 				    for (int i=0; i < parseItems.size(); i++){
+				    	  notifications = new Notification[parseItems.size()];
 				    	  ParseObject itemObject = parseItems.get(i);
 				    	  Notification notification = new Notification(itemObject.getInt("notification"),
-					    		  						itemObject.getString("userKey"));
+					    		  						itemObject.getString("userKey"),
+					    		  						itemObject.getString("data"));
 					      notifications[i] = notification;
-				      }
+				    }
+					if (notifications == null){
+						notifications = new Notification[1];
+						notifications[0] = new Notification(4, email, "");
+					}
+					adapter.clear();
+				    adapter.update(notifications);
+				    adapter.notifyDataSetChanged();
 		        }
-		        
 		    }
-		});
-		return notifications;	
-	}
-	
-	
+		});	
+	}	
 }

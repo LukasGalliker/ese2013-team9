@@ -2,16 +2,18 @@ package com.eseteam9.shoppyapp;
 /**
  * This class provides the main structure of a notification.
  * 
- * @author S�bastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
+ * @author Sebastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  */
 public class Notification {
 	public int notificationId;
-	public String key;
+	public String email;
+	public String data;
 	
 	
-	public Notification(int notificationId, String key){
+	public Notification(int notificationId, String email, String data){
 		this.notificationId = notificationId;
-		this.key = key;
+		this.email = email;
+		this.data = data;
 	}
 	
 }

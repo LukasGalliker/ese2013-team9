@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
 /**
  * This class converts the Array of notification to it's String representation based on the NotificationID.
  * 
@@ -26,29 +27,33 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
 	@Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
-        if (v == null) {
-            LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = vi.inflate(R.layout.notification_row, null);
-        }
         
         String message = "";
+        int layout = 0;
         Notification notification = notifications[position];
         if (notification != null) {
         	switch (notification.notificationId){
-        	case 1: message = "User has added you to Friendlist";
+        	case 1: message = notification.data + " has added you to Friendlist";
         			break;
-        	case 2: message = "User has shared a list with you";
+        	case 2: message = notification.data + " has shared a list with you. Accept?";
+        			layout = 1;
 					break;        	
-        	case 3: message = "User bought some stuff from a list";
+        	case 3: message = "Something was bought the list " + notification.data;
 					break;  
         	case 4: message = "No new Notifications!";
         			break;
         	}
+        	
+            LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            if (layout==0)
+            	v = vi.inflate(R.layout.notification_row, null);
+            else
+            	v = vi.inflate(R.layout.notification_row2, null);
             TextView text = (TextView) v.findViewById(R.id.notificationText);
             if (text != null) {
             	text.setText(message);
             }
-        }
+            }
         return v;
     }
 	
@@ -56,4 +61,8 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
 		this.notifications = notifications;
 	}
 	
+	@Override
+	public int getCount() {
+	    return notifications.length;
+	}
 }

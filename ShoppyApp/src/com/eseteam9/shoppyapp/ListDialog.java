@@ -57,14 +57,15 @@ public class ListDialog extends Dialog {
 				Editable value = input.getText();
 				String email = value.toString();
 				if (email.length() != 0){
-					//User me = Users.getOwner(context);
 					OnlineDatabaseHandler handler = new OnlineDatabaseHandler(context);
+					if (!Users.existsUserByEmail(context, email))
+						handler.addFriend(Users.getOwner(context).email(), email);
 					if (key.length() < 9)
 						handler.putList(list, email);
 					else
-						handler.shareList(key, email);
+						handler.shareList(key, email);				
 					
-					//OnlineDatabaseHandler.notify(2, me);
+					OnlineDatabaseHandler.notify(2, email, list.title());
 				}
 			}
 		 });
