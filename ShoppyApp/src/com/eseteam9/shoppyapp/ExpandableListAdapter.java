@@ -109,15 +109,15 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         TextView lblListHeader = (TextView) convertView.findViewById(R.id.listname);
         TextView number = (TextView) convertView.findViewById(R.id.itemsNum);
         lblListHeader.setTypeface(null, Typeface.BOLD);
-        lblListHeader.setText(list.title());
+        String text = list.title();
+        if (list.onlineKey().length() > 8)
+        	text = text + " - shared";
+
+        lblListHeader.setText(text);
         
         ImageView arrow = (ImageView) convertView.findViewById(R.id.imageView1);
         arrow.setTag(list.id());
         
-        //Count items
-        //ItemHandler handler = new ItemHandler(this.context);
-        //int unbought = handler.getCountUnbought(list.id());
-        //int total = handler.getCount(list.id());
         int unbought = Items.getUnboughtCount(this.context, list.id());
         int total = Items.getCount(this.context, list.id());
         int bought = total - unbought;

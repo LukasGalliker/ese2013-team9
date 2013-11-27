@@ -47,6 +47,7 @@ public class OnlineDatabaseHandler {
 				        if (users.size()>0){
 				        	ParseObject userObject = users.get(0);
 				            new User(context, userObject.getString("name"), email);
+				            OnlineDatabaseHandler.notify(1, email, Users.getOwner(context).email());
 			        	}
 			        	else
 			        		Toast.makeText(context, "No user found with email '" + email + "'", Toast.LENGTH_SHORT).show(); 	
@@ -59,15 +60,15 @@ public class OnlineDatabaseHandler {
 	}
 	
 	public void addFriend(final String email, final String friendEmail) {
-		getUser(friendEmail);
 		final ParseObject listObject = new ParseObject("Friends");
 		listObject.put("UserId", email);
 		listObject.put("FriendId", friendEmail);
 		listObject.saveEventually(new SaveCallback() {
 			@Override
 			public void done(ParseException e) {
-				if (e==null)
-					OnlineDatabaseHandler.notify(1, friendEmail, email);
+				if (e==null){
+					getUser(friendEmail);
+				}
 				else
 					Toast.makeText(context, "There was an error. Please try again later", Toast.LENGTH_SHORT).show();			
 			}
@@ -90,7 +91,6 @@ public class OnlineDatabaseHandler {
 			    	putItems(listKey, list.id());
 			    	shareList(listKey, friendEmail);
 			    	shareList(listKey, myEmail);
-			    	addFriend(myEmail, friendEmail);
 				}else
 					Toast.makeText(context, "There was an error. Please try again later", Toast.LENGTH_SHORT).show();
 			}
@@ -143,7 +143,7 @@ public class OnlineDatabaseHandler {
 				    		  syncList(ShoppingLists.getByOnlineKey(context, key));				    	  
 				      }
 				      MainActivity.updateAdapter();
-				      Toast.makeText(context, "Lists Refreshed", Toast.LENGTH_SHORT).show();
+				      Toast.makeText(context, "Lists Refreshed", Toast.LENGTH_SHORT).show();			      
 				 }
 			  }
 		});
@@ -328,16 +328,18 @@ public class OnlineDatabaseHandler {
 		    public void done(List<ParseObject> parseItems, ParseException e) {
 		        if (e == null) {
 		        	Notification[] notifications = null;
-				    for (int i=0; i < parseItems.size(); i++){
-				    	  notifications = new Notification[parseItems.size()];
-				    	  ParseObject itemObject = parseItems.get(i);
-				    	  Notification notification = new Notification(itemObject.getInt("notification"),
-					    		  						itemObject.getString("userKey"),
-					    		  						itemObject.getString("data"));
-					      notifications[i] = notification;
-				    }
-					if (notifications == null){
-						notifications = new Notification[1];
+		        	if (parseItems.size()>0){
+			        	notifications = new Notification[parseItems.size()];
+					    for (int i=0; i < parseItems.size(); i++){
+					    	  ParseObject itemObject = parseItems.get(i);
+					    	  Notification notification = new Notification(itemObject.getInt("notification"),
+						    		  						itemObject.getString("userKey"),
+						    		  						itemObject.getString("data"));
+						      notifications[i] = notification;
+					    }
+		        	}
+		        	if (notifications == null){
+		        		notifications = new Notification[1];
 						notifications[0] = new Notification(4, email, "");
 					}
 					adapter.clear();

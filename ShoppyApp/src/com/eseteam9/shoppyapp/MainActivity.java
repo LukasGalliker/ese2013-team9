@@ -165,7 +165,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	            return true;
 	        case R.id.action_refresh:
 	            new OnlineDatabaseHandler(this).getSharedLists();
-	            updateAdapter();
 	            return true;
 	        case R.id.add_friend:
 	            new ListDialog(this).addFriendDialog();
