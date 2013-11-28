@@ -11,7 +11,6 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -21,7 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 /**
- * This is the Main Activity, where Lists and Notifications are shown as Fragments in different Tabs.
+ * Displays the Main Screen with the two tabs "Lists" and "Notifications".
  * 
  * @author Sebastien Broggi, Sammer Puran, Marc Schneiter, Lukas Galliker
  * @extends FragmentActivity
@@ -84,9 +83,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 	@Override
 	public void onTabSelected(ActionBar.Tab tab,
-			FragmentTransaction fragmentTransaction) {
-		// When the given tab is selected, switch to the corresponding page in
-		// the ViewPager.
+		FragmentTransaction fragmentTransaction) {
 		mViewPager.setCurrentItem(tab.getPosition());
 	}
 
@@ -113,7 +110,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	 * one of the sections/tabs/pages.
 	 */
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
-		private DisplayListsFragment fragment;
+		private DisplayFragment listFragment;
+		private DisplayFragment notificationsFragment;
 
 		public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
@@ -121,25 +119,22 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 		@Override
 		public Fragment getItem(int position) {
-			// getItem is called to instantiate the fragment for the given page.
-			// Return a DummySectionFragment (defined as a static inner class
-			// below) with the page number as its lone argument.
 			if (position == 0){
-				fragment = new DisplayListsFragment();
-				return fragment;
+				listFragment = new DisplayListsFragment();
+				return listFragment;
 			}
 			
-			Fragment fragment = new ListFragment();
-			return fragment;
+			notificationsFragment = new DisplayNotificationsFragment();
+			return notificationsFragment;
 		}
 
 		public void update(){
-			fragment.updateAdapter();
+			listFragment.updateAdapter();
+			notificationsFragment.updateAdapter();
 		}
 		
 		@Override
 		public int getCount() {
-			// Show 2 total pages.
 			return 2;
 		}
 
@@ -170,7 +165,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	            return true;
 	        case R.id.action_refresh:
 	            new OnlineDatabaseHandler(this).getSharedLists();
-	            mSectionsPagerAdapter.update();
 	            return true;
 	        case R.id.add_friend:
 	            new ListDialog(this).addFriendDialog();
@@ -187,13 +181,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	public void checkItem(View view){
 		boolean status = ((CheckBox) view).isChecked();
 		int id = (Integer) view.getTag();
-		//ItemHandler handler = new ItemHandler(this);
-		//Item item = handler.get(id);
-		//handler.checked(id, status);
 		Item item = new Item(this, id);
 		item.bought(status);
 		new OnlineDatabaseHandler(this).checkItem(item.onlineKey(), status);
-		//mSectionsPagerAdapter.update();
 	}
 	
 	public static void updateAdapter(){
@@ -204,7 +194,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         Intent intent = new Intent(this, DisplayItemsActivity.class);
         int listId = (Integer)view.getTag();
         intent.putExtra("LIST_ID", listId);
-        //intent.putExtra("LIST_NAME", new ShoppingListHandler(this).get(listId).title);
         intent.putExtra("LIST_NAME", new ShoppingList(this, listId).title());
 	    startActivity(intent);
 	}
