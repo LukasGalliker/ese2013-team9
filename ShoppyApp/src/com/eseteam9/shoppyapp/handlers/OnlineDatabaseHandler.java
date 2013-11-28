@@ -6,11 +6,11 @@ import java.util.List;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.eseteam9.shoppyapp.MainActivity;
-import com.eseteam9.shoppyapp.Notification;
-import com.eseteam9.shoppyapp.NotificationAdapter;
+import com.eseteam9.shoppyapp.activities.MainActivity;
+import com.eseteam9.shoppyapp.adapters.NotificationAdapter;
 import com.eseteam9.shoppyapp.shoppingclasses.Item;
 import com.eseteam9.shoppyapp.shoppingclasses.Items;
+import com.eseteam9.shoppyapp.shoppingclasses.Notification;
 import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
 import com.eseteam9.shoppyapp.shoppingclasses.ShoppingLists;
 import com.eseteam9.shoppyapp.shoppingclasses.User;

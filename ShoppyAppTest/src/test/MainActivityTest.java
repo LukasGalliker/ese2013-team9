@@ -1,6 +1,7 @@
 package test;
 
 import com.eseteam9.shoppyapp.*;
+import com.eseteam9.shoppyapp.activities.MainActivity;
 
 import android.test.AndroidTestCase;
 import android.widget.Spinner;
