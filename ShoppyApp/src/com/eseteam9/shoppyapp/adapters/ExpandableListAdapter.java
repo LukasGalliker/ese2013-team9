@@ -51,10 +51,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, final int childPosition,
             boolean isLastChild, View convertView, ViewGroup parent) {
     	
-    	//Item[] items = new ItemHandler(this.context).getListItems(listDataHeader[groupPosition].id());
     	Item[] items = Items.getByListId(this.context, listDataHeader[groupPosition].id());
     	Item item = items[childPosition];
-    	//Item item = getChild(groupPosition, childPosition);
         		
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context

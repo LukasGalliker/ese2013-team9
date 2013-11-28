@@ -64,7 +64,6 @@ public class DisplayItemsActivity extends Activity {
 		lv.setClickable(true);
 		
 		//Create Adapter
-		//this.items = newItem.getByListId(this, this.listId);
 		this.items = Items.getByListId(this, this.listId);
 		ArrayList<Item> list = new ArrayList<Item>(Arrays.asList(this.items));
 		this.adapter = new ItemAdapter(this, R.id.itemoverview,  list);
@@ -101,7 +100,6 @@ public class DisplayItemsActivity extends Activity {
 	    switch (item.getItemId()) {
 		  case 0:
 			Items.deleteById(this, listItem.id());
-			//new ItemHandler(this).delete(listItem.id());
 			new OnlineDatabaseHandler(this).deleteItem(listItem.onlineKey());
 		    updateView();
 		    return true;
@@ -126,8 +124,6 @@ public class DisplayItemsActivity extends Activity {
 		boolean status = ((CheckBox) view).isChecked();
 		ListView lv = (ListView) findViewById(R.id.itemoverview);
 		Item item = items[lv.getPositionForView(view)];
-		//int id = item.id();
-		//new ItemHandler(this).checked(id, status);	
 		item.bought(status);
 		new OnlineDatabaseHandler(this).checkItem(item.onlineKey(), status);
 	}
@@ -164,7 +160,6 @@ public class DisplayItemsActivity extends Activity {
 		alert.setView(view);
 		
 		AutoCompleteTextView act=(AutoCompleteTextView)view.findViewById(R.id.item_name);
-		//ArrayAdapter<String> arr = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, new ItemHandler(this).getAllNames());
 		ArrayAdapter<String> arr = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, Items.getAllNames(this));
 		act.setAdapter(arr);
 		
@@ -230,10 +225,8 @@ public class DisplayItemsActivity extends Activity {
 			if (itemname.length() == 0)
 		    	Toast.makeText(getBaseContext(), "Please enter a name", Toast.LENGTH_SHORT).show();
 			else{
-				//new ItemHandler(context).update(item.id(), itemname, quantity);
 				item.name(itemname);
 				item.quantity(quantity);
-				//items = newItem.getByListId(context, listId);
 				items = Items.getByListId(context, listId);
 				ArrayList<Item> list = new ArrayList<Item>(Arrays.asList(items));
 				adapter.clear();

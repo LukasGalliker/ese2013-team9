@@ -96,7 +96,6 @@ public class DisplayListsFragment extends DisplayFragment{
 			updateAdapter();
 		    return true;
 		  case 1:
-			  //new ListDialog(getActivity()).editDialog(list);
 			  editDialog(list);
 			  return true;
 		  case 2:

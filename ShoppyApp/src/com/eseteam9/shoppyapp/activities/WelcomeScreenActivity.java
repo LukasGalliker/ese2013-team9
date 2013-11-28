@@ -37,7 +37,6 @@ public class WelcomeScreenActivity extends Activity {
         Parse.initialize(this, "siN9uAfK3is01V4Yyad62BztutNZN761smpPFdhQ", "zWJquwUQlEw9NHvBuZFFdpMrMIQoIXRy8CjslwY3"); 
         ParseAnalytics.trackAppOpened(getIntent());
         //Checks if database of program exists, otherwise continues to DisplayLists
-        //if (new UserHandler(this).existsUser()){
         if (Users.existsUser(this)){
             Intent intent = new Intent(this, MainActivity.class);
     	    startActivity(intent);
@@ -65,9 +64,7 @@ public class WelcomeScreenActivity extends Activity {
 		else if (email.length() == 0)
 			Toast.makeText(this, "Please enter an email", Toast.LENGTH_SHORT).show();
 		else{
-		    //User user = new User(nickname, email);
 		    //Add Entry in DB    
-		    //new UserHandler(this).add(user);
 			User user = new User(this, nickname, email);
 		    new OnlineDatabaseHandler(this).putUser(user);
 		    

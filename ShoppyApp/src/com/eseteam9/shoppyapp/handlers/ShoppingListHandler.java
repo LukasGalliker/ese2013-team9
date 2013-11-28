@@ -69,7 +69,7 @@ public class ShoppingListHandler extends ObjectHandler {
 	}
 
 	public void update(ShoppingListValueSet valueSet) {
-		update(valueSet.getContentValues(true), KEY_ID + " = " + valueSet.id);
+		update(valueSet.getContentValues(), KEY_ID + " = " + valueSet.id);
 	}
 
 	public void deleteById(int id) {

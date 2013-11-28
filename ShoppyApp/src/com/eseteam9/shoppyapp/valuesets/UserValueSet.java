@@ -4,7 +4,7 @@ import com.eseteam9.shoppyapp.handlers.UserHandler;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-public class UserValueSet {
+public class UserValueSet extends AbstractValueSet {
 	public final int id;
 	public final String name, email;
 

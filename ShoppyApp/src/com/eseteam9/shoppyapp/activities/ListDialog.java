@@ -95,9 +95,7 @@ public class ListDialog extends Dialog {
 		  
 			if (listname.length() == 0)
 		    	Toast.makeText(context, "Please enter a name", Toast.LENGTH_SHORT).show();
-			//else if (!new ShoppingListHandler(context).existsEntry(listname)){
 			else if (!ShoppingLists.existsTitle(context, listname)){
-				//new ShoppingListHandler(context).update(list.id, listname);
 				list.title(listname);
 				//updateAdapter();
 		    } 

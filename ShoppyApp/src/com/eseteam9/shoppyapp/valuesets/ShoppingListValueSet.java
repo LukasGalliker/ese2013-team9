@@ -7,7 +7,7 @@ import com.eseteam9.shoppyapp.handlers.ShoppingListHandler;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-public class ShoppingListValueSet {
+public class ShoppingListValueSet extends AbstractValueSet {
 	public final int id;
 	public final String onlineKey;
 	public final String title;
