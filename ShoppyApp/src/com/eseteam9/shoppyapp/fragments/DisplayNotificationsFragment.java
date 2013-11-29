@@ -1,21 +1,12 @@
 package com.eseteam9.shoppyapp.fragments;
 
 import com.eseteam9.shoppyapp.R;
-import com.eseteam9.shoppyapp.R.array;
-import com.eseteam9.shoppyapp.R.id;
-import com.eseteam9.shoppyapp.R.layout;
 import com.eseteam9.shoppyapp.adapters.NotificationAdapter;
 import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
-import com.eseteam9.shoppyapp.shoppingclasses.Notification;
-import com.eseteam9.shoppyapp.shoppingclasses.User;
-import com.eseteam9.shoppyapp.shoppingclasses.Users;
+import com.eseteam9.shoppyapp.shoppingclasses.*;
 
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ListView;
 import android.view.ViewGroup;
@@ -31,16 +22,15 @@ public class DisplayNotificationsFragment extends DisplayFragment{
 	private Notification[] notifications; 
 	private ListView lv;
 
-	
 	public DisplayNotificationsFragment() {
 	}
-	
+
 	//Displays Lists
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);		
 	}
-	
+
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		User me = Users.getOwner(getActivity());
@@ -52,13 +42,12 @@ public class DisplayNotificationsFragment extends DisplayFragment{
 			notifications = new Notification[1];
 			notifications[0] = new Notification(4, me.email(), "");
 		}
-		
+
 		this.adapter = new NotificationAdapter(getActivity(), R.id.notifications, notifications);
 		lv.setAdapter(adapter);
-		updateAdapter();	
-        
+		updateAdapter();
+
 		return view;
-		
 	}
 
 	//Creates ContextMenu (from arrays.xml) when pressing&holding an item
@@ -72,7 +61,7 @@ public class DisplayNotificationsFragment extends DisplayFragment{
 	    }
 	  }
 	}
-	
+
 	//Reads what is selected from ContextMenu
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {

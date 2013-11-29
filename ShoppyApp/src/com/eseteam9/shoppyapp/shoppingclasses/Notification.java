@@ -8,12 +8,10 @@ public class Notification {
 	public int notificationId;
 	public String email;
 	public String data;
-	
-	
+
 	public Notification(int notificationId, String email, String data){
 		this.notificationId = notificationId;
 		this.email = email;
 		this.data = data;
 	}
-	
 }
