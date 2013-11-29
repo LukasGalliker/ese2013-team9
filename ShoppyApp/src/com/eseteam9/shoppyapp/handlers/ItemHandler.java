@@ -76,7 +76,7 @@ public class ItemHandler extends ObjectHandler {
 	}
 
 	public void update(ItemValueSet valueSet) {
-		update(valueSet.getContentValues(true), KEY_ID + " = " + valueSet.id);
+		update(valueSet.getContentValues(), KEY_ID + " = " + valueSet.id);
 	}
 
 	public void deleteById(int id) {
