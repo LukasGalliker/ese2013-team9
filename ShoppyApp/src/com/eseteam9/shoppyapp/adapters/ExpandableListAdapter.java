@@ -96,33 +96,27 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
  
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded,
-            View convertView, ViewGroup parent) {
-    	ShoppingList list = getGroup(groupPosition);
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this.context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_row, null);
         }
+        ShoppingList list = getGroup(groupPosition);
         TextView lblListHeader = (TextView) convertView.findViewById(R.id.listname);
         TextView number = (TextView) convertView.findViewById(R.id.itemsNum);
         ImageView shared = (ImageView)convertView.findViewById(R.id.imageView2);
-        lblListHeader.setTypeface(null, Typeface.BOLD);
-        String text = list.title();
         shared.setVisibility(0);
         if (list.onlineKey().length() < 9)
         	shared.setVisibility(8);
         
-        lblListHeader.setText(text);
+        lblListHeader.setText(list.title());
         ImageView arrow = (ImageView) convertView.findViewById(R.id.imageView1);
         arrow.setTag(list.id());
-        
         
         int unbought = Items.getUnboughtCount(this.context, list.id());
         int total = Items.getCount(this.context, list.id());
         int bought = total - unbought;
         number.setText(bought + "/" + total);
-        
         
         return convertView;
     }
@@ -134,7 +128,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
  
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return true;
+        return false;
     }
     
     public void update(ShoppingList[] listDataHeader, HashMap<ShoppingList, Item[]> listChildData){
