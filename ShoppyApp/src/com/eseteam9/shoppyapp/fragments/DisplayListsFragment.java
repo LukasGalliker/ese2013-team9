@@ -3,9 +3,6 @@ package com.eseteam9.shoppyapp.fragments;
 import java.util.HashMap;
 
 import com.eseteam9.shoppyapp.R;
-import com.eseteam9.shoppyapp.R.array;
-import com.eseteam9.shoppyapp.R.id;
-import com.eseteam9.shoppyapp.R.layout;
 import com.eseteam9.shoppyapp.activities.ListDialog;
 import com.eseteam9.shoppyapp.adapters.ExpandableListAdapter;
 import com.eseteam9.shoppyapp.shoppingclasses.Item;

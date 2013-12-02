@@ -4,7 +4,6 @@ import com.eseteam9.shoppyapp.R;
 import com.eseteam9.shoppyapp.adapters.NotificationAdapter;
 import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
 import com.eseteam9.shoppyapp.shoppingclasses.*;
-
 import android.os.Bundle;
 import android.view.*;
 import android.view.ContextMenu.ContextMenuInfo;

@@ -21,6 +21,7 @@
     <string name="add_a_item">Add Item:</string>
     <string name="title_activity_edit_list">Edit List</string>
     <string name="edit_list">Edit List</string>
+    <string name="share_list">Share List</string>
     <string name="listname">Listname</string>
     <string name="quantity">Quantity</string>
     <string name="unit">Unit</string>

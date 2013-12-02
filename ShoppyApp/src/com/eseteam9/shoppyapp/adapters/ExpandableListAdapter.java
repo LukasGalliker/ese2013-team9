@@ -3,12 +3,9 @@ package com.eseteam9.shoppyapp.adapters;
 import java.util.HashMap; 
 
 import com.eseteam9.shoppyapp.R;
-import com.eseteam9.shoppyapp.R.id;
-import com.eseteam9.shoppyapp.R.layout;
 import com.eseteam9.shoppyapp.shoppingclasses.Item;
 import com.eseteam9.shoppyapp.shoppingclasses.Items;
 import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
-
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -109,15 +106,17 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
         TextView lblListHeader = (TextView) convertView.findViewById(R.id.listname);
         TextView number = (TextView) convertView.findViewById(R.id.itemsNum);
+        ImageView shared = (ImageView)convertView.findViewById(R.id.imageView2);
         lblListHeader.setTypeface(null, Typeface.BOLD);
         String text = list.title();
-        if (list.onlineKey().length() > 8)
-        	text = text + " - shared";
-
-        lblListHeader.setText(text);
+        shared.setVisibility(0);
+        if (list.onlineKey().length() < 9)
+        	shared.setVisibility(8);
         
+        lblListHeader.setText(text);
         ImageView arrow = (ImageView) convertView.findViewById(R.id.imageView1);
         arrow.setTag(list.id());
+        
         
         int unbought = Items.getUnboughtCount(this.context, list.id());
         int total = Items.getCount(this.context, list.id());
