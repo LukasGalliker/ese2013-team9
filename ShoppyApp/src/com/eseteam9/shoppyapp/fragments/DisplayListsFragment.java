@@ -5,6 +5,7 @@ import java.util.HashMap;
 import com.eseteam9.shoppyapp.R;
 import com.eseteam9.shoppyapp.activities.ListDialog;
 import com.eseteam9.shoppyapp.adapters.ExpandableListAdapter;
+import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
 import com.eseteam9.shoppyapp.shoppingclasses.Item;
 import com.eseteam9.shoppyapp.shoppingclasses.Items;
 import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
@@ -90,6 +91,7 @@ public class DisplayListsFragment extends DisplayFragment{
 	    switch (item.getItemId()) {
 		  case 0:
 			ShoppingLists.deleteById(getActivity(), listId);
+			new OnlineDatabaseHandler(getActivity()).deleteSharedLists(list.onlineKey());
 			updateAdapter();
 		    return true;
 		  case 1:

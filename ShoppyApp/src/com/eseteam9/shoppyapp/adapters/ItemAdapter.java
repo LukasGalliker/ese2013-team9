@@ -1,9 +1,11 @@
 package com.eseteam9.shoppyapp.adapters;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.eseteam9.shoppyapp.R;
 import com.eseteam9.shoppyapp.shoppingclasses.Item;
+import com.eseteam9.shoppyapp.shoppingclasses.Items;
 
 import android.app.Activity;
 import android.content.Context;
@@ -58,4 +60,24 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         }
         return v;
     }
+    
+    public void updateItems(Context context, int listId){
+		Item[] list = Items.getByListId(context, listId);
+		this.clear();
+		this.addAll(new ArrayList<Item>(Arrays.asList(list)));
+		this.notifyDataSetChanged();
+    }
+    
+    public Item[] getItems(){
+    	Item[] itemsArray = new Item[items.size()];
+    	for (int i=0; i < items.size(); i++)
+    		itemsArray[i] = items.get(i);
+    	
+    	return itemsArray;		
+    }
+    
+	@Override
+	public int getCount() {
+	    return items.size();
+	}
 }

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.eseteam9.shoppyapp.activities.MainActivity;
+import com.eseteam9.shoppyapp.adapters.ItemAdapter;
 import com.eseteam9.shoppyapp.adapters.NotificationAdapter;
 import com.eseteam9.shoppyapp.shoppingclasses.Item;
 import com.eseteam9.shoppyapp.shoppingclasses.Items;
@@ -47,7 +48,7 @@ public class OnlineDatabaseHandler {
 				        if (users.size()>0){
 				        	ParseObject userObject = users.get(0);
 				            new User(context, userObject.getString("name"), email);
-				            OnlineDatabaseHandler.notify(1, email, Users.getOwner(context).email());
+				            addFriend(Users.getOwner(context).email(), email);
 			        	}
 			        	else
 			        		Toast.makeText(context, "No user found with email '" + email + "'", Toast.LENGTH_SHORT).show(); 	
@@ -66,9 +67,8 @@ public class OnlineDatabaseHandler {
 		listObject.saveEventually(new SaveCallback() {
 			@Override
 			public void done(ParseException e) {
-				if (e==null){
-					getUser(friendEmail);
-				}
+				if (e==null)
+					OnlineDatabaseHandler.notify(1, email, friendEmail);
 				else
 					Toast.makeText(context, "There was an error. Please try again later", Toast.LENGTH_SHORT).show();			
 			}
@@ -149,6 +149,27 @@ public class OnlineDatabaseHandler {
 		});
 	}
 	
+	public void deleteSharedLists(String onlineKey){
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("SharedList");
+		User me = Users.getOwner(context);
+		query.whereEqualTo("userKey", me.email());
+		query.whereEqualTo("listKey", onlineKey);
+		query.findInBackground(new FindCallback<ParseObject>() {
+			  public void done(List<ParseObject> parseLists, ParseException e) {
+				    if (e == null) {
+				      	if (parseLists.size()>0){
+				      		parseLists.get(0).deleteEventually(new DeleteCallback(){
+								@Override
+								public void done(ParseException e) {
+									Toast.makeText(context, "List deleted", Toast.LENGTH_SHORT).show();
+								}
+				      		});
+				      	}
+				 }
+			  }
+		});
+	}
+	
 	public void syncList(final ShoppingList list) {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("List");
 		if (list.onlineKey().length() > 7){
@@ -162,6 +183,7 @@ public class OnlineDatabaseHandler {
 					    		syncItems(list.id(), list.onlineKey());
 				    		}					    
 					     }
+					    MainActivity.updateAdapter();
 					 }
 			});
 		}
@@ -183,8 +205,8 @@ public class OnlineDatabaseHandler {
 	
 	//ITEMS
 	public void putItems(final String listKey, final int listId){
-		Item[] items = Items.getByListId(context, listId);
-		List<ParseObject> parseItems = new ArrayList<ParseObject>();
+		final Item[] items = Items.getByListId(context, listId);
+		final List<ParseObject> parseItems = new ArrayList<ParseObject>();
 		
 	    for (int i = 0; i < items.length; i++ ){
 	    	ParseObject item = new ParseObject("Item");
@@ -197,22 +219,26 @@ public class OnlineDatabaseHandler {
 	    ParseObject.saveAllInBackground(parseItems, new SaveCallback() {
             public void done(ParseException e) {
                 if (e == null)
-                	getListItems(listKey, listId);
+            	    for (int i = 0; i < items.length; i++ ){
+            	    	ParseObject parseItem = parseItems.get(i);
+            	    	items[i].onlineKey(parseItem.getObjectId());
+            	    	items[i].timestamp(parseItem.getUpdatedAt());
+            	    }	
             }
         });  
 	}
 	
-	public void putItem(final String listKey, final int listId, Item item){
-    	ParseObject parseItem = parseItem(item);
+	public void putItem(final String listKey, final int listId, final Item item, final ItemAdapter adapter){
+    	final ParseObject parseItem = parseItem(item);
     	parseItem.put("list", listKey);
 	    
 	    parseItem.saveInBackground(new SaveCallback() {
             public void done(ParseException e) {
                 if (e == null)
-                	getListItems(listKey, listId);
+                	item.onlineKey(parseItem.getObjectId());
+                	adapter.updateItems(context, listId);
             }
-        }); 
-	    
+        });
 	}
 	
 	public void getListItems(final String onlineKey, final int listId){

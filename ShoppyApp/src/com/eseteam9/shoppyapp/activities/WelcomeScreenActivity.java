@@ -45,7 +45,8 @@ public class WelcomeScreenActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.welcome_screen, menu);
 		EditText editText = (EditText) findViewById(R.id.email);
-		editText.setText(getEmail(this));
+		if (getEmail(this) != null)
+			editText.setVisibility(8);
 		return true;
 	}
     
@@ -58,8 +59,8 @@ public class WelcomeScreenActivity extends Activity {
 	    
 		if (nickname.length() == 0)
 	    	Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT).show();
-		else if (email.length() == 0)
-			Toast.makeText(this, "Please enter an email", Toast.LENGTH_SHORT).show();
+		else if (email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+") && email.length() > 0)
+			Toast.makeText(this, "Please enter a valid email", Toast.LENGTH_SHORT).show();
 		else{
 		    //Add Entry in DB    
 			User user = new User(this, nickname, email);

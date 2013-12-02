@@ -96,7 +96,7 @@ public class DisplayItemsActivity extends Activity {
 		  case 0:
 			Items.deleteById(this, listItem.id());
 			new OnlineDatabaseHandler(this).deleteItem(listItem.onlineKey());
-		    updateView();
+		    updateAdapter();
 		    return true;
 		  case 1:
 			  editDialog(listItem);
@@ -106,7 +106,7 @@ public class DisplayItemsActivity extends Activity {
 		}
 	}
 	
-	public void updateView(){
+	public void updateAdapter(){
 		this.items = Items.getByListId(this, this.listId);
 		ArrayList<Item> list = new ArrayList<Item>(Arrays.asList(this.items));
 		adapter.clear();
@@ -116,6 +116,7 @@ public class DisplayItemsActivity extends Activity {
 	
 	//When checked an item
 	public void checkItem(View view){
+		this.items = adapter.getItems();
 		boolean status = ((CheckBox) view).isChecked();
 		ListView lv = (ListView) findViewById(R.id.itemoverview);
 		Item item = items[lv.getPositionForView(view)];
@@ -173,17 +174,12 @@ public class DisplayItemsActivity extends Activity {
 		    	Toast.makeText(context, "Please enter a name", Toast.LENGTH_SHORT).show();
 			else {
 				ShoppingList oldList = new ShoppingList(context, listId);
-				new Item(context, listId, itemname, quantity);
+				Item item = new Item(context, listId, itemname, quantity);
+				updateAdapter();
 				
 				if (oldList.onlineKey().length() > 8)
-					new OnlineDatabaseHandler(context).putItem(oldList.onlineKey(), listId, new Item(context, listId, itemname, quantity));
-				
-				items = Items.getByListId(context, listId);
-				ArrayList<Item> list = new ArrayList<Item>(Arrays.asList(items));
-				adapter.clear();
-				adapter.addAll(list);
-				adapter.notifyDataSetChanged();
-		    } 
+					new OnlineDatabaseHandler(context).putItem(oldList.onlineKey(), listId, item, adapter);
+		    }
 		  }
 		});
 
@@ -225,11 +221,7 @@ public class DisplayItemsActivity extends Activity {
 			else{
 				item.name(itemname);
 				item.quantity(quantity);
-				items = Items.getByListId(context, listId);
-				ArrayList<Item> list = new ArrayList<Item>(Arrays.asList(items));
-				adapter.clear();
-				adapter.addAll(list);
-				adapter.notifyDataSetChanged();
+				updateAdapter();
 		    } 
 		  }
 		});

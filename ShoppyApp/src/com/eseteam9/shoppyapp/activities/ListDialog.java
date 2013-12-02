@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.ContactsContract;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -41,22 +42,14 @@ public class ListDialog extends Dialog {
 		
 		ArrayAdapter<String> arr = new ArrayAdapter<String>(context,android.R.layout.simple_dropdown_item_1line, Users.getAllNames(context));
 		input.setAdapter(arr);
-		/*
-		alert.setNegativeButton("Browse", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				   Intent intent = new Intent(Intent.ACTION_PICK);
-				   intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
-			}	   
-		});
-		*/
+
 		alert.setPositiveButton("Share", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				String listKey = list.onlineKey();
 				Editable value = input.getText();
 				String email = value.toString();
-				if (email.length() != 0){
+				if (email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+") && email.length() > 0){
 					OnlineDatabaseHandler handler = new OnlineDatabaseHandler(context);
 					if (listKey.length() < 9)
 						handler.putList(list, email);
@@ -64,12 +57,14 @@ public class ListDialog extends Dialog {
 						handler.shareList(listKey, email);				
 					
 					String myEmail = Users.getOwner(context).email();
-					OnlineDatabaseHandler.notify(2, email, myEmail);
+					if (!email.equals(myEmail))
+						OnlineDatabaseHandler.notify(2, email, myEmail);
 					
 					if (!Users.existsUserByEmail(context, email))
-						handler.addFriend(myEmail, email);
-					
+						handler.getUser(email);	
 				}
+				else
+					Toast.makeText(context, "Email is invalid", Toast.LENGTH_SHORT).show();
 			}
 		 });
 		alert.show();
@@ -84,6 +79,9 @@ public class ListDialog extends Dialog {
 
 		// Set an EditText view to get user input 
 		final EditText input = new EditText(context);
+		InputFilter[] FilterArray = new InputFilter[1];
+		FilterArray[0] = new InputFilter.LengthFilter(18);
+		input.setFilters(FilterArray);
 		alert.setView(input);
 		input.setText(list.title());
 		input.setSelection(list.title().length());
@@ -97,7 +95,6 @@ public class ListDialog extends Dialog {
 		    	Toast.makeText(context, "Please enter a name", Toast.LENGTH_SHORT).show();
 			else if (!ShoppingLists.existsTitle(context, listname)){
 				list.title(listname);
-				//updateAdapter();
 		    } 
 		    else
 		    	Toast.makeText(context, "This list already exists", Toast.LENGTH_SHORT).show();
@@ -121,6 +118,7 @@ public class ListDialog extends Dialog {
 		final EditText input = new EditText(context);
 		alert.setView(input);
 		
+		/*
 		alert.setNegativeButton("Browse", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -128,7 +126,7 @@ public class ListDialog extends Dialog {
 				   intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
 			}	   
 		});
-		
+		*/
 		alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -152,6 +150,9 @@ public class ListDialog extends Dialog {
 
 		// Set an EditText view to get user input 
 		final EditText input = new EditText(context);
+		InputFilter[] FilterArray = new InputFilter[1];
+		FilterArray[0] = new InputFilter.LengthFilter(18);
+		input.setFilters(FilterArray);
 		alert.setView(input);
         
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
