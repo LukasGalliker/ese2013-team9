@@ -1,10 +1,7 @@
 package com.eseteam9.shoppyapp.adapters;
 
 import com.eseteam9.shoppyapp.R;
-import com.eseteam9.shoppyapp.R.id;
-import com.eseteam9.shoppyapp.R.layout;
 import com.eseteam9.shoppyapp.shoppingclasses.Notification;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

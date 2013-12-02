@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.eseteam9.shoppyapp.R;
-import com.eseteam9.shoppyapp.R.array;
-import com.eseteam9.shoppyapp.R.id;
-import com.eseteam9.shoppyapp.R.layout;
-import com.eseteam9.shoppyapp.R.menu;
 import com.eseteam9.shoppyapp.adapters.ItemAdapter;
 import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
 import com.eseteam9.shoppyapp.shoppingclasses.Item;
@@ -50,7 +46,6 @@ public class DisplayItemsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_display_items);
-		
 		
 		//Get ListID and Name
 		Intent intent = getIntent();
@@ -142,6 +137,9 @@ public class DisplayItemsActivity extends Activity {
 	    switch (item.getItemId()) {
 	        case R.id.add_list:
 	            addDialog();
+	            return true;
+	        case R.id.share_list:
+	            new ListDialog(this).shareDialog(new ShoppingList(this, listId));
 	            return true;
 	        case R.id.action_settings:
 	            //openSettings();

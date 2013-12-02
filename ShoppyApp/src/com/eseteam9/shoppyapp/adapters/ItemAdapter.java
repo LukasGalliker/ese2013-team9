@@ -3,8 +3,6 @@ package com.eseteam9.shoppyapp.adapters;
 import java.util.ArrayList;
 
 import com.eseteam9.shoppyapp.R;
-import com.eseteam9.shoppyapp.R.id;
-import com.eseteam9.shoppyapp.R.layout;
 import com.eseteam9.shoppyapp.shoppingclasses.Item;
 
 import android.app.Activity;
