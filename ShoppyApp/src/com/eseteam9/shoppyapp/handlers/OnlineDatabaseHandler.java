@@ -68,7 +68,7 @@ public class OnlineDatabaseHandler {
 			@Override
 			public void done(ParseException e) {
 				if (e==null)
-					OnlineDatabaseHandler.notify(1, email, friendEmail);
+					OnlineDatabaseHandler.notify(friendEmail, email, Users.getOwner(context).name() + " has added you as Friend" );
 				else
 					Toast.makeText(context, "There was an error. Please try again later", Toast.LENGTH_SHORT).show();			
 			}
@@ -116,11 +116,12 @@ public class OnlineDatabaseHandler {
 		
 		shareList.put("userKey", email);
 		shareList.put("listKey", onlineKey);
-		
 		shareList.saveInBackground(new SaveCallback() {
 	        public void done(ParseException e) {
-	            if (e == null)
+	            if (e == null){
 	            	Toast.makeText(context, "List ist now shared", Toast.LENGTH_SHORT).show();
+	            	OnlineDatabaseHandler.notify(email, onlineKey, Users.getOwner(context).name() + " has shared the list '" + ShoppingLists.getByOnlineKey(context, onlineKey).title() + "' with you");
+	            }
 	            else
 	            	Toast.makeText(context, "There was an Error. Please try again later", Toast.LENGTH_SHORT).show();
 	        }
@@ -334,11 +335,11 @@ public class OnlineDatabaseHandler {
 	
 	
 	//NOTIFICATIONS
-	public static void notify(int notificationId, String email, String data){
+	public static void notify(String key, String data, String message){
 			ParseObject onlineUser = new ParseObject("Notifications");
-			onlineUser.put("userKey", email);
-			onlineUser.put("notification", notificationId);
+			onlineUser.put("userKey", key);
 			onlineUser.put("data", data);
+			onlineUser.put("message", message);
 			onlineUser.saveEventually();
 	}
 
@@ -353,19 +354,18 @@ public class OnlineDatabaseHandler {
 			        	notifications = new Notification[parseItems.size()];
 					    for (int i=0; i < parseItems.size(); i++){
 					    	  ParseObject itemObject = parseItems.get(i);
-					    	  Notification notification = new Notification(itemObject.getInt("notification"),
-						    		  						itemObject.getString("userKey"),
-						    		  						itemObject.getString("data"));
+					    	  Notification notification = new Notification(context,
+					    			  						itemObject.getString("userKey"),
+						    		  						itemObject.getString("data"),
+						    		  						itemObject.getString("message"));
 						      notifications[i] = notification;
 					    }
 		        	}
 		        	if (notifications == null){
 		        		notifications = new Notification[1];
-						notifications[0] = new Notification(4, email, "");
+						notifications[0] = new Notification(email, "", "No new Notifications!");
 					}
-					adapter.clear();
 				    adapter.update(notifications);
-				    adapter.notifyDataSetChanged();
 		        }
 		    }
 		});	

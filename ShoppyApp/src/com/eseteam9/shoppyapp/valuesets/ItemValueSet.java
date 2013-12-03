@@ -14,7 +14,7 @@ public class ItemValueSet extends AbstractValueSet {
 	public final boolean bought;
 	public final Date timestamp;
 
-	public ItemValueSet(int id,  String onlineKey, int listId, String name, String quantity, boolean bought, Date timestamp) {
+	public ItemValueSet(int id, String onlineKey, int listId, String name, String quantity, boolean bought, Date timestamp) {
 		this.id = id;
 		this.onlineKey = onlineKey;
 		this.listId = listId;

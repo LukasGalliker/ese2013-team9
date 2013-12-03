@@ -4,6 +4,8 @@ import com.eseteam9.shoppyapp.R;
 import com.eseteam9.shoppyapp.adapters.NotificationAdapter;
 import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
 import com.eseteam9.shoppyapp.shoppingclasses.*;
+
+import android.content.Context;
 import android.os.Bundle;
 import android.view.*;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -39,7 +41,7 @@ public class DisplayNotificationsFragment extends DisplayFragment{
 		lv.setClickable(true);
 		if (notifications == null){
 			notifications = new Notification[1];
-			notifications[0] = new Notification(4, me.email(), "");
+			notifications[0] = new Notification(me.email(), "", "No new Notifications!");
 		}
 
 		this.adapter = new NotificationAdapter(getActivity(), R.id.notifications, notifications);
@@ -79,7 +81,8 @@ public class DisplayNotificationsFragment extends DisplayFragment{
 
 	@Override
 	public void updateAdapter() {
-		User me = Users.getOwner(getActivity());
-		new OnlineDatabaseHandler(getActivity()).getNotifications(me.email(), this.adapter);
+		Context context = getActivity();
+		User me = Users.getOwner(context);
+		new OnlineDatabaseHandler(context).getNotifications(me.email(), this.adapter);
 	}
 }

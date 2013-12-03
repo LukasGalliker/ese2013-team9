@@ -1,10 +1,17 @@
 package com.eseteam9.shoppyapp.adapters;
 
 import com.eseteam9.shoppyapp.R;
+import com.eseteam9.shoppyapp.activities.DisplayItemsActivity;
+import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
 import com.eseteam9.shoppyapp.shoppingclasses.Notification;
+import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
+import com.eseteam9.shoppyapp.shoppingclasses.ShoppingLists;
+
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
@@ -28,36 +35,40 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
 
 	@Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        String message = "";
-        int layout = 0;
         Notification notification = notifications[position];
-        if (notification != null) {
-        	switch (notification.notificationId){
-        	case 1: message = notification.data + " has added you to Friendlist";
-        			break;
-        	case 2: message = notification.data + " has shared a list with you";
-					break;        	
-        	case 3: message = "Something was bought the list " + notification.data;
-					break;  
-        	case 4: message = "No new Notifications!";
-        			break;
-        	}
-        	
+        View v = convertView;
+        if (notification != null) {  
             LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            if (layout==0)
-            	convertView = vi.inflate(R.layout.notification_row, null);
-            else
-            	convertView = vi.inflate(R.layout.notification_row2, null);
-            TextView text = (TextView) convertView.findViewById(R.id.notificationText);
-            if (text != null) {
-            	text.setText(message);
-            }
-            }
-        return convertView;
+            v = vi.inflate(R.layout.notification_row, null);
+            TextView text = (TextView) v.findViewById(R.id.notificationText);
+            v.setTag(notification.data);
+            if (text != null)
+            	text.setText(notification.message);
+            
+            v.setOnClickListener(new OnClickListener(){
+                @Override 
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, DisplayItemsActivity.class);
+                    String info = (String)v.getTag();
+                    if (ShoppingLists.existsOnlineKey(context, info)){
+                    	int listId = ShoppingLists.getByOnlineKey(context, info).id();
+	                    intent.putExtra("LIST_ID", listId);
+	                    intent.putExtra("LIST_NAME", new ShoppingList(context, listId).title());
+	            	    context.startActivity(intent);
+                    }
+                    else
+                    	new OnlineDatabaseHandler(context).getUser(info);
+                }
+            }); 
+        }
+        return v;
     }
 	
 	public void update(Notification[] notifications){
+		this.clear();
 		this.notifications = notifications;
+		this.addAll(notifications);
+		this.notifyDataSetChanged();
 	}
 	
 	@Override

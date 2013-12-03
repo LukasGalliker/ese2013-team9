@@ -1,9 +1,12 @@
 package com.eseteam9.shoppyapp.activities;
 
 import com.eseteam9.shoppyapp.R;
+import com.eseteam9.shoppyapp.adapters.SectionsPagerAdapter;
 import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
 import com.eseteam9.shoppyapp.shoppingclasses.Item;
 import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
+import com.eseteam9.shoppyapp.shoppingclasses.Users;
+
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -101,7 +104,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	            //openSettings();
 	            return true;
 	        case R.id.action_refresh:
-	            new OnlineDatabaseHandler(this).getSharedLists();
+	        	OnlineDatabaseHandler oHandler = new OnlineDatabaseHandler(this);
+	            oHandler.getSharedLists();
+	            updateAdapter();
 	            return true;
 	        case R.id.add_friend:
 	            new ListDialog(this).addFriendDialog();
