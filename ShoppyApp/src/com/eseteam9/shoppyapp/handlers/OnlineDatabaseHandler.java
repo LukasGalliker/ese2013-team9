@@ -142,7 +142,6 @@ public class OnlineDatabaseHandler {
 				    	  else
 				    		  syncList(ShoppingLists.getByOnlineKey(context, key));				    	  
 				      }
-				      MainActivity.updateAdapter();
 				      Toast.makeText(context, "Lists Refreshed", Toast.LENGTH_SHORT).show();			      
 				 }
 			  }
@@ -156,16 +155,12 @@ public class OnlineDatabaseHandler {
 		query.whereEqualTo("listKey", onlineKey);
 		query.findInBackground(new FindCallback<ParseObject>() {
 			  public void done(List<ParseObject> parseLists, ParseException e) {
-				    if (e == null) {
-				      	if (parseLists.size()>0){
-				      		parseLists.get(0).deleteEventually(new DeleteCallback(){
-								@Override
-								public void done(ParseException e) {
-									Toast.makeText(context, "List deleted", Toast.LENGTH_SHORT).show();
-								}
-				      		});
-				      	}
-				 }
+				    if ((e == null) && (parseLists.size()>0)){
+				      		parseLists.get(0).deleteEventually();
+				      		Toast.makeText(context, "List unshared", Toast.LENGTH_SHORT).show();
+				    }  		
+				    else
+				    	Toast.makeText(context, "Error. Please try again later", Toast.LENGTH_SHORT).show();
 			  }
 		});
 	}
@@ -183,7 +178,6 @@ public class OnlineDatabaseHandler {
 					    		syncItems(list.id(), list.onlineKey());
 				    		}					    
 					     }
-					    MainActivity.updateAdapter();
 					 }
 			});
 		}
@@ -256,8 +250,8 @@ public class OnlineDatabaseHandler {
 		    	  item.bought(itemObject.getBoolean("bought"));
 		    	  item.timestamp(itemObject.getUpdatedAt());
 		      }
-			Toast.makeText(context, "List downloaded", Toast.LENGTH_SHORT).show();
 		    }
+		    MainActivity.updateAdapter();
 		  }
 		});
 	}
@@ -333,6 +327,7 @@ public class OnlineDatabaseHandler {
 					    	    item.timestamp(parseItem.getUpdatedAt());
 					    	}
 					     }
+					    MainActivity.updateAdapter();
 					 }
 			});	
 	}
