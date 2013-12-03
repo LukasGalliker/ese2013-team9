@@ -56,10 +56,13 @@ public class WelcomeScreenActivity extends Activity {
 	    String nickname = editText.getText().toString().trim();
 	    EditText editText2 = (EditText) findViewById(R.id.email);
 	    String email = editText2.getText().toString().trim();
+		
+	    if (email.length() == 0)
+			email = getEmail(this);
 	    
 		if (nickname.length() == 0)
 	    	Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT).show();
-		else if (email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+") && email.length() > 0)
+		else if (!email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"))
 			Toast.makeText(this, "Please enter a valid email", Toast.LENGTH_SHORT).show();
 		else{
 		    //Add Entry in DB    

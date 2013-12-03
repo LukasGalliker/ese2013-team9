@@ -72,14 +72,18 @@ public class DisplayListsFragment extends DisplayFragment{
 
 	//Creates ContextMenu (from arrays.xml) when pressing&holding an item
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-	  if (v.getId()==R.id.listoverview) {
-	    menu.setHeaderTitle("Options");
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo){
+	    super.onCreateContextMenu(menu, v, menuInfo);
+	    ExpandableListContextMenuInfo info = (ExpandableListContextMenuInfo) menuInfo;
+		menu.setHeaderTitle("Options");
 	    String[] menuItems = getResources().getStringArray(R.array.context_menu);
-	    for (int i = 0; i<menuItems.length; i++) {
+	    int i;
+	    for (i = 0; i<menuItems.length; i++)
 	      menu.add(Menu.NONE, i, i, menuItems[i]);
-	    }
-	  }
+	    
+	    ShoppingList list = lists[ExpandableListView.getPackedPositionGroup(info.packedPosition)];
+	    if (list.onlineKey().length() > 7)
+	    	menu.add(Menu.NONE, i, i, "Unshare");
 	}
 	
 	//Reads what is selected from ContextMenu
@@ -88,17 +92,26 @@ public class DisplayListsFragment extends DisplayFragment{
 		ExpandableListContextMenuInfo menuInfo = (ExpandableListContextMenuInfo) item.getMenuInfo(); 
 		ShoppingList list = lists[ExpandableListView.getPackedPositionGroup(menuInfo.packedPosition)];
 	    int listId = list.id();
+	    String onlineKey = list.onlineKey();
+	    Context context = getActivity();
 	    switch (item.getItemId()) {
 		  case 0:
-			ShoppingLists.deleteById(getActivity(), listId);
-			new OnlineDatabaseHandler(getActivity()).deleteSharedLists(list.onlineKey());
+			ShoppingLists.deleteById(context, listId);
+			if (onlineKey.length() > 7)
+				new OnlineDatabaseHandler(context).deleteSharedLists(onlineKey);
 			updateAdapter();
 		    return true;
 		  case 1:
 			  editDialog(list);
 			  return true;
 		  case 2:
-		    new ListDialog(getActivity()).shareDialog(list);
+			  new ListDialog(context).shareDialog(list);
+			  return true;
+		  case 3:
+			  new OnlineDatabaseHandler(context).deleteSharedLists(onlineKey);
+			  list.onlineKey("0");
+			  updateAdapter();
+			  return true;
 		}
 		return true;
 	}
