@@ -175,10 +175,11 @@ public class DisplayItemsActivity extends Activity {
 			else {
 				ShoppingList oldList = new ShoppingList(context, listId);
 				Item item = new Item(context, listId, itemname, quantity);
-				updateAdapter();
 				
 				if (oldList.onlineKey().length() > 8)
 					new OnlineDatabaseHandler(context).putItem(oldList.onlineKey(), listId, item, adapter);
+				else
+					updateAdapter();
 		    }
 		  }
 		});
@@ -222,6 +223,10 @@ public class DisplayItemsActivity extends Activity {
 				item.name(itemname);
 				item.quantity(quantity);
 				updateAdapter();
+				ShoppingList oldList = new ShoppingList(context, listId);
+				updateAdapter();
+				if (oldList.onlineKey().length() > 8)
+					new OnlineDatabaseHandler(context).updateItem(oldList.onlineKey(), item);
 		    } 
 		  }
 		});

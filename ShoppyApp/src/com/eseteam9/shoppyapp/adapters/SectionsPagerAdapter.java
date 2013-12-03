@@ -1,4 +1,4 @@
-package com.eseteam9.shoppyapp.activities;
+package com.eseteam9.shoppyapp.adapters;
 
 import java.util.Locale;
 

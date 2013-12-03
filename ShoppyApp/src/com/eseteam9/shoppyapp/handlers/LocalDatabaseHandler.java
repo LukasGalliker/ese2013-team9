@@ -16,12 +16,14 @@ public class LocalDatabaseHandler extends SQLiteOpenHelper {
 		UserHandler.createTable(db);
 		ShoppingListHandler.createTable(db);
 		ItemHandler.createTable(db);
+		NotificationHandler.createTable(db);
 	}
 
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		UserHandler.dropTable(db);
 		ShoppingListHandler.dropTable(db);
 		ItemHandler.dropTable(db);
+		NotificationHandler.dropTable(db);
 
 		onCreate(db);
 	}

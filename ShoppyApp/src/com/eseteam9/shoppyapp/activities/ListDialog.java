@@ -10,8 +10,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.widget.ArrayAdapter;
@@ -55,10 +53,6 @@ public class ListDialog extends Dialog {
 						handler.putList(list, email);
 					else
 						handler.shareList(listKey, email);				
-					
-					String myEmail = Users.getOwner(context).email();
-					if (!email.equals(myEmail))
-						OnlineDatabaseHandler.notify(2, email, myEmail);
 					
 					if (!Users.existsUserByEmail(context, email))
 						handler.getUser(email);	
