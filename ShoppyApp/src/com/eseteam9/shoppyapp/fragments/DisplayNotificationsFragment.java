@@ -56,7 +56,7 @@ public class DisplayNotificationsFragment extends DisplayFragment{
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 	  if (v.getId()==R.id.listoverview) {
 	    menu.setHeaderTitle("Options");
-	    String[] menuItems = getResources().getStringArray(R.array.context_menu);
+	    String[] menuItems = getResources().getStringArray(R.array.item_context_menu);
 	    for (int i = 0; i<menuItems.length; i++) {
 	      menu.add(Menu.NONE, i, i, menuItems[i]);
 	    }

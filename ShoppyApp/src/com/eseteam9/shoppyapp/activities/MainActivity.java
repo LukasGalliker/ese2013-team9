@@ -5,7 +5,6 @@ import com.eseteam9.shoppyapp.adapters.SectionsPagerAdapter;
 import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
 import com.eseteam9.shoppyapp.shoppingclasses.Item;
 import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
-import com.eseteam9.shoppyapp.shoppingclasses.Users;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;

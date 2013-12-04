@@ -1,10 +1,9 @@
 package com.eseteam9.shoppyapp.activities;
 
-import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
-import com.eseteam9.shoppyapp.shoppingclasses.Item;
-import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
-import com.eseteam9.shoppyapp.shoppingclasses.ShoppingLists;
-import com.eseteam9.shoppyapp.shoppingclasses.Users;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -12,10 +11,19 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.eseteam9.shoppyapp.R;
+import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
+import com.eseteam9.shoppyapp.shoppingclasses.Item;
+import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
+import com.eseteam9.shoppyapp.shoppingclasses.ShoppingLists;
+import com.eseteam9.shoppyapp.shoppingclasses.Users;
 /**
  * Provides the Options context menu on a List.
  * 
@@ -38,7 +46,9 @@ public class ListDialog extends Dialog {
 		final AutoCompleteTextView input = new AutoCompleteTextView(context);
 		alert.setView(input);
 		
-		ArrayAdapter<String> arr = new ArrayAdapter<String>(context,android.R.layout.simple_dropdown_item_1line, Users.getAllNames(context));
+		List<String> userList = Arrays.asList(Users.getAllNames(context));
+		Set<String> s = new HashSet<String>(userList);
+		ArrayAdapter<String> arr = new ArrayAdapter<String>(context,android.R.layout.simple_dropdown_item_1line, Arrays.asList(Users.getAllNames(context)));
 		input.setAdapter(arr);
 
 		alert.setPositiveButton("Share", new DialogInterface.OnClickListener() {
@@ -69,21 +79,16 @@ public class ListDialog extends Dialog {
 		AlertDialog.Builder alert = new AlertDialog.Builder(context);
 
 		alert.setTitle("Edit List");
-		alert.setMessage("Enter new Listname:");
 
 		// Set an EditText view to get user input 
-		final EditText input = new EditText(context);
-		InputFilter[] FilterArray = new InputFilter[1];
-		FilterArray[0] = new InputFilter.LengthFilter(18);
-		input.setFilters(FilterArray);
-		alert.setView(input);
-		input.setText(list.title());
-		input.setSelection(list.title().length());
+        LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View view = infalInflater.inflate(R.layout.dialog_add_list, null);
+		alert.setView(view);
 		
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int whichButton) {
-		  Editable value = input.getText();
-		  String listname = value.toString();
+			EditText nameView = (EditText) view.findViewById(R.id.list_name);
+			String listname = nameView.getText().toString();
 		  
 			if (listname.length() == 0)
 		    	Toast.makeText(context, "Please enter a name", Toast.LENGTH_SHORT).show();
@@ -140,19 +145,16 @@ public class ListDialog extends Dialog {
 		AlertDialog.Builder alert = new AlertDialog.Builder(context);
 
 		alert.setTitle("Add List");
-		alert.setMessage("Enter new Listname:");
 
 		// Set an EditText view to get user input 
-		final EditText input = new EditText(context);
-		InputFilter[] FilterArray = new InputFilter[1];
-		FilterArray[0] = new InputFilter.LengthFilter(18);
-		input.setFilters(FilterArray);
-		alert.setView(input);
+        LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View view = infalInflater.inflate(R.layout.dialog_add_list, null);
+		alert.setView(view);
         
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int whichButton) {
-		  Editable value = input.getText();
-		  String listname = value.toString();
+		    EditText nameView = (EditText) view.findViewById(R.id.list_name);
+		    String listname = nameView.getText().toString();
 		  
 			if (listname.length() == 0)
 		    	Toast.makeText(context, "Please enter a name", Toast.LENGTH_SHORT).show();

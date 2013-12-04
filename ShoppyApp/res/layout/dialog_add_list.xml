@@ -8,28 +8,18 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".AddList" >
 
-    <Button
-        android:id="@+id/button1"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/list_name"
-        android:gravity="center"
-        android:onClick="manageList"
-        android:text="@string/save" />
-
     <EditText
         android:id="@+id/list_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:digits="0123456789@qwertzuiopasdfghjklyxcvbnm_-."
+        android:ems="10"
         android:hint="@string/listname"
         android:inputType="textAutoComplete"
-        android:textColor="@color/black" >
-
-		<requestFocus />
-    </EditText>
+        android:maxLength="17"
+        android:textColor="@color/black" />
 
 </RelativeLayout>
