@@ -16,8 +16,8 @@
         android:layout_alignParentTop="true"
         android:hint="@string/itemname"
         android:inputType="textAutoComplete"
-        android:textColor="@color/black" >
-
+        android:textColor="@color/black" 
+		android:digits="0123456789@qwertzuiopasdfghjklyxcvbnm_-." >
         <requestFocus />
     </AutoCompleteTextView>
 
@@ -28,7 +28,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/item_name"
         android:layout_below="@+id/item_name"
-        android:digits="1234567890,/"
+        android:digits="1234567890,/."
         android:ems="10"
         android:hint="@string/quantity"
         android:inputType="number"

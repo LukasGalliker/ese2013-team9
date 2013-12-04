@@ -76,7 +76,7 @@ public class DisplayListsFragment extends DisplayFragment{
 	    super.onCreateContextMenu(menu, v, menuInfo);
 	    ExpandableListContextMenuInfo info = (ExpandableListContextMenuInfo) menuInfo;
 		menu.setHeaderTitle("Options");
-	    String[] menuItems = getResources().getStringArray(R.array.context_menu);
+	    String[] menuItems = getResources().getStringArray(R.array.list_context_menu);
 	    int i;
 	    for (i = 0; i<menuItems.length; i++)
 	      menu.add(Menu.NONE, i, i, menuItems[i]);

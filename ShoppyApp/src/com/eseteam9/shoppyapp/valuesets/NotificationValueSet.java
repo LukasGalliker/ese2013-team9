@@ -1,7 +1,6 @@
 package com.eseteam9.shoppyapp.valuesets;
 
 import com.eseteam9.shoppyapp.handlers.NotificationHandler;
-import com.eseteam9.shoppyapp.shoppingclasses.Users;
 
 import android.database.Cursor;
 import android.content.ContentValues;
