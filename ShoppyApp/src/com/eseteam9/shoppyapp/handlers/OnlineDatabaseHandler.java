@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.eseteam9.shoppyapp.R;
 import com.eseteam9.shoppyapp.activities.MainActivity;
 import com.eseteam9.shoppyapp.adapters.ItemAdapter;
 import com.eseteam9.shoppyapp.adapters.NotificationAdapter;
@@ -68,7 +69,7 @@ public class OnlineDatabaseHandler {
 			@Override
 			public void done(ParseException e) {
 				if (e==null)
-					OnlineDatabaseHandler.notify(friendEmail, email, Users.getOwner(context).name() + " has added you as Friend" );
+					putNotification(friendEmail, email, Users.getOwner(context).name() + " has added you as Friend" );
 				else
 					Toast.makeText(context, "There was an error. Please try again later", Toast.LENGTH_SHORT).show();			
 			}
@@ -120,7 +121,9 @@ public class OnlineDatabaseHandler {
 	        public void done(ParseException e) {
 	            if (e == null){
 	            	Toast.makeText(context, "List ist now shared", Toast.LENGTH_SHORT).show();
-	            	OnlineDatabaseHandler.notify(email, onlineKey, Users.getOwner(context).name() + " has shared the list '" + ShoppingLists.getByOnlineKey(context, onlineKey).title() + "' with you");
+	            	String myEmail = Users.getOwner(context).email();
+	            	if (email != myEmail);
+	            		putNotification(email, onlineKey, Users.getOwner(context).name() + " has shared the list '" + ShoppingLists.getByOnlineKey(context, onlineKey).title() + "' with you");
 	            }
 	            else
 	            	Toast.makeText(context, "There was an Error. Please try again later", Toast.LENGTH_SHORT).show();
@@ -143,7 +146,7 @@ public class OnlineDatabaseHandler {
 				    	  else
 				    		  syncList(ShoppingLists.getByOnlineKey(context, key));				    	  
 				      }
-				      Toast.makeText(context, "Lists Refreshed", Toast.LENGTH_SHORT).show();			      
+				      Toast.makeText(context, context.getString(R.string.lists_refreshed), Toast.LENGTH_SHORT).show();			      
 				 }
 			  }
 		});
@@ -186,11 +189,12 @@ public class OnlineDatabaseHandler {
 	
 	public void updateList(String listKey){
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("List");
-		 
+		final ShoppingList list = ShoppingLists.getByOnlineKey(context, listKey);
 		query.getInBackground(listKey, new GetCallback<ParseObject>() {
 		  public void done(ParseObject listObject, ParseException e) {
 		    if (e == null) {
 		      listObject.put("owner", Users.getOwner(context).email());
+		      listObject.put("title", list.title());
 		      listObject.saveInBackground();
 		    }
 		  }
@@ -229,9 +233,11 @@ public class OnlineDatabaseHandler {
 	    
 	    parseItem.saveInBackground(new SaveCallback() {
             public void done(ParseException e) {
-                if (e == null)
+                if (e == null){
                 	item.onlineKey(parseItem.getObjectId());
                 	adapter.updateItems(context, listId);
+                	updateList(listKey);
+                }
             }
         });
 	}
@@ -272,7 +278,7 @@ public class OnlineDatabaseHandler {
 		});
 	}
 	
-	public void updateItem(String listKey, final Item item){
+	public void updateItem(final String listKey, final Item item){
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Item");
 		 
 		query.getInBackground(item.onlineKey(), new GetCallback<ParseObject>() {
@@ -283,6 +289,7 @@ public class OnlineDatabaseHandler {
 		      itemObject.put("quantity", item.quantity());
 		      itemObject.saveInBackground();
 		    }
+		    updateList(listKey);
 		  }
 		});
 	}
@@ -321,9 +328,13 @@ public class OnlineDatabaseHandler {
 					    			item = new Item(context, listId, parseItem.getString("name"), parseItem.getString("quantity"));
 					    			item.onlineKey(parseItem.getObjectId());
 					    		}
-					    		else
+					    		else{
 					    			item = Items.getByOnlineKey(context, itemKey);
+					    			item.quantity(parseItem.getString("quantity"));
+					    			item.name(parseItem.getString("name"));
+					    		}
 					    	
+					    		
 					    	    item.bought(parseItem.getBoolean("bought"));
 					    	    item.timestamp(parseItem.getUpdatedAt());
 					    	}
@@ -335,12 +346,23 @@ public class OnlineDatabaseHandler {
 	
 	
 	//NOTIFICATIONS
-	public static void notify(String key, String data, String message){
+	public void putNotification(final String key, String data, final String message){			
 			ParseObject onlineUser = new ParseObject("Notifications");
 			onlineUser.put("userKey", key);
 			onlineUser.put("data", data);
 			onlineUser.put("message", message);
-			onlineUser.saveEventually();
+			onlineUser.saveEventually(new SaveCallback() {
+				@Override
+				public void done(ParseException e) {
+					if (e == null) {
+						ParsePush push = new ParsePush();
+						push.setChannel("u_" + key.replace("@", "").replace(".", ""));
+						push.setMessage(message);
+						push.sendInBackground();
+					}else
+						Toast.makeText(context, context.getString(R.string.error), Toast.LENGTH_SHORT).show();
+				}
+			});
 	}
 
 	public void getNotifications(final String email, final NotificationAdapter adapter) {
@@ -350,20 +372,21 @@ public class OnlineDatabaseHandler {
 		    public void done(List<ParseObject> parseItems, ParseException e) {
 		        if (e == null) {
 		        	Notification[] notifications = null;
-		        	if (parseItems.size()>0){
-			        	notifications = new Notification[parseItems.size()];
-					    for (int i=0; i < parseItems.size(); i++){
+		        	int itemSize = parseItems.size();
+		        	if (itemSize>0){
+			        	notifications = new Notification[itemSize];
+					    for (int i=0; i < itemSize; i++){
 					    	  ParseObject itemObject = parseItems.get(i);
 					    	  Notification notification = new Notification(context,
 					    			  						itemObject.getString("userKey"),
 						    		  						itemObject.getString("data"),
 						    		  						itemObject.getString("message"));
-						      notifications[i] = notification;
+						      notifications[itemSize-1-i] = notification;
 					    }
 		        	}
 		        	if (notifications == null){
 		        		notifications = new Notification[1];
-						notifications[0] = new Notification(email, "", "No new Notifications!");
+						notifications[0] = new Notification(email, "", context.getString(R.string.no_notification));
 					}
 				    adapter.update(notifications);
 		        }

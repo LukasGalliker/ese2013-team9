@@ -19,12 +19,6 @@
     <string name="quantity">Quantity</string>
     <string name="itemname">Itemname</string>
     <string name="refresh">Refresh</string>
-    <string name="german">Deutsch</string>
-    <string name="english">English</string>
     <string name="add_friend">Add Friend</string>
-    <string name="title_activity_display_items">Items</string>
-    <string name="no_notification">No new Notifications!</string>
-    <string name="error">There was an error. Please try again later</string>
-    <string name="lists_refreshed">Lists Refreshed</string>
 
 </resources>

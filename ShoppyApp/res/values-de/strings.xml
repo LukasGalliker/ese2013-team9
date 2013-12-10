@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Shoppy</string>
+    <string name="action_settings">Sprache ändern</string>
+    <string name="welcome">Willkommen bei Shoppy!</string>
+    <string name="save">Speichern</string>
+    <string name="enter_nickname">Nickname eingeben:</string>
+    <string name="nickname">Nickname</string>
+    <string name="email">Email</string>
+    <string name="title_section1">Listen</string>
+    <string name="title_section2">Benachrichtigungen</string>
+    <string name="add_list">Neue Liste</string>
+    <string name="add_a_list">Neue Liste:</string>
+    <string name="add_a_item">Neues Item:</string>
+    <string name="edit_list">Liste bearbeiten</string>
+    <string name="share_list">Liste teilen</string>
+    <string name="listname">Listenname</string>
+    <string name="quantity">Menge</string>
+    <string name="itemname">Itemname</string>
+    <string name="refresh">Refresh</string>
+    <string name="add_friend">Freund hinzufügen</string>
+
+</resources>

@@ -41,7 +41,7 @@ public class DisplayNotificationsFragment extends DisplayFragment{
 		lv.setClickable(true);
 		if (notifications == null){
 			notifications = new Notification[1];
-			notifications[0] = new Notification(me.email(), "", "No new Notifications!");
+			notifications[0] = new Notification(me.email(), "", "Loading...");
 		}
 
 		this.adapter = new NotificationAdapter(getActivity(), R.id.notifications, notifications);

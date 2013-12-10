@@ -89,11 +89,12 @@ public class ListDialog extends Dialog {
 		public void onClick(DialogInterface dialog, int whichButton) {
 			EditText nameView = (EditText) view.findViewById(R.id.list_name);
 			String listname = nameView.getText().toString();
-		  
+		    
 			if (listname.length() == 0)
 		    	Toast.makeText(context, "Please enter a name", Toast.LENGTH_SHORT).show();
 			else if (!ShoppingLists.existsTitle(context, listname)){
 				list.title(listname);
+				new OnlineDatabaseHandler(context).updateList(list.onlineKey());
 		    } 
 		    else
 		    	Toast.makeText(context, "This list already exists", Toast.LENGTH_SHORT).show();
