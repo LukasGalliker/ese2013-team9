@@ -38,7 +38,7 @@
         android:focusable="false"
         android:onClick="openItemView"
         android:padding="10dp"
-        android:src="@drawable/show_all" />
+        android:src="@drawable/ic_action_expand" />
 
     <ImageView
         android:id="@+id/imageView2"

@@ -3,6 +3,7 @@ package com.eseteam9.shoppyapp.fragments;
 import java.util.HashMap;
 
 import com.eseteam9.shoppyapp.R;
+import com.eseteam9.shoppyapp.activities.DisplayItemsActivity;
 import com.eseteam9.shoppyapp.activities.ListDialog;
 import com.eseteam9.shoppyapp.adapters.ExpandableListAdapter;
 import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
@@ -15,6 +16,7 @@ import android.text.Editable;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -22,7 +24,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnClickListener;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnGroupClickListener;
+import android.widget.ListView;
 import android.widget.Toast;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -55,11 +60,23 @@ public class DisplayListsFragment extends DisplayFragment{
         elv = (ExpandableListView)view.findViewById(R.id.listoverview);
 		registerForContextMenu(elv);
 		elv.setClickable(true);
+		elv.setGroupIndicator(null);
+		elv.setOnGroupClickListener(new OnGroupClickListener(){
+			@Override
+			public boolean onGroupClick(ExpandableListView parent, View v,
+					int groupPosition, long id) {
+					Context context = getActivity();
+			        Intent intent = new Intent(context, DisplayItemsActivity.class);
+			        int listId = (Integer)v.getTag();
+			        intent.putExtra("LIST_ID", listId);
+			        intent.putExtra("LIST_NAME", new ShoppingList(context, listId).title());
+				    startActivity(intent);
+				    return true;
+			}
+		});
 		
-		//this.lists = new ShoppingListHandler(getActivity()).getAll();
 		this.lists = ShoppingLists.getAll(getActivity());
 		for (ShoppingList l : this.lists)
-			//this.content.put(l, new ItemHandler(getActivity()).getUnbought(l.id()));
 			this.content.put(l, Items.getUnboughtByListId(getActivity(), l.id()));
 		
 		//Set Adapter
@@ -146,6 +163,7 @@ public class DisplayListsFragment extends DisplayFragment{
 		    	Toast.makeText(getActivity(), "Please enter a name", Toast.LENGTH_SHORT).show();
 			else if (!ShoppingLists.existsTitle(getActivity(), listname)){
 				list.title(listname);
+				new OnlineDatabaseHandler(getActivity()).updateList(list.onlineKey());
 				updateAdapter();
 		    } 
 		    else

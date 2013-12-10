@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -24,31 +26,24 @@
             android:windowSoftInputMode="stateVisible|adjustResize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.eseteam9.shoppyapp.activities.MainActivity"
-            android:label="@string/title_activity_display_lists" >
-        </activity>
-        <activity
-            android:name="com.eseteam9.shoppyapp.activities.AddListActivity"
-            android:label="@string/title_activity_add_list"
-            android:windowSoftInputMode="stateVisible|adjustResize" >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="com.eseteam9.shoppyapp.activities.DisplayItemsActivity"
             android:label="@string/title_activity_display_items" >
         </activity>
-        <activity
-            android:name="com.eseteam9.shoppyapp.activities.AddItemActivity"
-            android:label="@string/title_activity_add_item" >
-        </activity>
-        <activity
-            android:name="com.eseteam9.shoppyapp.fragments.DisplayNotificationsFragment"
-            android:label="@string/title_activity_display_notifications_fragment" >
-        </activity>
+        <service android:name="com.parse.PushService" />
+		<receiver android:name="com.parse.ParseBroadcastReceiver">
+  		<intent-filter>
+    		<action android:name="android.intent.action.BOOT_COMPLETED" />
+    		<action android:name="android.intent.action.USER_PRESENT" />
+  		</intent-filter>
+		</receiver>
     </application>
 
 </manifest>

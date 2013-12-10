@@ -2,6 +2,7 @@ package com.eseteam9.shoppyapp.activities;
 
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
+import com.parse.ParseInstallation;
 import com.eseteam9.shoppyapp.R;
 import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
 import com.eseteam9.shoppyapp.shoppingclasses.User;
@@ -38,6 +39,7 @@ public class WelcomeScreenActivity extends Activity {
             Intent intent = new Intent(this, MainActivity.class);
     	    startActivity(intent);
         }
+        ParseInstallation.getCurrentInstallation().saveInBackground();
     }
 
 	@Override

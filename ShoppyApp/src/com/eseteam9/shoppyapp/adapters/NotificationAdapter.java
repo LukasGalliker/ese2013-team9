@@ -56,7 +56,7 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
 	                    intent.putExtra("LIST_NAME", new ShoppingList(context, listId).title());
 	            	    context.startActivity(intent);
                     }
-                    else
+                    else if (!info.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"))
                     	new OnlineDatabaseHandler(context).getUser(info);
                 }
             }); 

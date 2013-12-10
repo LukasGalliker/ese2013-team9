@@ -11,10 +11,21 @@ import com.eseteam9.shoppyapp.valuesets.NotificationValueSet;
  */
 public class Notification {
 	public Context context;
-	public int id;
-	public String key;
+
+	private int id;
+	public int id(){return id;}
+	
+	private String key;
+	public String onlineKey(){return key;}
+	public void onlineKey(String key){this.key = key;}
+	
 	public String data;
+	public String data(){return data;}
+	public void data(String data){this.data = data;}
+	
 	public String message;
+	public String message(){return message;}
+	public void message(String message){this.message = message;}	
 
 	public Notification(Context context, String key, String data, String message){
 		this.context = context;
@@ -44,6 +55,5 @@ public class Notification {
 		this.key = set.key;
 		this.data = set.data;
 		this.message = set.message;
-
 	}
 }
