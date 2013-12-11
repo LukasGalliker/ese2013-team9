@@ -3,6 +3,7 @@ package com.eseteam9.shoppyapp.activities;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.parse.ParseInstallation;
+import com.parse.PushService;
 import com.eseteam9.shoppyapp.R;
 import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
 import com.eseteam9.shoppyapp.shoppingclasses.User;
@@ -71,6 +72,11 @@ public class WelcomeScreenActivity extends Activity {
 			User user = new User(this, nickname, email);
 		    new OnlineDatabaseHandler(this).putUser(user);
 		    
+		    //Subscribe to Pushnotifications
+			String shortEmail = Users.getOwner(this).email().replace("@", "").replace(".", "");
+			PushService.setDefaultPushCallback(this, MainActivity.class);
+	        PushService.subscribe(this, "u_" + shortEmail, MainActivity.class);
+	        
 	        //Switch to MainActivity
 	        Intent intent = new Intent(this, MainActivity.class);
 		    startActivity(intent);

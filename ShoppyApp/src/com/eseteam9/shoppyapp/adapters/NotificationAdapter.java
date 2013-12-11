@@ -41,9 +41,9 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
             LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = vi.inflate(R.layout.notification_row, null);
             TextView text = (TextView) v.findViewById(R.id.notificationText);
-            v.setTag(notification.data);
+            v.setTag(notification.data());
             if (text != null)
-            	text.setText(notification.message);
+            	text.setText(notification.message());
             
             v.setOnClickListener(new OnClickListener(){
                 @Override 

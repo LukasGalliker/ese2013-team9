@@ -1,16 +1,12 @@
 package com.eseteam9.shoppyapp.activities;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.Editable;
-import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,7 +16,6 @@ import android.widget.Toast;
 
 import com.eseteam9.shoppyapp.R;
 import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
-import com.eseteam9.shoppyapp.shoppingclasses.Item;
 import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
 import com.eseteam9.shoppyapp.shoppingclasses.ShoppingLists;
 import com.eseteam9.shoppyapp.shoppingclasses.Users;
@@ -41,13 +36,11 @@ public class ListDialog extends Dialog {
 	//Share a list
 	public void shareDialog(final ShoppingList list) {
 		AlertDialog.Builder alert = new AlertDialog.Builder(context);
-		alert.setTitle("Share List");
-		alert.setMessage("Enter Email or choose from Contacts");
+		alert.setTitle(context.getString(R.string.share_list));
+		alert.setMessage(context.getString(R.string.enter_email));
 		final AutoCompleteTextView input = new AutoCompleteTextView(context);
 		alert.setView(input);
-		
-		List<String> userList = Arrays.asList(Users.getAllNames(context));
-		Set<String> s = new HashSet<String>(userList);
+
 		ArrayAdapter<String> arr = new ArrayAdapter<String>(context,android.R.layout.simple_dropdown_item_1line, Arrays.asList(Users.getAllNames(context)));
 		input.setAdapter(arr);
 
@@ -78,7 +71,7 @@ public class ListDialog extends Dialog {
 	void editDialog(final ShoppingList list) {
 		AlertDialog.Builder alert = new AlertDialog.Builder(context);
 
-		alert.setTitle("Edit List");
+		alert.setTitle(context.getString(R.string.share_list));
 
 		// Set an EditText view to get user input 
         LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -91,13 +84,13 @@ public class ListDialog extends Dialog {
 			String listname = nameView.getText().toString();
 		    
 			if (listname.length() == 0)
-		    	Toast.makeText(context, "Please enter a name", Toast.LENGTH_SHORT).show();
+		    	Toast.makeText(context, context.getString(R.string.enter_name), Toast.LENGTH_SHORT).show();
 			else if (!ShoppingLists.existsTitle(context, listname)){
 				list.title(listname);
 				new OnlineDatabaseHandler(context).updateList(list.onlineKey());
 		    } 
 		    else
-		    	Toast.makeText(context, "This list already exists", Toast.LENGTH_SHORT).show();
+		    	Toast.makeText(context, context.getString(R.string.list_exists), Toast.LENGTH_SHORT).show();
 		  }
 		});
 
@@ -114,19 +107,10 @@ public class ListDialog extends Dialog {
 	public void addFriendDialog() {
 		AlertDialog.Builder alert = new AlertDialog.Builder(context);
 		alert.setTitle("Add Friend");
-		alert.setMessage("Enter Email or choose from Contacts");
+		alert.setMessage(context.getString(R.string.enter_email));
 		final EditText input = new EditText(context);
 		alert.setView(input);
-		
-		/*
-		alert.setNegativeButton("Browse", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				   Intent intent = new Intent(Intent.ACTION_PICK);
-				   intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
-			}	   
-		});
-		*/
+
 		alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -145,7 +129,7 @@ public class ListDialog extends Dialog {
 	void addDialog() {
 		AlertDialog.Builder alert = new AlertDialog.Builder(context);
 
-		alert.setTitle("Add List");
+		alert.setTitle(context.getString(R.string.add_list));
 
 		// Set an EditText view to get user input 
         LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -158,18 +142,11 @@ public class ListDialog extends Dialog {
 		    String listname = nameView.getText().toString();
 		  
 			if (listname.length() == 0)
-		    	Toast.makeText(context, "Please enter a name", Toast.LENGTH_SHORT).show();
-			else if (!ShoppingLists.existsTitle(context, listname)){
-				  
-  			  // generate testobjects
-			    if (listname.equals("test"))
-				    initializeList();
-			    else
-			    	new ShoppingList(context, listname);
+		    	Toast.makeText(context, context.getString(R.string.enter_name), Toast.LENGTH_SHORT).show();
+			else{
+			    new ShoppingList(context, listname);
 			    MainActivity.updateAdapter();
 		    } 
-		    else
-		    	Toast.makeText(context, "This list already exists", Toast.LENGTH_SHORT).show();
 		  }
 		});
 
@@ -181,19 +158,5 @@ public class ListDialog extends Dialog {
 		
 		alert.show();
 	}
-	
-	protected void initializeList() {
-		  ShoppingList groceries = new ShoppingList(context, "Groceries"); 
-		  ShoppingList household_articles = new ShoppingList(context, "Household articles");
-		  
-		  new Item(context, groceries.id(), "Apples", "1kg");
-		  new Item(context, groceries.id(), "Rice", "2kg");
-		  new Item(context, groceries.id(), "Peanuts", "1");
-		  new Item(context, groceries.id(), "Coffe powder", "500g");
-		  new Item(context, groceries.id(), "Bottled water", "2l");
-		  
-		  new  Item(context, household_articles.id(), "Bulb, (E26)-screw", "1");
-		  new  Item(context, household_articles.id(), "Toilet pape", "1");
-		  new  Item(context, household_articles.id(), "Sponge", "2");
-	}
+
 }

@@ -90,12 +90,14 @@ public class DisplayItemsActivity extends Activity {
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 	    AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo(); 
+	    this.items = Items.getByListId(this, this.listId);
 	    Item listItem = items[menuInfo.position];
 	    
 	    switch (item.getItemId()) {
 		  case 0:
+			OnlineDatabaseHandler oHandler = new OnlineDatabaseHandler(this);
 			Items.deleteById(this, listItem.id());
-			new OnlineDatabaseHandler(this).deleteItem(listItem.onlineKey());
+			oHandler.deleteItem(listItem.onlineKey(), listId);
 		    updateAdapter();
 		    return true;
 		  case 1:
@@ -141,9 +143,6 @@ public class DisplayItemsActivity extends Activity {
 	            return true;
 	        case R.id.share_list:
 	            new ListDialog(this).shareDialog(new ShoppingList(this, listId));
-	            return true;
-	        case R.id.action_settings:
-	            //openSettings();
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
@@ -222,7 +221,6 @@ public class DisplayItemsActivity extends Activity {
 			else{
 				item.name(itemname);
 				item.quantity(quantity);
-				updateAdapter();
 				ShoppingList oldList = new ShoppingList(context, listId);
 				updateAdapter();
 				if (oldList.onlineKey().length() > 8)

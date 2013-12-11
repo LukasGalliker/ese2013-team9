@@ -113,7 +113,15 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         
         convertView.setTag(list.id());
         lblListHeader.setText(list.title());
+        int unbought = Items.getUnboughtCount(this.context, list.id());
+        int total = Items.getCount(this.context, list.id());
+        int bought = total - unbought;
+        number.setText(bought + "/" + total);
+        
         ImageView arrow = (ImageView) convertView.findViewById(R.id.imageView1);
+        arrow.setVisibility(4);
+        if (unbought > 0){
+        arrow.setVisibility(0);
 		arrow.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
@@ -125,12 +133,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 			}
 			
 		});
-        
-        int unbought = Items.getUnboughtCount(this.context, list.id());
-        int total = Items.getCount(this.context, list.id());
-        int bought = total - unbought;
-        number.setText(bought + "/" + total);
-        
+        }
+
         return convertView;
     }
  

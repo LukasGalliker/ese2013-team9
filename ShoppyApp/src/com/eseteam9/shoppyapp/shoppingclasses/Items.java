@@ -16,12 +16,24 @@ public abstract class Items {
 		return new ItemHandler(context).existsOnlineKey(onlineKey);
 	}
 	
+	public static boolean existsName(Context context, int listId, String name){
+		return new ItemHandler(context).existsName(listId, name);
+	}
+	
 	public static Item getByOnlineKey(Context context, String key){
 		return new ItemHandler(context).getByOnlineKey(key);
 	}
+	
+	public static Item getByName(Context context, int listId, String name){
+		return new ItemHandler(context).getByName(listId, name);
+	}
 
 	public static String[] getAllNames(Context context){
-		return new ItemHandler(context).getAllNames();
+		return new ItemHandler(context).getAllRow(2);
+	}
+	
+	public static String[] getAllKeys(Context context){
+		return new ItemHandler(context).getAllRow(6);
 	}
 
 	public static int getCount(Context context, int listId){
@@ -34,6 +46,10 @@ public abstract class Items {
 
 	public static void deleteById(Context context, int id){
 		new ItemHandler(context).deleteById(id);
+	}
+	
+	public static void deleteByKey(Context context, String key){
+		new ItemHandler(context).deleteByKey(key);
 	}
 
 	public static void deleteByListId(Context context, int listId){
