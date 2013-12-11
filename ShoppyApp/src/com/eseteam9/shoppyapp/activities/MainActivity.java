@@ -6,31 +6,19 @@ import com.eseteam9.shoppyapp.R;
 import com.eseteam9.shoppyapp.adapters.SectionsPagerAdapter;
 import com.eseteam9.shoppyapp.handlers.OnlineDatabaseHandler;
 import com.eseteam9.shoppyapp.shoppingclasses.Item;
-import com.eseteam9.shoppyapp.shoppingclasses.ShoppingList;
-import com.eseteam9.shoppyapp.shoppingclasses.Users;
 import com.parse.Parse;
-import com.parse.ParseInstallation;
-import com.parse.PushService;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.util.DisplayMetrics;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.ExpandableListView;
-import android.widget.ListView;
-import android.widget.PopupMenu;
 /**
  * Displays the Main Screen with the two tabs "Lists" and "Notifications".
  * 
@@ -72,17 +60,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			actionBar.addTab(actionBar.newTab()
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
-		}
+		}	
 		
-		
-		String shortEmail = Users.getOwner(this).email().replace("@", "").replace(".", "");
-		PushService.setDefaultPushCallback(this, MainActivity.class);
-        PushService.subscribe(this, "u_" + shortEmail, MainActivity.class);
+    	new OnlineDatabaseHandler(this).getSharedLists();
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.display_lists, menu);
 		return true;
 	}
@@ -137,23 +121,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	
 	private void changeLanguage() {
 		Locale locale;
-		if (Locale.getDefault() == Locale.GERMAN)
-			locale = Locale.ENGLISH;
-		else
+		if (Locale.getDefault() == Locale.ENGLISH)
 			locale = Locale.GERMAN;
+		else
+			locale = Locale.ENGLISH;
 	    Locale.setDefault(locale);
 	    Configuration config = new Configuration();
 	    config.locale = locale;
 	    getBaseContext().getResources().updateConfiguration(config,null);
 	}
 	
-	public void showMenu (View v){
-	    PopupMenu popup = new PopupMenu(this, v);
-	    MenuInflater inflater = popup.getMenuInflater();
-	    inflater.inflate(R.menu.languages, popup.getMenu());
-	    popup.show();
-	}
-
 	/**
 	 * Checks an item and updates the Online Database.
 	 * @param view
@@ -169,7 +146,4 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	public static void updateAdapter(){
 		mSectionsPagerAdapter.update();
 	}
-
-
-
 }

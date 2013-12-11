@@ -13,8 +13,10 @@
     <string name="add_list">Add List</string>
     <string name="add_a_list">Add List:</string>
     <string name="add_a_item">Add Item:</string>
-    <string name="edit_list">Edit List</string>
     <string name="share_list">Share List</string>
+    <string name="edit_list">Edit List</string>
+    <string name="shared">Shared</string>
+    <string name="expand">Expand</string>
     <string name="listname">Listname</string>
     <string name="quantity">Quantity</string>
     <string name="itemname">Itemname</string>
@@ -25,6 +27,9 @@
     <string name="title_activity_display_items">Items</string>
     <string name="no_notification">No new Notifications!</string>
     <string name="error">There was an error. Please try again later</string>
+    <string name="enter_email">Enter Email of friend</string>
     <string name="lists_refreshed">Lists Refreshed</string>
-
+	<string name="enter_name">Enter Name</string>
+	<string name="list_exists">List already exists</string>
+    
 </resources>

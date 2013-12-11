@@ -38,7 +38,8 @@
         android:focusable="false"
         android:onClick="openItemView"
         android:padding="10dp"
-        android:src="@drawable/ic_action_expand" />
+        android:src="@drawable/ic_action_expand"
+        android:contentDescription="@string/expand" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -47,6 +48,7 @@
         android:layout_alignBottom="@+id/itemsNum"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/itemsNum"
-        android:src="@drawable/ic_action_share" />
+        android:src="@drawable/ic_action_share"
+        android:contentDescription="@string/shared" />
 
 </RelativeLayout>

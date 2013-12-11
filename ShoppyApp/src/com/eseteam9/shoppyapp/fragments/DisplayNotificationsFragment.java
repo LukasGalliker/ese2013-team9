@@ -11,7 +11,6 @@ import android.view.*;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ListView;
 import android.view.ViewGroup;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 /**
  * This class is responsible of handling the notifications.
  * 
@@ -37,8 +36,6 @@ public class DisplayNotificationsFragment extends DisplayFragment{
 		User me = Users.getOwner(getActivity());
         View view =  inflater.inflate(R.layout.fragment_display_notifications,container, false);
         lv = (ListView)view.findViewById(R.id.notifications);
-		registerForContextMenu(lv);
-		lv.setClickable(true);
 		if (notifications == null){
 			notifications = new Notification[1];
 			notifications[0] = new Notification(me.email(), "", "Loading...");
@@ -61,22 +58,6 @@ public class DisplayNotificationsFragment extends DisplayFragment{
 	      menu.add(Menu.NONE, i, i, menuItems[i]);
 	    }
 	  }
-	}
-
-	//Reads what is selected from ContextMenu
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-	    AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo(); 
-	    Notification notification = notifications[menuInfo.position];
-	    
-	    switch (item.getItemId()) {
-		  case 0:
-		    return true;
-		  case 1:
-			  return true;
-		  default:
-		    return super.onContextItemSelected(item);
-		}
 	}
 
 	@Override

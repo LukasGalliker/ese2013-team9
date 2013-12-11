@@ -87,12 +87,12 @@ public class ItemHandler extends ObjectHandler {
 		delete(KEY_LIST_ID + " = " + listId);
 	}
 
-	public String[] getAllNames() {
+	public String[] getAllRow(int row) {
 		Cursor cursor = getAll();
 
 		String[] returnNames = new String[cursor.getCount()];
 		if(cursor.moveToFirst())
-			do returnNames[cursor.getPosition()] = cursor.getString(2);
+			do returnNames[cursor.getPosition()] = cursor.getString(row);
 			while(cursor.moveToNext());
 
 		closeDB();
@@ -126,6 +126,12 @@ public class ItemHandler extends ObjectHandler {
 		return returnBoolean;
 	}
 	
+	public boolean existsName(int listId, String name) {
+		boolean returnBoolean = getAll(KEY_NAME + " = '" + name + "' AND " + KEY_LIST_ID + " = " + listId).getCount() > 0;
+		closeDB();
+		return returnBoolean;
+	}
+	
 	public Item getByOnlineKey(String key) {
 		Cursor cursor = getAll(KEY_ONLINE_KEY + " = '" + key + "'");
 		cursor.moveToFirst();
@@ -133,5 +139,18 @@ public class ItemHandler extends ObjectHandler {
 		ItemValueSet returnValueSet = new ItemValueSet(cursor);
 		closeDB();
 		return new Item(context, returnValueSet.id);
+	}
+	
+	public Item getByName(int listId, String name) {
+		Cursor cursor = getAll(KEY_NAME + " = '" + name + "' AND " + KEY_LIST_ID + " = " + listId);
+		cursor.moveToFirst();
+
+		ItemValueSet returnValueSet = new ItemValueSet(cursor);
+		closeDB();
+		return new Item(context, returnValueSet.id);
+	}
+
+	public void deleteByKey(String key) {
+		delete(KEY_ONLINE_KEY + " = '" + key + "'");
 	}
 }
