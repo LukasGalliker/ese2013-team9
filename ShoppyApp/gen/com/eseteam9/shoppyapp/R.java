@@ -41,9 +41,9 @@ public final class R {
     }
     public static final class id {
         public static final int action_refresh=0x7f0a0016;
-        public static final int action_settings=0x7f0a0013;
+        public static final int action_settings=0x7f0a0015;
         public static final int add_friend=0x7f0a0017;
-        public static final int add_list=0x7f0a0015;
+        public static final int add_list=0x7f0a0014;
         public static final int button1=0x7f0a0003;
         public static final int deutsch=0x7f0a0018;
         public static final int email=0x7f0a0005;
@@ -63,7 +63,7 @@ public final class R {
         public static final int pager=0x7f0a0001;
         public static final int quantity=0x7f0a0007;
         public static final int quantityText=0x7f0a000b;
-        public static final int share_list=0x7f0a0014;
+        public static final int share_list=0x7f0a0013;
         public static final int status=0x7f0a000d;
         public static final int textView2=0x7f0a0002;
     }

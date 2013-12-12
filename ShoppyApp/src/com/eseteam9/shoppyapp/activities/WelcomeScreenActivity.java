@@ -45,8 +45,6 @@ public class WelcomeScreenActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.welcome_screen, menu);
 		EditText editText = (EditText) findViewById(R.id.email);
 		if (getEmail(this) != null)
 			editText.setVisibility(8);

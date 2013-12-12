@@ -156,7 +156,7 @@ public class DisplayItemsActivity extends Activity {
         LayoutInflater infalInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View view = infalInflater.inflate(R.layout.dialog_add_item, null);
 		alert.setView(view);
-		
+	
 		AutoCompleteTextView act=(AutoCompleteTextView)view.findViewById(R.id.item_name);
 		ArrayAdapter<String> arr = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, Items.getAllNames(this));
 		act.setAdapter(arr);
